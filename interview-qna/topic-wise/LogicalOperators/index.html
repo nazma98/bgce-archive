@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../../../";
+            const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -160,156 +160,172 @@
                     <main>
                         <p>[<strong>Author:</strong> @mdimamhosen
 <strong>Date:</strong> 2025-04-19
-<strong>Category:</strong> interview-qa/slices
-<strong>Tags:</strong> [go, slices, arrays, make]</p>
-<h1 id="slices"><a class="header" href="#slices">Slices</a></h1>
-<p>Slices are also used to store multiple values of the same type in a single variable, however unlike arrays, the length of a slice can grow and shrink as you see fit.</p>
-<p>There are several ways to create a slice 👇</p>
-<ol>
-<li>Using the <code>[]datatype{values}</code> format</li>
-<li>Create a slice from an array</li>
-<li>Using the <code>make()</code> function</li>
-</ol>
-<pre><code class="language-go">// name := []datatype{values}
-// name := []int{}
-package main
-import ("fmt")
-
-func main() {
-  myslice1 := []int{}
-  fmt.Println(len(myslice1))
-  fmt.Println(cap(myslice1))
-  fmt.Println(myslice1)
-
-  myslice2 := []string{"Go", "Slices", "Are", "Powerful"}
-  fmt.Println(len(myslice2))
-  fmt.Println(cap(myslice2))
-  fmt.Println(myslice2)
-}
-</code></pre>
-<h2 id="make-method"><a class="header" href="#make-method">Make() Method</a></h2>
-<p>The <code>make</code> function will create a zeroed array and return a slice referencing an array. This is a great way to create a dynamically sized array. To create a slice using the <code>make</code> function, we need to specify three arguments: type, length, and capacity.</p>
+<strong>Category:</strong> interview-qa/logical_operators
+<strong>Tags:</strong> [go, logical_operators]
+]</p>
+<h1 id="logical-operators"><a class="header" href="#logical-operators">Logical Operators</a></h1>
+<h2 id="logical-operators-are-used-to-determine-the-logic-between-variables-or-values"><a class="header" href="#logical-operators-are-used-to-determine-the-logic-between-variables-or-values">Logical operators are used to determine the logic between variables or values.</a></h2>
+<h2 id="1-logical-and-"><a class="header" href="#1-logical-and-">1. Logical and (&amp;&amp;)</a></h2>
+<h3 id="returns-true-if-both-statements-are-true"><a class="header" href="#returns-true-if-both-statements-are-true">Returns true if both statements are true</a></h3>
+<h2 id="2-logical-or-"><a class="header" href="#2-logical-or-">2. Logical or (||)</a></h2>
+<h3 id="returns-true-if-one-statements-is-true"><a class="header" href="#returns-true-if-one-statements-is-true">Returns true if one statements is true</a></h3>
+<h2 id="3-logical-not-"><a class="header" href="#3-logical-not-">3. Logical not (!)</a></h2>
+<h3 id="reverse-the-result-returns-false-if-the-result-is-true"><a class="header" href="#reverse-the-result-returns-false-if-the-result-is-true">Reverse the result, returns false if the result is true</a></h3>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    slice := make([]string, 3, 5)
-    fmt.Println("Length", len(slice))
-    fmt.Println("Capacity", cap(slice))
-    fmt.Println(slice)
+	fmt.Println(true &amp;&amp; true) // true
+	fmt.Println(true &amp;&amp; false) // false
+
+	fmt.Println(true || true) // true
+	fmt.Println(false || false) // false
+
+	fmt.Println(!true) // false
+	fmt.Println(!false) // true
 }
 </code></pre>
 <h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h3 id="1-how-do-you-create-an-empty-slice-in-go"><a class="header" href="#1-how-do-you-create-an-empty-slice-in-go">1. How do you create an empty slice in Go?</a></h3>
-<p><strong>Answer:</strong> Use <code>[]datatype{}</code> to create an empty slice.</p>
+<h3 id="1-what-is-the-difference-between--and--in-go"><a class="header" href="#1-what-is-the-difference-between--and--in-go">1. What is the difference between <code>&amp;&amp;</code> and <code>||</code> in Go?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><code>&amp;&amp;</code> (Logical AND) returns true only if both conditions are true.</li>
+<li><code>||</code> (Logical OR) returns true if at least one condition is true.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := []int{}
-    fmt.Println("Empty Slice:", myslice) // []
+	fmt.Println(true &amp;&amp; false) // false
+	fmt.Println(true || false) // true
 }
 </code></pre>
-<h3 id="2-how-do-you-create-a-slice-with-initial-values"><a class="header" href="#2-how-do-you-create-a-slice-with-initial-values">2. How do you create a slice with initial values?</a></h3>
-<p><strong>Answer:</strong> Use <code>[]datatype{values}</code>.</p>
+<h3 id="2-how-does-the--operator-work-in-go"><a class="header" href="#2-how-does-the--operator-work-in-go">2. How does the <code>!</code> operator work in Go?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>The <code>!</code> (Logical NOT) operator reverses the boolean value.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := []int{1, 2, 3}
-    fmt.Println("Slice with Values:", myslice) // [1 2 3]
+	fmt.Println(!true)  // false
+	fmt.Println(!false) // true
 }
 </code></pre>
-<h3 id="3-how-do-you-create-a-slice-from-an-array"><a class="header" href="#3-how-do-you-create-a-slice-from-an-array">3. How do you create a slice from an array?</a></h3>
-<p><strong>Answer:</strong> Use slicing syntax <code>array[start:end]</code>.</p>
+<h3 id="3-can-logical-operators-be-used-with-non-boolean-values"><a class="header" href="#3-can-logical-operators-be-used-with-non-boolean-values">3. Can logical operators be used with non-boolean values?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>No, logical operators in Go work only with boolean values.</li>
+</ul>
+<h3 id="4-how-can-i-combine-multiple-logical-operators-in-a-single-expression"><a class="header" href="#4-how-can-i-combine-multiple-logical-operators-in-a-single-expression">4. How can I combine multiple logical operators in a single expression?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>You can combine them using parentheses to control precedence.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    arr := [5]int{1, 2, 3, 4, 5}
-    myslice := arr[1:4]
-    fmt.Println("Slice from Array:", myslice) // [2 3 4]
+	fmt.Println((true &amp;&amp; false) || true) // true
 }
 </code></pre>
-<h3 id="4-how-do-you-use-the-make-function-to-create-a-slice"><a class="header" href="#4-how-do-you-use-the-make-function-to-create-a-slice">4. How do you use the <code>make</code> function to create a slice?</a></h3>
-<p><strong>Answer:</strong> Use <code>make(type, length, capacity)</code>.</p>
+<h3 id="5-what-is-the-precedence-of-logical-operators-in-go"><a class="header" href="#5-what-is-the-precedence-of-logical-operators-in-go">5. What is the precedence of logical operators in Go?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><code>!</code> has the highest precedence, followed by <code>&amp;&amp;</code>, and then <code>||</code>.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := make([]int, 3, 5)
-    fmt.Println("Slice with Make:", myslice) // [0 0 0]
+	fmt.Println(!true || false &amp;&amp; true) // false
 }
 </code></pre>
-<h3 id="5-how-do-you-append-elements-to-a-slice"><a class="header" href="#5-how-do-you-append-elements-to-a-slice">5. How do you append elements to a slice?</a></h3>
-<p><strong>Answer:</strong> Use the <code>append</code> function.</p>
+<h3 id="6-how-can-i-use-logical-operators-in-conditional-statements"><a class="header" href="#6-how-can-i-use-logical-operators-in-conditional-statements">6. How can I use logical operators in conditional statements?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Logical operators are often used in <code>if</code> statements to combine conditions.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := []int{1, 2, 3}
-    myslice = append(myslice, 4, 5)
-    fmt.Println("Appended Slice:", myslice) // [1 2 3 4 5]
+	if true &amp;&amp; !false {
+		fmt.Println("Condition met")
+	}
 }
 </code></pre>
-<h3 id="6-how-do-you-copy-one-slice-to-another"><a class="header" href="#6-how-do-you-copy-one-slice-to-another">6. How do you copy one slice to another?</a></h3>
-<p><strong>Answer:</strong> Use the <code>copy</code> function.</p>
+<h3 id="7-can-logical-operators-short-circuit-in-go"><a class="header" href="#7-can-logical-operators-short-circuit-in-go">7. Can logical operators short-circuit in Go?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Yes, <code>&amp;&amp;</code> and <code>||</code> short-circuit. For example, <code>&amp;&amp;</code> stops evaluating if the first condition is false.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    src := []int{1, 2, 3}
-    dest := make([]int, len(src))
-    copy(dest, src)
-    fmt.Println("Copied Slice:", dest) // [1 2 3]
+	fmt.Println(false &amp;&amp; (5 &gt; 3)) // false (5 &gt; 3 is not evaluated)
 }
 </code></pre>
-<h3 id="7-how-do-you-find-the-length-and-capacity-of-a-slice"><a class="header" href="#7-how-do-you-find-the-length-and-capacity-of-a-slice">7. How do you find the length and capacity of a slice?</a></h3>
-<p><strong>Answer:</strong> Use <code>len(slice)</code> and <code>cap(slice)</code>.</p>
+<h3 id="8-how-can-i-debug-logical-expressions-in-go"><a class="header" href="#8-how-can-i-debug-logical-expressions-in-go">8. How can I debug logical expressions in Go?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Use <code>fmt.Println</code> to print intermediate results.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := []int{1, 2, 3}
-    fmt.Println("Length:", len(myslice)) // 3
-    fmt.Println("Capacity:", cap(myslice)) // 3
+	condition1 := true
+	condition2 := false
+	fmt.Println(condition1 &amp;&amp; condition2) // false
 }
 </code></pre>
-<h3 id="8-how-do-you-create-a-multidimensional-slice"><a class="header" href="#8-how-do-you-create-a-multidimensional-slice">8. How do you create a multidimensional slice?</a></h3>
-<p><strong>Answer:</strong> Use slices of slices.</p>
+<h3 id="9-can-logical-operators-be-used-in-loops"><a class="header" href="#9-can-logical-operators-be-used-in-loops">9. Can logical operators be used in loops?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Yes, they can be used in loop conditions.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    matrix := [][]int{
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9},
-    }
-    fmt.Println("Multidimensional Slice:", matrix)
+	for i := 0; i &lt; 10 &amp;&amp; i%2 == 0; i++ {
+		fmt.Println(i)
+	}
 }
 </code></pre>
-<h3 id="9-how-do-you-remove-an-element-from-a-slice"><a class="header" href="#9-how-do-you-remove-an-element-from-a-slice">9. How do you remove an element from a slice?</a></h3>
-<p><strong>Answer:</strong> Use slicing to exclude the element.</p>
+<h3 id="10-what-happens-if-i-use-logical-operators-with-nil-values"><a class="header" href="#10-what-happens-if-i-use-logical-operators-with-nil-values">10. What happens if I use logical operators with nil values?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Logical operators cannot be directly used with <code>nil</code>. You need to compare <code>nil</code> explicitly.</li>
+</ul>
+<p><strong>Code Example:</strong></p>
 <pre><code class="language-go">package main
+
 import "fmt"
 
 func main() {
-    myslice := []int{1, 2, 3, 4, 5}
-    myslice = append(myslice[:2], myslice[3:]...)
-    fmt.Println("Slice after Removal:", myslice) // [1 2 4 5]
-}
-</code></pre>
-<h3 id="10-how-do-you-iterate-over-a-slice-in-go"><a class="header" href="#10-how-do-you-iterate-over-a-slice-in-go">10. How do you iterate over a slice in Go?</a></h3>
-<p><strong>Answer:</strong> Use a <code>for</code> loop or <code>range</code>.</p>
-<pre><code class="language-go">package main
-import "fmt"
-
-func main() {
-    myslice := []int{1, 2, 3}
-    for i, v := range myslice {
-        fmt.Printf("Index: %d, Value: %d\n", i, v)
-    }
+	var ptr *int = nil
+	fmt.Println(ptr == nil || true) // true
 }
 </code></pre>
 
@@ -317,11 +333,11 @@ func main() {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../interview-qna/topic-wise/mdimamhosen/Numbers/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/topic-wise/Internal-Memory/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Strings/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/topic-wise/LoopInGolang/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -331,11 +347,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../interview-qna/topic-wise/mdimamhosen/Numbers/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/topic-wise/Internal-Memory/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Strings/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/topic-wise/LoopInGolang/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -350,13 +366,13 @@ func main() {
         </script>
 
 
-        <script src="../../../../elasticlunr.min.js"></script>
-        <script src="../../../../mark.min.js"></script>
-        <script src="../../../../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../../../clipboard.min.js"></script>
-        <script src="../../../../highlight.js"></script>
-        <script src="../../../../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../../../";
+            const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -160,115 +160,156 @@
                     <main>
                         <p>[<strong>Author:</strong> @mdimamhosen
 <strong>Date:</strong> 2025-04-19
-<strong>Category:</strong> interview-qa/arrays
-<strong>Tags:</strong> [go, arrays, functions]
-]</p>
-<h1 id="arrays-in-go"><a class="header" href="#arrays-in-go">Arrays in Go</a></h1>
-<h2 id="declaring-arrays"><a class="header" href="#declaring-arrays">Declaring Arrays</a></h2>
-<p>You can declare an array in Go using the following syntax:</p>
-<pre><code class="language-go">var arrayName [size]elementType
-</code></pre>
-<p>Example:</p>
-<pre><code class="language-go">var numbers [5]int
-</code></pre>
-<h2 id="initializing-arrays"><a class="header" href="#initializing-arrays">Initializing Arrays</a></h2>
-<p>Arrays can be initialized at the time of declaration:</p>
-<pre><code class="language-go">var numbers = [5]int{1, 2, 3, 4, 5}
-</code></pre>
-<p>Or you can use the shorthand notation:</p>
-<pre><code class="language-go">numbers := [5]int{1, 2, 3, 4, 5}
-</code></pre>
-<h2 id="accessing-array-elements"><a class="header" href="#accessing-array-elements">Accessing Array Elements</a></h2>
-<p>Array elements are accessed using the index, which starts from 0:</p>
-<pre><code class="language-go">fmt.Println(numbers[0]) // Output: 1
-</code></pre>
-<h2 id="iterating-over-arrays"><a class="header" href="#iterating-over-arrays">Iterating Over Arrays</a></h2>
-<p>You can iterate over arrays using a <code>for</code> loop:</p>
-<pre><code class="language-go">for i := 0; i &lt; len(numbers); i++ {
-    fmt.Println(numbers[i])
+<strong>Category:</strong> interview-qa/slices
+<strong>Tags:</strong> [go, slices, arrays, make]</p>
+<h1 id="slices"><a class="header" href="#slices">Slices</a></h1>
+<p>Slices are also used to store multiple values of the same type in a single variable, however unlike arrays, the length of a slice can grow and shrink as you see fit.</p>
+<p>There are several ways to create a slice 👇</p>
+<ol>
+<li>Using the <code>[]datatype{values}</code> format</li>
+<li>Create a slice from an array</li>
+<li>Using the <code>make()</code> function</li>
+</ol>
+<pre><code class="language-go">// name := []datatype{values}
+// name := []int{}
+package main
+import ("fmt")
+
+func main() {
+  myslice1 := []int{}
+  fmt.Println(len(myslice1))
+  fmt.Println(cap(myslice1))
+  fmt.Println(myslice1)
+
+  myslice2 := []string{"Go", "Slices", "Are", "Powerful"}
+  fmt.Println(len(myslice2))
+  fmt.Println(cap(myslice2))
+  fmt.Println(myslice2)
 }
 </code></pre>
-<p>Or using the <code>range</code> keyword:</p>
-<pre><code class="language-go">for index, value := range numbers {
-    fmt.Println(index, value)
-}
-</code></pre>
-<h2 id="multidimensional-arrays"><a class="header" href="#multidimensional-arrays">Multidimensional Arrays</a></h2>
-<p>Go supports multidimensional arrays. A two-dimensional array is declared as follows:</p>
-<pre><code class="language-go">var matrix [3][3]int
-</code></pre>
-<p>Example:</p>
-<pre><code class="language-go">matrix := [3][3]int{
-    {1, 2, 3},
-    {4, 5, 6},
-    {7, 8, 9},
-}
-</code></pre>
-<h2 id="array-of-arrays"><a class="header" href="#array-of-arrays">Array of Arrays</a></h2>
-<p>You can also create an array of arrays:</p>
-<pre><code class="language-go">var arrayOfArrays [2][3]int
-</code></pre>
-<p>Example:</p>
-<pre><code class="language-go">arrayOfArrays := [2][3]int{
-    {1, 2, 3},
-    {4, 5, 6},
-}
-</code></pre>
-<h2 id="passing-arrays-to-functions"><a class="header" href="#passing-arrays-to-functions">Passing Arrays to Functions</a></h2>
-<p>Arrays can be passed to functions by value, meaning the function receives a copy of the array:</p>
-<pre><code class="language-go">func printArray(arr [5]int) {
-    for i := 0; i &lt; len(arr); i++ {
-        fmt.Println(arr[i])
-    }
-}
-</code></pre>
-<p>To modify the original array, you can pass a pointer to the array:</p>
-<pre><code class="language-go">func modifyArray(arr *[5]int) {
-    arr[0] = 100
+<h2 id="make-method"><a class="header" href="#make-method">Make() Method</a></h2>
+<p>The <code>make</code> function will create a zeroed array and return a slice referencing an array. This is a great way to create a dynamically sized array. To create a slice using the <code>make</code> function, we need to specify three arguments: type, length, and capacity.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    slice := make([]string, 3, 5)
+    fmt.Println("Length", len(slice))
+    fmt.Println("Capacity", cap(slice))
+    fmt.Println(slice)
 }
 </code></pre>
 <h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h3 id="q1-how-can-i-find-the-length-of-an-array-in-go"><a class="header" href="#q1-how-can-i-find-the-length-of-an-array-in-go">Q1: How can I find the length of an array in Go?</a></h3>
-<p>You can use the built-in <code>len()</code> function to find the length of an array.</p>
-<p>Example:</p>
+<h3 id="1-how-do-you-create-an-empty-slice-in-go"><a class="header" href="#1-how-do-you-create-an-empty-slice-in-go">1. How do you create an empty slice in Go?</a></h3>
+<p><strong>Answer:</strong> Use <code>[]datatype{}</code> to create an empty slice.</p>
 <pre><code class="language-go">package main
+import "fmt"
 
+func main() {
+    myslice := []int{}
+    fmt.Println("Empty Slice:", myslice) // []
+}
+</code></pre>
+<h3 id="2-how-do-you-create-a-slice-with-initial-values"><a class="header" href="#2-how-do-you-create-a-slice-with-initial-values">2. How do you create a slice with initial values?</a></h3>
+<p><strong>Answer:</strong> Use <code>[]datatype{values}</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3}
+    fmt.Println("Slice with Values:", myslice) // [1 2 3]
+}
+</code></pre>
+<h3 id="3-how-do-you-create-a-slice-from-an-array"><a class="header" href="#3-how-do-you-create-a-slice-from-an-array">3. How do you create a slice from an array?</a></h3>
+<p><strong>Answer:</strong> Use slicing syntax <code>array[start:end]</code>.</p>
+<pre><code class="language-go">package main
 import "fmt"
 
 func main() {
     arr := [5]int{1, 2, 3, 4, 5}
-    fmt.Println("Length of the array:", len(arr)) // Output: 5
+    myslice := arr[1:4]
+    fmt.Println("Slice from Array:", myslice) // [2 3 4]
 }
 </code></pre>
-<h3 id="q2-how-do-i-copy-an-array-in-go"><a class="header" href="#q2-how-do-i-copy-an-array-in-go">Q2: How do I copy an array in Go?</a></h3>
-<p>In Go, you can copy an array by simply assigning it to another array of the same type and size.</p>
-<p>Example:</p>
+<h3 id="4-how-do-you-use-the-make-function-to-create-a-slice"><a class="header" href="#4-how-do-you-use-the-make-function-to-create-a-slice">4. How do you use the <code>make</code> function to create a slice?</a></h3>
+<p><strong>Answer:</strong> Use <code>make(type, length, capacity)</code>.</p>
 <pre><code class="language-go">package main
-
 import "fmt"
 
 func main() {
-    original := [3]int{1, 2, 3}
-    copy := original
-    fmt.Println("Original:", original) // Output: [1 2 3]
-    fmt.Println("Copy:", copy)         // Output: [1 2 3]
+    myslice := make([]int, 3, 5)
+    fmt.Println("Slice with Make:", myslice) // [0 0 0]
 }
 </code></pre>
-<h3 id="q3-how-can-i-pass-an-array-to-a-function-without-copying-it"><a class="header" href="#q3-how-can-i-pass-an-array-to-a-function-without-copying-it">Q3: How can I pass an array to a function without copying it?</a></h3>
-<p>To avoid copying, you can pass a pointer to the array.</p>
-<p>Example:</p>
+<h3 id="5-how-do-you-append-elements-to-a-slice"><a class="header" href="#5-how-do-you-append-elements-to-a-slice">5. How do you append elements to a slice?</a></h3>
+<p><strong>Answer:</strong> Use the <code>append</code> function.</p>
 <pre><code class="language-go">package main
-
 import "fmt"
 
-func modifyArray(arr *[3]int) {
-    arr[0] = 42
+func main() {
+    myslice := []int{1, 2, 3}
+    myslice = append(myslice, 4, 5)
+    fmt.Println("Appended Slice:", myslice) // [1 2 3 4 5]
 }
+</code></pre>
+<h3 id="6-how-do-you-copy-one-slice-to-another"><a class="header" href="#6-how-do-you-copy-one-slice-to-another">6. How do you copy one slice to another?</a></h3>
+<p><strong>Answer:</strong> Use the <code>copy</code> function.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-    arr := [3]int{1, 2, 3}
-    modifyArray(&amp;arr)
-    fmt.Println("Modified array:", arr) // Output: [42 2 3]
+    src := []int{1, 2, 3}
+    dest := make([]int, len(src))
+    copy(dest, src)
+    fmt.Println("Copied Slice:", dest) // [1 2 3]
+}
+</code></pre>
+<h3 id="7-how-do-you-find-the-length-and-capacity-of-a-slice"><a class="header" href="#7-how-do-you-find-the-length-and-capacity-of-a-slice">7. How do you find the length and capacity of a slice?</a></h3>
+<p><strong>Answer:</strong> Use <code>len(slice)</code> and <code>cap(slice)</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3}
+    fmt.Println("Length:", len(myslice)) // 3
+    fmt.Println("Capacity:", cap(myslice)) // 3
+}
+</code></pre>
+<h3 id="8-how-do-you-create-a-multidimensional-slice"><a class="header" href="#8-how-do-you-create-a-multidimensional-slice">8. How do you create a multidimensional slice?</a></h3>
+<p><strong>Answer:</strong> Use slices of slices.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    matrix := [][]int{
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    }
+    fmt.Println("Multidimensional Slice:", matrix)
+}
+</code></pre>
+<h3 id="9-how-do-you-remove-an-element-from-a-slice"><a class="header" href="#9-how-do-you-remove-an-element-from-a-slice">9. How do you remove an element from a slice?</a></h3>
+<p><strong>Answer:</strong> Use slicing to exclude the element.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3, 4, 5}
+    myslice = append(myslice[:2], myslice[3:]...)
+    fmt.Println("Slice after Removal:", myslice) // [1 2 4 5]
+}
+</code></pre>
+<h3 id="10-how-do-you-iterate-over-a-slice-in-go"><a class="header" href="#10-how-do-you-iterate-over-a-slice-in-go">10. How do you iterate over a slice in Go?</a></h3>
+<p><strong>Answer:</strong> Use a <code>for</code> loop or <code>range</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3}
+    for i, v := range myslice {
+        fmt.Printf("Index: %d, Value: %d\n", i, v)
+    }
 }
 </code></pre>
 
@@ -276,11 +317,11 @@ func main() {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../interview-qna/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/topic-wise/Numbers/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Boolean/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/topic-wise/Strings/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -290,11 +331,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../interview-qna/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/topic-wise/Numbers/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Boolean/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/topic-wise/Strings/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -309,13 +350,13 @@ func main() {
         </script>
 
 
-        <script src="../../../../elasticlunr.min.js"></script>
-        <script src="../../../../mark.min.js"></script>
-        <script src="../../../../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../../../clipboard.min.js"></script>
-        <script src="../../../../highlight.js"></script>
-        <script src="../../../../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

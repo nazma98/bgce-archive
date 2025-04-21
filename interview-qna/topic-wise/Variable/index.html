@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../../../";
+            const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -163,208 +163,133 @@
 <strong>Category:</strong> e.g., interview-qa/topic_name
 <strong>Tags:</strong> [go, concurrency, channels]
 ]</p>
-<h1 id="the-switch-statement"><a class="header" href="#the-switch-statement">The switch Statement</a></h1>
-<h2 id="the-switch-statement-allows-us-to-execute-one-code-block-among-many-alternatives"><a class="header" href="#the-switch-statement-allows-us-to-execute-one-code-block-among-many-alternatives">The switch statement allows us to execute one code block among many alternatives.</a></h2>
+<h1 id="variables-are-containers-for-storing-data-values"><a class="header" href="#variables-are-containers-for-storing-data-values">Variables are containers for storing data values</a></h1>
+<h2 id="in-go-there-are-two-ways-to-declare-a-variable"><a class="header" href="#in-go-there-are-two-ways-to-declare-a-variable">In Go, there are two ways to declare a variable</a></h2>
+<h3 id="1-use-the-var-keyword-followed-by-variable-name-and-type"><a class="header" href="#1-use-the-var-keyword-followed-by-variable-name-and-type">1. Use the var keyword, followed by variable name and type</a></h3>
+<pre><code class="language-go">package main
+import ("fmt")
+
+var name = "John Doe" // Variable One
+
+func main() {
+  var fruit = "Apple" // Variable Two
+  fmt.Println(name)
+  fmt.Println(fruit)
+}
+</code></pre>
+<h3 id="2-use-the--sign-followed-by-the-variable-value"><a class="header" href="#2-use-the--sign-followed-by-the-variable-value">2. Use the := sign, followed by the variable value</a></h3>
 <pre><code class="language-go">package main
 import ("fmt")
 
 func main() {
-  day := 8
-
-  switch day {
-  case 1:
-    fmt.Println("Monday")
-  case 2:
-    fmt.Println("Tuesday")
-  case 3:
-    fmt.Println("Wednesday")
-  case 4:
-    fmt.Println("Thursday")
-  case 5:
-    fmt.Println("Friday")
-  case 6:
-    fmt.Println("Saturday")
-  case 7:
-    fmt.Println("Sunday")
-  default:
-    fmt.Println("Not a weekday")
-  }
+  varOne := 100
+  varTwo := 2
+  fmt.Println(varOne)
+  fmt.Println(varTwo)
 }
 </code></pre>
-<h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h3 id="1-what-is-a-switch-statement-in-go"><a class="header" href="#1-what-is-a-switch-statement-in-go">1. What is a <code>switch</code> statement in Go?</a></h3>
-<p><strong>Answer:</strong> A <code>switch</code> statement is used to select one of many code blocks to execute. It is an alternative to using multiple <code>if-else</code> statements.</p>
-<p><strong>Example:</strong></p>
+<h2 id="frequently-asked-questions-faqs"><a class="header" href="#frequently-asked-questions-faqs">Frequently Asked Questions (FAQs)</a></h2>
+<h3 id="1-how-do-you-declare-a-constant-variable-in-go"><a class="header" href="#1-how-do-you-declare-a-constant-variable-in-go">1. How do you declare a constant variable in Go?</a></h3>
+<p><strong>Answer:</strong> Use the <code>const</code> keyword to declare a constant variable. Constants cannot be changed after they are declared.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    num := 2
-    switch num {
-    case 1:
-        fmt.Println("One")
-    case 2:
-        fmt.Println("Two")
-    case 3:
-        fmt.Println("Three")
-    default:
-        fmt.Println("Other number")
-    }
+  const pi = 3.14
+  fmt.Println(pi)
 }
 </code></pre>
-<h3 id="2-can-we-use-multiple-values-in-a-single-case"><a class="header" href="#2-can-we-use-multiple-values-in-a-single-case">2. Can we use multiple values in a single <code>case</code>?</a></h3>
-<p><strong>Answer:</strong> Yes, multiple values can be grouped in a single <code>case</code>.</p>
-<p><strong>Example:</strong></p>
+<h3 id="2-can-you-declare-multiple-variables-in-a-single-line"><a class="header" href="#2-can-you-declare-multiple-variables-in-a-single-line">2. Can you declare multiple variables in a single line?</a></h3>
+<p><strong>Answer:</strong> Yes, you can declare multiple variables in a single line using the <code>var</code> keyword or <code>:=</code> syntax.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    char := 'a'
-    switch char {
-    case 'a', 'e', 'i', 'o', 'u':
-        fmt.Println("Vowel")
-    default:
-        fmt.Println("Consonant")
-    }
+  var x, y, z int = 1, 2, 3
+  fmt.Println(x, y, z)
 }
 </code></pre>
-<h3 id="3-is-break-required-in-gos-switch-statement"><a class="header" href="#3-is-break-required-in-gos-switch-statement">3. Is <code>break</code> required in Go's <code>switch</code> statement?</a></h3>
-<p><strong>Answer:</strong> No, <code>break</code> is not required as Go automatically breaks out of the <code>switch</code> after executing a <code>case</code>.</p>
-<h3 id="4-how-to-use-fallthrough-in-a-switch-statement"><a class="header" href="#4-how-to-use-fallthrough-in-a-switch-statement">4. How to use <code>fallthrough</code> in a <code>switch</code> statement?</a></h3>
-<p><strong>Answer:</strong> The <code>fallthrough</code> keyword forces the execution of the next <code>case</code> even if the condition does not match.</p>
-<p><strong>Example:</strong></p>
+<h3 id="3-what-is-the-zero-value-of-a-variable-in-go"><a class="header" href="#3-what-is-the-zero-value-of-a-variable-in-go">3. What is the zero value of a variable in Go?</a></h3>
+<p><strong>Answer:</strong> Variables in Go are automatically assigned a zero value if not explicitly initialized.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    num := 1
-    switch num {
-    case 1:
-        fmt.Println("One")
-        fallthrough
-    case 2:
-        fmt.Println("Two")
-    default:
-        fmt.Println("Default")
-    }
+  var number int
+  fmt.Println(number) // Output: 0
 }
 </code></pre>
-<h3 id="5-can-switch-work-without-an-expression"><a class="header" href="#5-can-switch-work-without-an-expression">5. Can <code>switch</code> work without an expression?</a></h3>
-<p><strong>Answer:</strong> Yes, a <code>switch</code> can work without an expression, making it similar to a series of <code>if-else</code> statements.</p>
-<p><strong>Example:</strong></p>
+<h3 id="4-how-do-you-declare-a-global-variable-in-go"><a class="header" href="#4-how-do-you-declare-a-global-variable-in-go">4. How do you declare a global variable in Go?</a></h3>
+<p><strong>Answer:</strong> Declare the variable outside of any function.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
+
+var globalVar = "I am global"
 
 func main() {
-    num := 10
-    switch {
-    case num &lt; 0:
-        fmt.Println("Negative")
-    case num == 0:
-        fmt.Println("Zero")
-    case num &gt; 0:
-        fmt.Println("Positive")
-    }
+  fmt.Println(globalVar)
 }
 </code></pre>
-<h3 id="6-can-we-use-a-switch-statement-with-strings"><a class="header" href="#6-can-we-use-a-switch-statement-with-strings">6. Can we use a <code>switch</code> statement with strings?</a></h3>
-<p><strong>Answer:</strong> Yes, <code>switch</code> can be used with strings.</p>
-<p><strong>Example:</strong></p>
+<h3 id="5-can-you-reassign-a-value-to-a-variable-declared-with-var"><a class="header" href="#5-can-you-reassign-a-value-to-a-variable-declared-with-var">5. Can you reassign a value to a variable declared with <code>var</code>?</a></h3>
+<p><strong>Answer:</strong> Yes, variables declared with <code>var</code> can be reassigned.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    color := "red"
-    switch color {
-    case "red":
-        fmt.Println("Stop")
-    case "yellow":
-        fmt.Println("Caution")
-    case "green":
-        fmt.Println("Go")
-    default:
-        fmt.Println("Unknown color")
-    }
+  var name = "John"
+  name = "Doe"
+  fmt.Println(name)
 }
 </code></pre>
-<h3 id="7-can-switch-handle-type-assertions"><a class="header" href="#7-can-switch-handle-type-assertions">7. Can <code>switch</code> handle type assertions?</a></h3>
-<p><strong>Answer:</strong> Yes, <code>switch</code> can be used to handle type assertions.</p>
-<p><strong>Example:</strong></p>
+<h3 id="6-what-happens-if-you-declare-a-variable-but-do-not-use-it"><a class="header" href="#6-what-happens-if-you-declare-a-variable-but-do-not-use-it">6. What happens if you declare a variable but do not use it?</a></h3>
+<p><strong>Answer:</strong> Go does not allow unused variables and will throw a compile-time error.</p>
 <pre><code class="language-go">package main
-import "fmt"
-
 func main() {
-    var x interface{} = 42
-    switch v := x.(type) {
-    case int:
-        fmt.Printf("%d is an int\n", v)
-    case string:
-        fmt.Printf("%s is a string\n", v)
-    default:
-        fmt.Println("Unknown type")
-    }
+  var unusedVar = 10 // This will cause an error
 }
 </code></pre>
-<h3 id="8-can-switch-be-used-with-functions"><a class="header" href="#8-can-switch-be-used-with-functions">8. Can <code>switch</code> be used with functions?</a></h3>
-<p><strong>Answer:</strong> Yes, you can use a function's return value in a <code>switch</code> statement.</p>
-<p><strong>Example:</strong></p>
+<h3 id="7-how-do-you-declare-a-variable-with-a-specific-type"><a class="header" href="#7-how-do-you-declare-a-variable-with-a-specific-type">7. How do you declare a variable with a specific type?</a></h3>
+<p><strong>Answer:</strong> Use the <code>var</code> keyword followed by the type.</p>
 <pre><code class="language-go">package main
-import "fmt"
-
-func getNumber() int {
-    return 3
-}
+import ("fmt")
 
 func main() {
-    switch getNumber() {
-    case 1:
-        fmt.Println("One")
-    case 2:
-        fmt.Println("Two")
-    case 3:
-        fmt.Println("Three")
-    default:
-        fmt.Println("Other number")
-    }
+  var age int = 25
+  fmt.Println(age)
 }
 </code></pre>
-<h3 id="9-can-switch-be-nested"><a class="header" href="#9-can-switch-be-nested">9. Can <code>switch</code> be nested?</a></h3>
-<p><strong>Answer:</strong> Yes, <code>switch</code> statements can be nested.</p>
-<p><strong>Example:</strong></p>
+<h3 id="8-can-you-declare-a-variable-without-initializing-it"><a class="header" href="#8-can-you-declare-a-variable-without-initializing-it">8. Can you declare a variable without initializing it?</a></h3>
+<p><strong>Answer:</strong> Yes, but it will have a zero value.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    num := 2
-    switch num {
-    case 1:
-        fmt.Println("One")
-    case 2:
-        fmt.Println("Two")
-        switch num {
-        case 2:
-            fmt.Println("Nested switch")
-        }
-    default:
-        fmt.Println("Other number")
-    }
+  var name string
+  fmt.Println(name) // Output: ""
 }
 </code></pre>
-<h3 id="10-what-happens-if-no-case-matches-and-there-is-no-default"><a class="header" href="#10-what-happens-if-no-case-matches-and-there-is-no-default">10. What happens if no <code>case</code> matches and there is no <code>default</code>?</a></h3>
-<p><strong>Answer:</strong> If no <code>case</code> matches and there is no <code>default</code>, the <code>switch</code> statement does nothing.</p>
-<p><strong>Example:</strong></p>
+<h3 id="9-how-do-you-declare-a-variable-in-a-block"><a class="header" href="#9-how-do-you-declare-a-variable-in-a-block">9. How do you declare a variable in a block?</a></h3>
+<p><strong>Answer:</strong> Use the <code>var</code> keyword inside a block.</p>
 <pre><code class="language-go">package main
-import "fmt"
+import ("fmt")
 
 func main() {
-    num := 5
-    switch num {
-    case 1:
-        fmt.Println("One")
-    case 2:
-        fmt.Println("Two")
-    }
-    // No output
+  var (
+    x int = 10
+    y string = "Hello"
+  )
+  fmt.Println(x, y)
+}
+</code></pre>
+<h3 id="10-what-is-the-difference-between-var-and-"><a class="header" href="#10-what-is-the-difference-between-var-and-">10. What is the difference between <code>var</code> and <code>:=</code>?</a></h3>
+<p><strong>Answer:</strong> <code>var</code> can be used globally and allows explicit type declaration, while <code>:=</code> is shorthand for local variable declaration and type inference.</p>
+<pre><code class="language-go">package main
+import ("fmt")
+
+func main() {
+  var name string = "John" // Explicit type
+  age := 30 // Type inferred
+  fmt.Println(name, age)
 }
 </code></pre>
 
@@ -372,11 +297,11 @@ func main() {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../interview-qna/topic-wise/mdimamhosen/Structures/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/topic-wise/SwitchStatement/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Variable/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../landing-page/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -386,11 +311,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../interview-qna/topic-wise/mdimamhosen/Structures/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/topic-wise/SwitchStatement/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Variable/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../landing-page/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -405,13 +330,13 @@ func main() {
         </script>
 
 
-        <script src="../../../../elasticlunr.min.js"></script>
-        <script src="../../../../mark.min.js"></script>
-        <script src="../../../../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../../../clipboard.min.js"></script>
-        <script src="../../../../highlight.js"></script>
-        <script src="../../../../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
