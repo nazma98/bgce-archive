@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Check Our Tech Stacks - BGCE ARCHIVE</title>
+        <title>Readme - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -158,42 +158,131 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>🧩 Tech Stack (Future Web App Vision)
-This vault is powered by several modern tools and practices for collaboration, code sharing, and documentation. Feel free to explore more about our tech stack:</p>
-<p>If this turns into a community-driven web interface:</p>
-<pre><code class="language-bash">• Frontend: React / Svelte / Next.js / Vue
-• Backend: Go
-• Storage: GitHub + SQLite/Postgres
-• Auth: GitHub OAuth (optional)
-• Deployment: AWS
+                        <p>[<strong>Author:</strong> @mdimamhosen
+<strong>Date:</strong> 2025-04-19
+<strong>Category:</strong> interview-qa/arrays
+<strong>Tags:</strong> [go, arrays, functions]
+]</p>
+<h1 id="arrays-in-go"><a class="header" href="#arrays-in-go">Arrays in Go</a></h1>
+<h2 id="declaring-arrays"><a class="header" href="#declaring-arrays">Declaring Arrays</a></h2>
+<p>You can declare an array in Go using the following syntax:</p>
+<pre><code class="language-go">var arrayName [size]elementType
 </code></pre>
-<p>UI/UX ideas for the future web App</p>
-<pre><code class="language-bash">Most preferable one for now:
-1. Modern Library-Style UI
-   - Homepage: A clean, minimalist grid of featured archives with a search bar in the center.
-   - Filters &amp; Categories: Sidebar with quick access to categories (by year, author, tags, etc.).
-   - Reading Mode: Dark/light mode toggle, distraction-free fullscreen mode.
-   - Bookmarking &amp; Notes: Users can highlight text and add personal notes to archives.
+<p>Example:</p>
+<pre><code class="language-go">var numbers [5]int
 </code></pre>
-<p>Other types of UI</p>
-<pre><code class="language-bash">2. Timeline-Based UI
-3. Grid &amp; Gallery UI
-4. Terminal-Inspired UI
-5. Tag-Based UI
-6. Map-Based UI
-7. AI-Assisted UI
-8. Infinite Scroll vs. Pagination Debate
+<h2 id="initializing-arrays"><a class="header" href="#initializing-arrays">Initializing Arrays</a></h2>
+<p>Arrays can be initialized at the time of declaration:</p>
+<pre><code class="language-go">var numbers = [5]int{1, 2, 3, 4, 5}
 </code></pre>
-<p>⸻</p>
+<p>Or you can use the shorthand notation:</p>
+<pre><code class="language-go">numbers := [5]int{1, 2, 3, 4, 5}
+</code></pre>
+<h2 id="accessing-array-elements"><a class="header" href="#accessing-array-elements">Accessing Array Elements</a></h2>
+<p>Array elements are accessed using the index, which starts from 0:</p>
+<pre><code class="language-go">fmt.Println(numbers[0]) // Output: 1
+</code></pre>
+<h2 id="iterating-over-arrays"><a class="header" href="#iterating-over-arrays">Iterating Over Arrays</a></h2>
+<p>You can iterate over arrays using a <code>for</code> loop:</p>
+<pre><code class="language-go">for i := 0; i &lt; len(numbers); i++ {
+    fmt.Println(numbers[i])
+}
+</code></pre>
+<p>Or using the <code>range</code> keyword:</p>
+<pre><code class="language-go">for index, value := range numbers {
+    fmt.Println(index, value)
+}
+</code></pre>
+<h2 id="multidimensional-arrays"><a class="header" href="#multidimensional-arrays">Multidimensional Arrays</a></h2>
+<p>Go supports multidimensional arrays. A two-dimensional array is declared as follows:</p>
+<pre><code class="language-go">var matrix [3][3]int
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-go">matrix := [3][3]int{
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9},
+}
+</code></pre>
+<h2 id="array-of-arrays"><a class="header" href="#array-of-arrays">Array of Arrays</a></h2>
+<p>You can also create an array of arrays:</p>
+<pre><code class="language-go">var arrayOfArrays [2][3]int
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-go">arrayOfArrays := [2][3]int{
+    {1, 2, 3},
+    {4, 5, 6},
+}
+</code></pre>
+<h2 id="passing-arrays-to-functions"><a class="header" href="#passing-arrays-to-functions">Passing Arrays to Functions</a></h2>
+<p>Arrays can be passed to functions by value, meaning the function receives a copy of the array:</p>
+<pre><code class="language-go">func printArray(arr [5]int) {
+    for i := 0; i &lt; len(arr); i++ {
+        fmt.Println(arr[i])
+    }
+}
+</code></pre>
+<p>To modify the original array, you can pass a pointer to the array:</p>
+<pre><code class="language-go">func modifyArray(arr *[5]int) {
+    arr[0] = 100
+}
+</code></pre>
+<h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
+<h3 id="q1-how-can-i-find-the-length-of-an-array-in-go"><a class="header" href="#q1-how-can-i-find-the-length-of-an-array-in-go">Q1: How can I find the length of an array in Go?</a></h3>
+<p>You can use the built-in <code>len()</code> function to find the length of an array.</p>
+<p>Example:</p>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    arr := [5]int{1, 2, 3, 4, 5}
+    fmt.Println("Length of the array:", len(arr)) // Output: 5
+}
+</code></pre>
+<h3 id="q2-how-do-i-copy-an-array-in-go"><a class="header" href="#q2-how-do-i-copy-an-array-in-go">Q2: How do I copy an array in Go?</a></h3>
+<p>In Go, you can copy an array by simply assigning it to another array of the same type and size.</p>
+<p>Example:</p>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    original := [3]int{1, 2, 3}
+    copy := original
+    fmt.Println("Original:", original) // Output: [1 2 3]
+    fmt.Println("Copy:", copy)         // Output: [1 2 3]
+}
+</code></pre>
+<h3 id="q3-how-can-i-pass-an-array-to-a-function-without-copying-it"><a class="header" href="#q3-how-can-i-pass-an-array-to-a-function-without-copying-it">Q3: How can I pass an array to a function without copying it?</a></h3>
+<p>To avoid copying, you can pass a pointer to the array.</p>
+<p>Example:</p>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func modifyArray(arr *[3]int) {
+    arr[0] = 42
+}
+
+func main() {
+    arr := [3]int{1, 2, 3}
+    modifyArray(&amp;arr)
+    fmt.Println("Modified array:", arr) // Output: [42 2 3]
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="NO-CODE.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../interview-qna/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Boolean/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -201,10 +290,13 @@ This vault is powered by several modern tools and practices for collaboration, c
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="NO-CODE.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../interview-qna/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next prefetch" href="../../../../interview-qna/topic-wise/mdimamhosen/Boolean/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -217,13 +309,13 @@ This vault is powered by several modern tools and practices for collaboration, c
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
