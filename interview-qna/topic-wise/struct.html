@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Comparisonoperators - BGCE ARCHIVE</title>
+        <title>Struct - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../favicon.png">
-        <link rel="stylesheet" href="../../../css/variables.css">
-        <link rel="stylesheet" href="../../../css/general.css">
-        <link rel="stylesheet" href="../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -163,167 +163,180 @@
 <strong>Category:</strong> e.g., interview-qa/topic_name
 <strong>Tags:</strong> [go, concurrency, channels]
 ]</p>
-<h1 id="comparison-operators"><a class="header" href="#comparison-operators">Comparison Operators</a></h1>
-<h2 id="comparison-operators-are-used-to-compare-two-values"><a class="header" href="#comparison-operators-are-used-to-compare-two-values">Comparison operators are used to compare two values</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Name</th><th>Example</th></tr></thead><tbody>
-<tr><td>==</td><td>Equal to</td><td>x == y</td></tr>
-<tr><td>!=</td><td>Not equal</td><td>x != y</td></tr>
-<tr><td>&gt;</td><td>Greater than</td><td>x &gt; y</td></tr>
-<tr><td>&lt;</td><td>Less than</td><td>x &lt; y</td></tr>
-<tr><td>&gt;=</td><td>Greater than or equal to</td><td>x &gt;= y</td></tr>
-<tr><td>&lt;=</td><td>Less than or equal to</td><td>x &lt;= y</td></tr>
-</tbody></table>
-</div>
-<pre><code class="language-go">
-package main
+<h1 id="structs-structures"><a class="header" href="#structs-structures">Structs (Structures)</a></h1>
+<p>A struct is used to create a collection of members of different data types, into a single variable.</p>
+<pre><code class="language-go">package main
+import ("fmt")
 
-import "fmt"
+type Person struct {
+  name string
+  age int
+  job string
+  salary int
+}
 
 func main() {
-	fmt.Println(2 &gt; 2) // false
-	fmt.Println(2 &lt; 2) // false
-	fmt.Println(2 &gt;= 2) // true
-	fmt.Println(2 &lt;= 2) // true
-	fmt.Println(2 == 2) // true
-	fmt.Println(2 != 2) // false
+  var userOne Person
+
+  userOne.name = "HuXn"
+  userOne.age = 18
+  userOne.job = "Programmer"
+  userOne.salary = 40000
+
+  fmt.Println(userOne)
+  fmt.Println("My name is", userOne.name, "I'm", userOne.age, "Years old", "My Profession is", userOne.job, "My salary is", userOne.salary)
 }
 </code></pre>
-<h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h3 id="1-what-is-the-purpose-of-comparison-operators-in-go"><a class="header" href="#1-what-is-the-purpose-of-comparison-operators-in-go">1. What is the purpose of comparison operators in Go?</a></h3>
-<p><strong>Answer:</strong> Comparison operators are used to compare two values and return a boolean result (true or false).</p>
+<h2 id="frequently-asked-questions-faq"><a class="header" href="#frequently-asked-questions-faq">Frequently Asked Questions (FAQ)</a></h2>
+<h3 id="1-what-is-a-struct-in-go"><a class="header" href="#1-what-is-a-struct-in-go">1. What is a struct in Go?</a></h3>
+<p><strong>Answer:</strong> A struct is a composite data type in Go that groups together variables under a single name. These variables can be of different types.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
-
-import "fmt"
+<pre><code class="language-go">type Person struct {
+  name string
+  age int
+}
 
 func main() {
-	x := 10
-	y := 20
-	fmt.Println(x &gt; y) // false
-	fmt.Println(x &lt; y) // true
+  p := Person{name: "Alice", age: 30}
+  fmt.Println(p)
 }
 </code></pre>
-<h3 id="2-can-comparison-operators-be-used-with-strings-in-go"><a class="header" href="#2-can-comparison-operators-be-used-with-strings-in-go">2. Can comparison operators be used with strings in Go?</a></h3>
-<p><strong>Answer:</strong> Yes, comparison operators can be used with strings to compare their lexicographical order.</p>
+<h3 id="2-how-do-you-define-and-initialize-a-struct-in-go"><a class="header" href="#2-how-do-you-define-and-initialize-a-struct-in-go">2. How do you define and initialize a struct in Go?</a></h3>
+<p><strong>Answer:</strong> You can define a struct using the <code>type</code> keyword and initialize it using a struct literal.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
-
-import "fmt"
+<pre><code class="language-go">type Car struct {
+  brand string
+  year  int
+}
 
 func main() {
-	fmt.Println("apple" &gt; "banana") // false
-	fmt.Println("apple" &lt; "banana") // true
+  c := Car{brand: "Toyota", year: 2020}
+  fmt.Println(c)
 }
 </code></pre>
-<h3 id="3-how-does-the--operator-work-with-structs-in-go"><a class="header" href="#3-how-does-the--operator-work-with-structs-in-go">3. How does the <code>==</code> operator work with structs in Go?</a></h3>
-<p><strong>Answer:</strong> The <code>==</code> operator can be used to compare structs if all their fields are comparable.</p>
+<h3 id="3-can-you-create-an-anonymous-struct-in-go"><a class="header" href="#3-can-you-create-an-anonymous-struct-in-go">3. Can you create an anonymous struct in Go?</a></h3>
+<p><strong>Answer:</strong> Yes, you can create an anonymous struct without defining a named type.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
-
-import "fmt"
-
-type Point struct {
-	x, y int
-}
-
-func main() {
-	p1 := Point{1, 2}
-	p2 := Point{1, 2}
-	fmt.Println(p1 == p2) // true
+<pre><code class="language-go">func main() {
+  person := struct {
+    name string
+    age  int
+  }{
+    name: "John",
+    age: 25,
+  }
+  fmt.Println(person)
 }
 </code></pre>
-<h3 id="4-what-happens-if-you-compare-two-different-types-in-go"><a class="header" href="#4-what-happens-if-you-compare-two-different-types-in-go">4. What happens if you compare two different types in Go?</a></h3>
-<p><strong>Answer:</strong> Comparing two different types will result in a compile-time error.</p>
+<h3 id="4-how-do-you-access-and-modify-struct-fields-in-go"><a class="header" href="#4-how-do-you-access-and-modify-struct-fields-in-go">4. How do you access and modify struct fields in Go?</a></h3>
+<p><strong>Answer:</strong> You can access and modify struct fields using the dot <code>.</code> operator.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
+<pre><code class="language-go">type Book struct {
+  title  string
+  author string
+}
 
 func main() {
-	// Uncommenting the following line will cause a compile-time error
-	// fmt.Println(10 == "10")
+  b := Book{title: "Go Programming", author: "John Doe"}
+  b.title = "Advanced Go Programming"
+  fmt.Println(b)
 }
 </code></pre>
-<h3 id="5-can-comparison-operators-be-used-with-pointers"><a class="header" href="#5-can-comparison-operators-be-used-with-pointers">5. Can comparison operators be used with pointers?</a></h3>
-<p><strong>Answer:</strong> Yes, comparison operators can be used to compare pointers for equality or inequality.</p>
+<h3 id="5-can-structs-have-methods-in-go"><a class="header" href="#5-can-structs-have-methods-in-go">5. Can structs have methods in Go?</a></h3>
+<p><strong>Answer:</strong> Yes, you can define methods for structs.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
+<pre><code class="language-go">type Rectangle struct {
+  width, height float64
+}
 
-import "fmt"
+func (r Rectangle) Area() float64 {
+  return r.width * r.height
+}
 
 func main() {
-	a := 10
-	b := 10
-	pa := &amp;a
-	pb := &amp;b
-	fmt.Println(pa == pb) // false
+  rect := Rectangle{width: 10, height: 5}
+  fmt.Println("Area:", rect.Area())
 }
 </code></pre>
-<h3 id="6-how-does-the--operator-work"><a class="header" href="#6-how-does-the--operator-work">6. How does the <code>!=</code> operator work?</a></h3>
-<p><strong>Answer:</strong> The <code>!=</code> operator checks if two values are not equal.</p>
+<h3 id="6-what-is-the-difference-between-value-and-pointer-receivers-in-struct-methods"><a class="header" href="#6-what-is-the-difference-between-value-and-pointer-receivers-in-struct-methods">6. What is the difference between value and pointer receivers in struct methods?</a></h3>
+<p><strong>Answer:</strong> Value receivers operate on a copy of the struct, while pointer receivers operate on the original struct.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
+<pre><code class="language-go">type Counter struct {
+  count int
+}
 
-import "fmt"
+func (c *Counter) Increment() {
+  c.count++
+}
 
 func main() {
-	x := 5
-	y := 10
-	fmt.Println(x != y) // true
+  c := Counter{}
+  c.Increment()
+  fmt.Println(c.count)
 }
 </code></pre>
-<h3 id="7-can-comparison-operators-be-used-with-arrays"><a class="header" href="#7-can-comparison-operators-be-used-with-arrays">7. Can comparison operators be used with arrays?</a></h3>
-<p><strong>Answer:</strong> Yes, arrays can be compared using <code>==</code> and <code>!=</code> if their elements are comparable.</p>
+<h3 id="7-can-structs-embed-other-structs-in-go"><a class="header" href="#7-can-structs-embed-other-structs-in-go">7. Can structs embed other structs in Go?</a></h3>
+<p><strong>Answer:</strong> Yes, Go supports struct embedding for composition.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
+<pre><code class="language-go">type Address struct {
+  city, state string
+}
 
-import "fmt"
+type Person struct {
+  name    string
+  address Address
+}
 
 func main() {
-	a1 := [3]int{1, 2, 3}
-	a2 := [3]int{1, 2, 3}
-	fmt.Println(a1 == a2) // true
+  p := Person{name: "Alice", address: Address{city: "New York", state: "NY"}}
+  fmt.Println(p)
 }
 </code></pre>
-<h3 id="8-what-is-the-result-of-comparing-two-slices-using-"><a class="header" href="#8-what-is-the-result-of-comparing-two-slices-using-">8. What is the result of comparing two slices using <code>==</code>?</a></h3>
-<p><strong>Answer:</strong> Slices cannot be compared using <code>==</code> except for comparison with <code>nil</code>.</p>
+<h3 id="8-how-do-you-compare-two-structs-in-go"><a class="header" href="#8-how-do-you-compare-two-structs-in-go">8. How do you compare two structs in Go?</a></h3>
+<p><strong>Answer:</strong> You can compare structs using the <code>==</code> operator if all fields are comparable.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
-
-import "fmt"
+<pre><code class="language-go">type Point struct {
+  x, y int
+}
 
 func main() {
-	s1 := []int{1, 2, 3}
-	s2 := []int{1, 2, 3}
-	fmt.Println(s1 == nil) // false
-	// Uncommenting the following line will cause a compile-time error
-	// fmt.Println(s1 == s2)
+  p1 := Point{x: 1, y: 2}
+  p2 := Point{x: 1, y: 2}
+  fmt.Println(p1 == p2) // true
 }
 </code></pre>
-<h3 id="9-how-does-go-handle-floating-point-comparison"><a class="header" href="#9-how-does-go-handle-floating-point-comparison">9. How does Go handle floating-point comparison?</a></h3>
-<p><strong>Answer:</strong> Floating-point numbers can be compared using comparison operators, but be cautious of precision issues.</p>
+<h3 id="9-can-you-use-structs-as-map-keys-in-go"><a class="header" href="#9-can-you-use-structs-as-map-keys-in-go">9. Can you use structs as map keys in Go?</a></h3>
+<p><strong>Answer:</strong> Yes, structs can be used as map keys if all their fields are comparable.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
-
-import "fmt"
+<pre><code class="language-go">type Point struct {
+  x, y int
+}
 
 func main() {
-	x := 0.1 + 0.2
-	y := 0.3
-	fmt.Println(x == y) // false due to precision issues
+  m := make(map[Point]string)
+  m[Point{x: 1, y: 2}] = "A Point"
+  fmt.Println(m)
 }
 </code></pre>
-<h3 id="10-can-you-compare-custom-types-using-comparison-operators"><a class="header" href="#10-can-you-compare-custom-types-using-comparison-operators">10. Can you compare custom types using comparison operators?</a></h3>
-<p><strong>Answer:</strong> Custom types can be compared if their underlying types support comparison.</p>
+<h3 id="10-how-do-you-iterate-over-struct-fields-in-go"><a class="header" href="#10-how-do-you-iterate-over-struct-fields-in-go">10. How do you iterate over struct fields in Go?</a></h3>
+<p><strong>Answer:</strong> You can use the <code>reflect</code> package to iterate over struct fields.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-go">package main
+<pre><code class="language-go">import (
+  "fmt"
+  "reflect"
+)
 
-import "fmt"
-
-type Age int
+type Person struct {
+  Name string
+  Age  int
+}
 
 func main() {
-	var a1 Age = 30
-	var a2 Age = 25
-	fmt.Println(a1 &gt; a2) // true
+  p := Person{Name: "Alice", Age: 30}
+  v := reflect.ValueOf(p)
+  for i := 0; i &lt; v.NumField(); i++ {
+    fmt.Println(v.Type().Field(i).Name, v.Field(i))
+  }
 }
 </code></pre>
 
@@ -331,11 +344,11 @@ func main() {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/topic-wise/Boolean/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../interview-qna/topic-wise/string.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/topic-wise/ConditionalStatement/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../interview-qna/topic-wise/switch-statement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -345,11 +358,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/topic-wise/Boolean/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../interview-qna/topic-wise/string.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/topic-wise/ConditionalStatement/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../interview-qna/topic-wise/switch-statement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -364,13 +377,13 @@ func main() {
         </script>
 
 
-        <script src="../../../elasticlunr.min.js"></script>
-        <script src="../../../mark.min.js"></script>
-        <script src="../../../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../../../clipboard.min.js"></script>
-        <script src="../../../highlight.js"></script>
-        <script src="../../../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

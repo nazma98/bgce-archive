@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Structures - BGCE ARCHIVE</title>
+        <title>Slice - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../favicon.png">
-        <link rel="stylesheet" href="../../../css/variables.css">
-        <link rel="stylesheet" href="../../../css/general.css">
-        <link rel="stylesheet" href="../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -160,183 +160,156 @@
                     <main>
                         <p>[<strong>Author:</strong> @mdimamhosen
 <strong>Date:</strong> 2025-04-19
-<strong>Category:</strong> e.g., interview-qa/topic_name
-<strong>Tags:</strong> [go, concurrency, channels]
-]</p>
-<h1 id="structs-structures"><a class="header" href="#structs-structures">Structs (Structures)</a></h1>
-<p>A struct is used to create a collection of members of different data types, into a single variable.</p>
-<pre><code class="language-go">package main
+<strong>Category:</strong> interview-qa/slices
+<strong>Tags:</strong> [go, slices, arrays, make]</p>
+<h1 id="slices"><a class="header" href="#slices">Slices</a></h1>
+<p>Slices are also used to store multiple values of the same type in a single variable, however unlike arrays, the length of a slice can grow and shrink as you see fit.</p>
+<p>There are several ways to create a slice 👇</p>
+<ol>
+<li>Using the <code>[]datatype{values}</code> format</li>
+<li>Create a slice from an array</li>
+<li>Using the <code>make()</code> function</li>
+</ol>
+<pre><code class="language-go">// name := []datatype{values}
+// name := []int{}
+package main
 import ("fmt")
 
-type Person struct {
-  name string
-  age int
-  job string
-  salary int
-}
-
 func main() {
-  var userOne Person
+  myslice1 := []int{}
+  fmt.Println(len(myslice1))
+  fmt.Println(cap(myslice1))
+  fmt.Println(myslice1)
 
-  userOne.name = "HuXn"
-  userOne.age = 18
-  userOne.job = "Programmer"
-  userOne.salary = 40000
-
-  fmt.Println(userOne)
-  fmt.Println("My name is", userOne.name, "I'm", userOne.age, "Years old", "My Profession is", userOne.job, "My salary is", userOne.salary)
+  myslice2 := []string{"Go", "Slices", "Are", "Powerful"}
+  fmt.Println(len(myslice2))
+  fmt.Println(cap(myslice2))
+  fmt.Println(myslice2)
 }
 </code></pre>
-<h2 id="frequently-asked-questions-faq"><a class="header" href="#frequently-asked-questions-faq">Frequently Asked Questions (FAQ)</a></h2>
-<h3 id="1-what-is-a-struct-in-go"><a class="header" href="#1-what-is-a-struct-in-go">1. What is a struct in Go?</a></h3>
-<p><strong>Answer:</strong> A struct is a composite data type in Go that groups together variables under a single name. These variables can be of different types.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Person struct {
-  name string
-  age int
-}
+<h2 id="make-method"><a class="header" href="#make-method">Make() Method</a></h2>
+<p>The <code>make</code> function will create a zeroed array and return a slice referencing an array. This is a great way to create a dynamically sized array. To create a slice using the <code>make</code> function, we need to specify three arguments: type, length, and capacity.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  p := Person{name: "Alice", age: 30}
-  fmt.Println(p)
+    slice := make([]string, 3, 5)
+    fmt.Println("Length", len(slice))
+    fmt.Println("Capacity", cap(slice))
+    fmt.Println(slice)
 }
 </code></pre>
-<h3 id="2-how-do-you-define-and-initialize-a-struct-in-go"><a class="header" href="#2-how-do-you-define-and-initialize-a-struct-in-go">2. How do you define and initialize a struct in Go?</a></h3>
-<p><strong>Answer:</strong> You can define a struct using the <code>type</code> keyword and initialize it using a struct literal.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Car struct {
-  brand string
-  year  int
-}
+<h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
+<h3 id="1-how-do-you-create-an-empty-slice-in-go"><a class="header" href="#1-how-do-you-create-an-empty-slice-in-go">1. How do you create an empty slice in Go?</a></h3>
+<p><strong>Answer:</strong> Use <code>[]datatype{}</code> to create an empty slice.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  c := Car{brand: "Toyota", year: 2020}
-  fmt.Println(c)
+    myslice := []int{}
+    fmt.Println("Empty Slice:", myslice) // []
 }
 </code></pre>
-<h3 id="3-can-you-create-an-anonymous-struct-in-go"><a class="header" href="#3-can-you-create-an-anonymous-struct-in-go">3. Can you create an anonymous struct in Go?</a></h3>
-<p><strong>Answer:</strong> Yes, you can create an anonymous struct without defining a named type.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">func main() {
-  person := struct {
-    name string
-    age  int
-  }{
-    name: "John",
-    age: 25,
-  }
-  fmt.Println(person)
-}
-</code></pre>
-<h3 id="4-how-do-you-access-and-modify-struct-fields-in-go"><a class="header" href="#4-how-do-you-access-and-modify-struct-fields-in-go">4. How do you access and modify struct fields in Go?</a></h3>
-<p><strong>Answer:</strong> You can access and modify struct fields using the dot <code>.</code> operator.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Book struct {
-  title  string
-  author string
-}
+<h3 id="2-how-do-you-create-a-slice-with-initial-values"><a class="header" href="#2-how-do-you-create-a-slice-with-initial-values">2. How do you create a slice with initial values?</a></h3>
+<p><strong>Answer:</strong> Use <code>[]datatype{values}</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  b := Book{title: "Go Programming", author: "John Doe"}
-  b.title = "Advanced Go Programming"
-  fmt.Println(b)
+    myslice := []int{1, 2, 3}
+    fmt.Println("Slice with Values:", myslice) // [1 2 3]
 }
 </code></pre>
-<h3 id="5-can-structs-have-methods-in-go"><a class="header" href="#5-can-structs-have-methods-in-go">5. Can structs have methods in Go?</a></h3>
-<p><strong>Answer:</strong> Yes, you can define methods for structs.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Rectangle struct {
-  width, height float64
-}
-
-func (r Rectangle) Area() float64 {
-  return r.width * r.height
-}
+<h3 id="3-how-do-you-create-a-slice-from-an-array"><a class="header" href="#3-how-do-you-create-a-slice-from-an-array">3. How do you create a slice from an array?</a></h3>
+<p><strong>Answer:</strong> Use slicing syntax <code>array[start:end]</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  rect := Rectangle{width: 10, height: 5}
-  fmt.Println("Area:", rect.Area())
+    arr := [5]int{1, 2, 3, 4, 5}
+    myslice := arr[1:4]
+    fmt.Println("Slice from Array:", myslice) // [2 3 4]
 }
 </code></pre>
-<h3 id="6-what-is-the-difference-between-value-and-pointer-receivers-in-struct-methods"><a class="header" href="#6-what-is-the-difference-between-value-and-pointer-receivers-in-struct-methods">6. What is the difference between value and pointer receivers in struct methods?</a></h3>
-<p><strong>Answer:</strong> Value receivers operate on a copy of the struct, while pointer receivers operate on the original struct.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Counter struct {
-  count int
-}
-
-func (c *Counter) Increment() {
-  c.count++
-}
+<h3 id="4-how-do-you-use-the-make-function-to-create-a-slice"><a class="header" href="#4-how-do-you-use-the-make-function-to-create-a-slice">4. How do you use the <code>make</code> function to create a slice?</a></h3>
+<p><strong>Answer:</strong> Use <code>make(type, length, capacity)</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  c := Counter{}
-  c.Increment()
-  fmt.Println(c.count)
+    myslice := make([]int, 3, 5)
+    fmt.Println("Slice with Make:", myslice) // [0 0 0]
 }
 </code></pre>
-<h3 id="7-can-structs-embed-other-structs-in-go"><a class="header" href="#7-can-structs-embed-other-structs-in-go">7. Can structs embed other structs in Go?</a></h3>
-<p><strong>Answer:</strong> Yes, Go supports struct embedding for composition.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Address struct {
-  city, state string
-}
-
-type Person struct {
-  name    string
-  address Address
-}
+<h3 id="5-how-do-you-append-elements-to-a-slice"><a class="header" href="#5-how-do-you-append-elements-to-a-slice">5. How do you append elements to a slice?</a></h3>
+<p><strong>Answer:</strong> Use the <code>append</code> function.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  p := Person{name: "Alice", address: Address{city: "New York", state: "NY"}}
-  fmt.Println(p)
+    myslice := []int{1, 2, 3}
+    myslice = append(myslice, 4, 5)
+    fmt.Println("Appended Slice:", myslice) // [1 2 3 4 5]
 }
 </code></pre>
-<h3 id="8-how-do-you-compare-two-structs-in-go"><a class="header" href="#8-how-do-you-compare-two-structs-in-go">8. How do you compare two structs in Go?</a></h3>
-<p><strong>Answer:</strong> You can compare structs using the <code>==</code> operator if all fields are comparable.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Point struct {
-  x, y int
-}
+<h3 id="6-how-do-you-copy-one-slice-to-another"><a class="header" href="#6-how-do-you-copy-one-slice-to-another">6. How do you copy one slice to another?</a></h3>
+<p><strong>Answer:</strong> Use the <code>copy</code> function.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  p1 := Point{x: 1, y: 2}
-  p2 := Point{x: 1, y: 2}
-  fmt.Println(p1 == p2) // true
+    src := []int{1, 2, 3}
+    dest := make([]int, len(src))
+    copy(dest, src)
+    fmt.Println("Copied Slice:", dest) // [1 2 3]
 }
 </code></pre>
-<h3 id="9-can-you-use-structs-as-map-keys-in-go"><a class="header" href="#9-can-you-use-structs-as-map-keys-in-go">9. Can you use structs as map keys in Go?</a></h3>
-<p><strong>Answer:</strong> Yes, structs can be used as map keys if all their fields are comparable.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">type Point struct {
-  x, y int
-}
+<h3 id="7-how-do-you-find-the-length-and-capacity-of-a-slice"><a class="header" href="#7-how-do-you-find-the-length-and-capacity-of-a-slice">7. How do you find the length and capacity of a slice?</a></h3>
+<p><strong>Answer:</strong> Use <code>len(slice)</code> and <code>cap(slice)</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  m := make(map[Point]string)
-  m[Point{x: 1, y: 2}] = "A Point"
-  fmt.Println(m)
+    myslice := []int{1, 2, 3}
+    fmt.Println("Length:", len(myslice)) // 3
+    fmt.Println("Capacity:", cap(myslice)) // 3
 }
 </code></pre>
-<h3 id="10-how-do-you-iterate-over-struct-fields-in-go"><a class="header" href="#10-how-do-you-iterate-over-struct-fields-in-go">10. How do you iterate over struct fields in Go?</a></h3>
-<p><strong>Answer:</strong> You can use the <code>reflect</code> package to iterate over struct fields.</p>
-<p><strong>Example:</strong></p>
-<pre><code class="language-go">import (
-  "fmt"
-  "reflect"
-)
-
-type Person struct {
-  Name string
-  Age  int
-}
+<h3 id="8-how-do-you-create-a-multidimensional-slice"><a class="header" href="#8-how-do-you-create-a-multidimensional-slice">8. How do you create a multidimensional slice?</a></h3>
+<p><strong>Answer:</strong> Use slices of slices.</p>
+<pre><code class="language-go">package main
+import "fmt"
 
 func main() {
-  p := Person{Name: "Alice", Age: 30}
-  v := reflect.ValueOf(p)
-  for i := 0; i &lt; v.NumField(); i++ {
-    fmt.Println(v.Type().Field(i).Name, v.Field(i))
-  }
+    matrix := [][]int{
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    }
+    fmt.Println("Multidimensional Slice:", matrix)
+}
+</code></pre>
+<h3 id="9-how-do-you-remove-an-element-from-a-slice"><a class="header" href="#9-how-do-you-remove-an-element-from-a-slice">9. How do you remove an element from a slice?</a></h3>
+<p><strong>Answer:</strong> Use slicing to exclude the element.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3, 4, 5}
+    myslice = append(myslice[:2], myslice[3:]...)
+    fmt.Println("Slice after Removal:", myslice) // [1 2 4 5]
+}
+</code></pre>
+<h3 id="10-how-do-you-iterate-over-a-slice-in-go"><a class="header" href="#10-how-do-you-iterate-over-a-slice-in-go">10. How do you iterate over a slice in Go?</a></h3>
+<p><strong>Answer:</strong> Use a <code>for</code> loop or <code>range</code>.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    myslice := []int{1, 2, 3}
+    for i, v := range myslice {
+        fmt.Printf("Index: %d, Value: %d\n", i, v)
+    }
 }
 </code></pre>
 
@@ -344,11 +317,11 @@ func main() {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/topic-wise/Strings/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../interview-qna/topic-wise/scope.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/topic-wise/SwitchStatement/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../interview-qna/topic-wise/string.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -358,11 +331,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/topic-wise/Strings/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../interview-qna/topic-wise/scope.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/topic-wise/SwitchStatement/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../interview-qna/topic-wise/string.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -377,13 +350,13 @@ func main() {
         </script>
 
 
-        <script src="../../../elasticlunr.min.js"></script>
-        <script src="../../../mark.min.js"></script>
-        <script src="../../../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../../../clipboard.min.js"></script>
-        <script src="../../../highlight.js"></script>
-        <script src="../../../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
