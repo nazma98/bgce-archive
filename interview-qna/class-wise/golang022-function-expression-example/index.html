@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Class 15 - BGCE ARCHIVE</title>
+        <title>Golang022 Function Expression Example - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../favicon.svg">
-        <link rel="shortcut icon" href="../../favicon.png">
-        <link rel="stylesheet" href="../../css/variables.css">
-        <link rel="stylesheet" href="../../css/general.css">
-        <link rel="stylesheet" href="../../css/chrome.css">
-        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../";
+            const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -126,7 +126,7 @@
                     <h1 class="menu-title">BGCE ARCHIVE</h1>
 
                     <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/JsIqbal/bgce-archive" title="Git repository" aria-label="Git repository">
@@ -158,16 +158,135 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="-class-22--function-expressions--shadowing-in-go"><a class="header" href="#-class-22--function-expressions--shadowing-in-go">📘 Class 22 – Function Expressions &amp; Shadowing in Go</a></h1>
+<h3 id="-video-name"><a class="header" href="#-video-name">🎥 Video Name:</a></h3>
+<p><strong>Function Expression Example</strong></p>
+<hr />
+<h2 id="-code-1-working-example"><a class="header" href="#-code-1-working-example">✅ Code 1: Working Example</a></h2>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+// Global function expression
+var add = func(x, y int) {
+	fmt.Println(x + y)
+}
+
+func main() {
+	add(4, 7) // Calls the global `add`
+
+	// Function expression assigned to local variable
+	add := func(a int, b int) {
+		c := a + b
+		fmt.Println(c)
+	}
+
+	add(2, 3) // Calls the local `add`
+}
+
+func init() {
+	fmt.Println("I will be called first")
+}
+</code></pre>
+<h2 id="-key-concepts"><a class="header" href="#-key-concepts">🧠 Key Concepts</a></h2>
+<h3 id="-function-expression"><a class="header" href="#-function-expression">🔧 Function Expression</a></h3>
+<p>A function <strong>assigned to a variable</strong>. It allows us to:</p>
+<p>-[] Store logic in a variable</p>
+<p>-[] Treat functions like first-class citizens</p>
+<p>-[] Create inline, nameless (anonymous) functions</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-go">add := func(a int, b int) {
+	fmt.Println(a + b)
+}
+</code></pre>
+<h3 id="-shadowing"><a class="header" href="#-shadowing">🧱 Shadowing</a></h3>
+<p>When a variable in a <strong>smaller (local) scope</strong> has the <strong>same name</strong> as one in a <strong>larger (outer) scope</strong>, it "shadows" or hides it temporarily.</p>
+<p>In the <code>main()</code> function:</p>
+<pre><code class="language-go">add := func(a int, b int) {...}
+</code></pre>
+<p>This local <code>add</code> shadows the global <code>add</code> from that point onward.</p>
+<h2 id="-execution-visualization-working-example"><a class="header" href="#-execution-visualization-working-example">🖥️ Execution Visualization (Working Example)</a></h2>
+<pre><code>========== Compilation Phase ==========
+✔ Found init()
+✔ Found main()
+✔ Global `add` assigned to function
+
+========== Execution Begins ===========
+
+init():
+→ Prints: I will be called first
+
+main():
+→ Calls global `add(4, 7)` → Prints: 11
+
+Local Scope in main():
+┌──────── Stack Frame ───────┐
+│ main()                     │
+│ ┌──────────────┐          │
+│ │ add (local)  │────────┐ │
+│ └──────────────┘        │ │
+└─────────────────────────┘ │
+       (shadows global) ◄───┘
+
+→ Calls local `add(2, 3)` → Prints: 5
+
+========== Execution Ends ==========
+</code></pre>
+<h2 id="-code-2-fails-to-compile"><a class="header" href="#-code-2-fails-to-compile">❌ Code 2: Fails to Compile</a></h2>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+// Global function expression
+var add = func(x, y int) {
+	fmt.Println(x + y)
+}
+
+func main() {
+	adder(4, 7) // ❌ ERROR: undefined: adder
+
+	// Function expression or Assign function in variable
+	adder := func(a int, b int) {
+		c := a + b
+		fmt.Println(c)
+	}
+
+	add(2, 3)
+}
+
+func init() {
+	fmt.Println("I will be called first")
+}
+</code></pre>
+<h3 id="-why-it-fails"><a class="header" href="#-why-it-fails">❌ Why it fails</a></h3>
+<p>This line:</p>
+<pre><code class="language-go">adder(4, 7)
+</code></pre>
+<p>is <strong>above</strong> the declaration:</p>
+<pre><code class="language-go">adder := func(a int, b int) { ... }
+</code></pre>
+<h3 id="-the-problem-temporal-dead-zone"><a class="header" href="#-the-problem-temporal-dead-zone">⛔ The Problem: Temporal Dead Zone</a></h3>
+<p>In Go, <strong>you can't use a variable before it's declared</strong>, even if it’s in the same block.</p>
+<p>So, when you try to use <code>adder</code>, it hasn’t been declared yet. Hence:</p>
+<pre><code class="language-bash">./main.go:10:2: undefined: adder
+</code></pre>
+<h2 id="-tldr"><a class="header" href="#-tldr">📚 TL;DR</a></h2>
+<p>Concept | Meaning
+Function Expression | A function assigned to a variable
+Anonymous Function | A function with no name
+Shadowing | Local variable hides the same-named global one
+Temporal Dead Zone | You can't use variables before their declaration in Go
+IIFE vs Assignment | IIFE executes immediately; assignment waits to be called explicitly</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../interview-qna/class-wise/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang021-anonymous-func-and-iife/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../interview-qna/class-wise/series.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang023-fof-vs-hof/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -177,11 +296,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../interview-qna/class-wise/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang021-anonymous-func-and-iife/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../interview-qna/class-wise/series.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang023-fof-vs-hof/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -196,13 +315,13 @@
         </script>
 
 
-        <script src="../../elasticlunr.min.js"></script>
-        <script src="../../mark.min.js"></script>
-        <script src="../../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../clipboard.min.js"></script>
-        <script src="../../highlight.js"></script>
-        <script src="../../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
