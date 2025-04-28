@@ -7316,6 +7316,59 @@ go get github.com/Delta456/box-cli-maker/v2
 </ol>
 <h2 id="contributing"><a class="header" href="#contributing">Contributing</a></h2>
 <p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="todo-cli"><a class="header" href="#todo-cli">Todo CLI</a></h1>
+<p>A simple command-line interface (CLI) application for managing your to-do tasks, built with Go.</p>
+<h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
+<ul>
+<li>Add new tasks</li>
+<li>List all tasks (with --all flag for completed tasks)</li>
+<li>Mark tasks as completed</li>
+<li>Delete tasks</li>
+</ul>
+<h2 id="project-structure-1"><a class="header" href="#project-structure-1">Project Structure</a></h2>
+<pre><code>todo-cli/
+├── cmd/
+│   └── tasks/
+│       └── main.go
+└── internal/
+    └── task/
+        ├── task.go
+        └── storage.go
+</code></pre>
+<h2 id="installation-2"><a class="header" href="#installation-2">Installation</a></h2>
+<ol>
+<li>Clone the repository:
+<pre><code class="language-bash">git clone https://github.com/OxRokib/bgce-archive.git
+</code></pre>
+</li>
+<li>Navigate to the project directory:
+<pre><code class="language-bash">cd bgce-archive/mini-projects/todo-cli
+</code></pre>
+</li>
+<li>Build the application:
+<pre><code class="language-bash">go build -o todo cmd/tasks/main.go
+</code></pre>
+</li>
+</ol>
+<h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
+<h3 id="add-a-task"><a class="header" href="#add-a-task">Add a Task</a></h3>
+<pre><code class="language-bash">./todo add "Your task description"
+</code></pre>
+<h3 id="list-tasks"><a class="header" href="#list-tasks">List Tasks</a></h3>
+<p>List incomplete tasks:</p>
+<pre><code class="language-bash">./todo list
+</code></pre>
+<p>List all tasks (including completed):</p>
+<pre><code class="language-bash">./todo list --all
+</code></pre>
+<h3 id="mark-a-task-as-completed"><a class="header" href="#mark-a-task-as-completed">Mark a Task as Completed</a></h3>
+<pre><code class="language-bash">./todo complete &lt;task-id&gt;
+</code></pre>
+<h3 id="delete-a-task"><a class="header" href="#delete-a-task">Delete a Task</a></h3>
+<pre><code class="language-bash">./todo delete &lt;task-id&gt;
+</code></pre>
+<h2 id="contributing-1"><a class="header" href="#contributing-1">Contributing</a></h2>
+<p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
 <div style="break-before: page; page-break-before: always;"></div><p><strong>comprehensive and detailed RBAC permission list</strong> Golang Community Vault platform. This will allow <strong>fine-grained control</strong> for various roles across all the directories and content types outlined in README.</p>
 <hr />
 <h2 id="-universal-permission-categories-applicable-to-all-modules"><a class="header" href="#-universal-permission-categories-applicable-to-all-modules">🔒 Universal Permission Categories (Applicable to all modules)</a></h2>
