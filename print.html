@@ -8038,6 +8038,155 @@ DB_NAME=urlshortener
 </ol>
 <h2 id="contributing-1"><a class="header" href="#contributing-1">Contributing</a></h2>
 <p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
+<div style="break-before: page; page-break-before: always;"></div><p>🧩 Project: Build Your Own JSON Parser (Step 1)</p>
+<p>Imagine JSON like Lego blocks that computers use to send and understand data. In this project, we’re learning how to read those blocks and say: “Yep, this is built correctly!” or “Nope, something’s wrong!”</p>
+<p>⸻</p>
+<p>🪜 Step-by-Step Guide for Step 1</p>
+<p>🛠 Step 0: Setup</p>
+<p>“Before we play the game, we need to set up the board.”</p>
+<pre><code>1.	Create folders like this:
+</code></pre>
+<pre><code class="language-readme">jsonparser/
+├── main.go
+├── lexer/
+│ └── lexer.go
+├── parser/
+│ └── parser.go
+├── tests/
+│ └── step1/
+│ ├── valid.json
+│ └── invalid.json
+</code></pre>
+<pre><code>2.	Put this in tests/step1/valid.json
+</code></pre>
+<p><code>{}</code></p>
+<pre><code>3.	Put this in tests/step1/invalid.json
+</code></pre>
+<p><code>{</code></p>
+<p>⸻</p>
+<p>🧠 Step 1: Understand What We’re Building</p>
+<p>“We’re building a tool that checks if a JSON is okay or broken.”</p>
+<p>We want to:
+• Read a file.
+• Break it into pieces (like Lego blocks).
+• Check if those pieces make a real object ({}).
+• Say “Valid JSON” ✅ or “Invalid JSON” ❌.</p>
+<p>⸻</p>
+<p>🧪 The Parts of Our Tool</p>
+<p>1️⃣ main.go — the commander</p>
+<p>It reads the file, sends it to the lexer, then the parser, and prints the result.</p>
+<pre><code class="language-go">package main
+
+import (
+    "fmt"
+    "os"
+
+    "jsonparser/lexer"
+    "jsonparser/parser"
+)
+
+func main() {
+    if len(os.Args) &lt; 2 {
+        fmt.Println("Usage: ./jsonparser &lt;path-to-json-file&gt;")
+        os.Exit(1)
+    }
+
+    filePath := os.Args[1]
+    data, err := os.ReadFile(filePath)
+    if err != nil {
+    	fmt.Printf("Failed to read file: %v\n", err)
+    	os.Exit(1)
+    }
+
+    tokens := lexer.Tokenize(string(data))
+    if parser.Parse(tokens) {
+    	fmt.Println("Valid JSON")
+    	os.Exit(0)
+    } else {
+    	fmt.Println("Invalid JSON")
+    	os.Exit(1)
+    }
+}
+</code></pre>
+<p>⸻</p>
+<p>2️⃣ lexer/lexer.go — the scanner</p>
+<p>It breaks the string like {} into tokens (chunks), like:</p>
+<p>[LEFT_BRACE, RIGHT_BRACE]</p>
+<pre><code class="language-go">package lexer
+
+import "strings"
+
+type TokenType string
+
+const (
+    LEFT_BRACE TokenType = "{"
+    RIGHT_BRACE TokenType = "}"
+    ILLEGAL TokenType = "ILLEGAL"
+    EOF TokenType = "EOF"
+)
+
+type Token struct {
+    Type TokenType
+    Literal string
+}
+
+func Tokenize(input string) []Token {
+    var tokens []Token
+    input = strings.TrimSpace(input)
+
+    for _, ch := range input {
+    	switch ch {
+    	case '{':
+    		tokens = append(tokens, Token{Type: LEFT_BRACE, Literal: "{"})
+    	case '}':
+    		tokens = append(tokens, Token{Type: RIGHT_BRACE, Literal: "}"})
+    	default:
+    		// not a valid character in step 1
+    		tokens = append(tokens, Token{Type: ILLEGAL, Literal: string(ch)})
+    	}
+    }
+
+    tokens = append(tokens, Token{Type: EOF, Literal: ""})
+    return tokens
+}
+</code></pre>
+<p>⸻</p>
+<p>3️⃣ parser/parser.go — the judge</p>
+<p>It looks at the tokens and decides if it’s correct.</p>
+<pre><code class="language-go">package parser
+
+import "jsonparser/lexer"
+
+func Parse(tokens []lexer.Token) bool {
+    // Step 1: Only valid thing is [LEFT_BRACE, RIGHT_BRACE, EOF]
+    if len(tokens) != 3 {
+        return false
+    }
+
+    return tokens[0].Type == lexer.LEFT_BRACE &amp;&amp;
+    	tokens[1].Type == lexer.RIGHT_BRACE &amp;&amp;
+    	tokens[2].Type == lexer.EOF
+
+}
+</code></pre>
+<p>⸻</p>
+<p>▶️ Run It!</p>
+<p>Go into your terminal and run this:</p>
+<pre><code class="language-bash">go run main.go tests/step1/valid.json # ✅ Should print: Valid JSON
+go run main.go tests/step1/invalid.json # ❌ Should print: Invalid JSON
+</code></pre>
+<p>⸻</p>
+<p>🎓 What Did We Learn?
+• ✅ JSON is just a way to store data, like a toy box.
+• ✅ Lexers break it into tokens (like sorting toys).
+• ✅ Parsers check if the toys are arranged correctly.
+• ✅ We only accept {} right now.
+• ❌ Anything else is “broken” JSON.</p>
+<p>⸻</p>
+<p>🧠 Coming Next…</p>
+<p>In Step 2, we’ll look inside the box and check for strings like:</p>
+<p>{"key": "value"}</p>
+<p>⸻</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="todo-cli"><a class="header" href="#todo-cli">Todo CLI</a></h1>
 <p>A simple command-line interface (CLI) application for managing your to-do tasks, built with Go.</p>
 <h2 id="features-2"><a class="header" href="#features-2">Features</a></h2>
@@ -8264,6 +8413,131 @@ DB_NAME=urlshortener
 7. AI-Assisted UI
 8. Infinite Scroll vs. Pagination Debate
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali"><a class="header" href="#-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali">🧠 কম্পিটিটিভ প্রোগ্রামিং গাইড (CP Guide in Bengali)</a></h1>
+<blockquote>
+<p>📘 <em>এই গাইডটি তৈরি করা হয়েছে বাংলায় CP শেখার সুবিধার্থে। টেকনিক্যাল টার্ম এবং কোড ইংরেজিতে রাখা হয়েছে যাতে ইন্টারন্যাশনাল স্ট্যান্ডার্ড ফলো করা যায়।</em></p>
+</blockquote>
+<h2 id="-discord-session-content"><a class="header" href="#-discord-session-content">📅 Discord session content</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>সেশন</th><th>তারিখ</th><th>আলোচনা করা টপিকস</th><th>Instructor</th></tr></thead><tbody>
+<tr><td>সেশন ১</td><td>২০২৫-০৫-০৫</td><td>1. প্রবলেম সলভিং আর CP-এর ফিলোসফি<br>2. কেন আমরা CP করবো?<br>3. The Right Problem Solving Mindset<br>4. Exercise vs Problem</td><td>ifrunruhin12</td></tr>
+<tr><td>সেশন ২</td><td>২০২৫-০৫-০৭</td><td>1. Problem Solving mindset ঠিক করার দারুন কিছু উপায়<br>2. Strategy, tactics আর pattern চিনে নেওয়ার কৌশল<br>3. Mindset আর knowledge—দুটোরই importance<br>4. Basic math ভিত্তিক problem<br>5. Census-taker problem ও তার solution<br>6. কীভাবে একটা solid math foundation তৈরি করবেন</td><td>ifrunruhin12</td></tr>
+<tr><td>সেশন ৩</td><td>২০২৫-০৫-১০</td><td>এখনো decide করা হয় নি</td><td>ifrunruhin12</td></tr>
+<tr><td>সেশন ৪</td><td>...</td><td></td><td></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 নতুন সেশন যুক্ত হতে থাকবে সময় অনুযায়ী।</p>
+</blockquote>
+<h4 id="exercises-to-practice-with-golang"><a class="header" href="#exercises-to-practice-with-golang">Exercises to Practice with Golang</a></h4>
+<ul>
+<li><input disabled="" type="checkbox"/>
+প্রিন্ট করুন: <code>"Hello World"</code></li>
+<li><input disabled="" type="checkbox"/>
+দুটি সংখ্যার যোগফল বের করুন</li>
+<li><input disabled="" type="checkbox"/>
+If-Else দিয়ে Even/Odd চেক</li>
+<li><input disabled="" type="checkbox"/>
+Loop দিয়ে ১ থেকে N পর্যন্ত প্রিন্ট করুন</li>
+<li><input disabled="" type="checkbox"/>
+Function ব্যবহার করে দুই সংখ্যার গড় বের করুন</li>
+<li><input disabled="" type="checkbox"/>
+<a href="https://atcoder.jp/contests/abc049/tasks/abc049_a?lang=en">Vowel or Consonant</a> (dncpc1)</li>
+</ul>
+<blockquote>
+<p>পরবর্তীতে আরও <code>exercise</code> add করা হবে।</p>
+</blockquote>
+<hr />
+<h2 id="problem-list"><a class="header" href="#problem-list">Problem list</a></h2>
+<h4 id="basic-mathematical-problems"><a class="header" href="#basic-mathematical-problems">Basic Mathematical problems</a></h4>
+<ol>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1000">Timus 1000</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1409">Timus 1409</a></li>
+<li><a href="https://projecteuler.net/problem=1">Project Euler 1</a></li>
+<li><a href="https://atcoder.jp/contests/abc043/tasks/abc043_a?lang=en">Children and Candies</a> (dncpc1)</li>
+<li><a href="https://codeforces.com/problemset/problem/2086/A">Cloudberry Jams</a> (dncpc1)</li>
+<li><a href="https://atcoder.jp/contests/abc055/tasks/abc055_a?lang=en">Restuarant</a> (dncpc1)</li>
+<li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">Hashmat the Brave warrior</a></li>
+<li></li>
+</ol>
+<h4 id="beginner-friendly-cp-problems"><a class="header" href="#beginner-friendly-cp-problems">Beginner Friendly CP problems</a></h4>
+<ol>
+<li><a href="https://cses.fi/problemset/task/1068">Weird Algorithm</a></li>
+<li><a href="https://leetcode.com/problems/concatenation-of-array/description/">Concatenation of Array</a></li>
+</ol>
+<blockquote>
+<p>পরবর্তীতে আরও প্রব্লেম এবং ক্যাটাগরি যুক্ত করা হবে।</p>
+</blockquote>
+<hr />
+<h2 id="-tips--resources"><a class="header" href="#-tips--resources">📘 Tips &amp; Resources</a></h2>
+<blockquote>
+<p>Important লিংকস আর রিসোর্স:</p>
+</blockquote>
+<ul>
+<li>📚 <a href="https://cses.fi/book/book.pdf">Competitive Programming Handbook - CSES</a></li>
+<li>🌐 <a href="https://cp-algorithms.com/">CP Algorithms</a></li>
+<li>📊 <a href="https://www.bigocheatsheet.com/">Big-O Cheat Sheet</a></li>
+<li>🧪 <a href="https://cs50.harvard.edu/x/2024/">CS50x Problem Sets</a></li>
+<li>👀 <a href="https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/">Blind 75</a></li>
+</ul>
+<blockquote>
+<p><em>আস্তে আস্তে আরও resources যুক্ত করা হবে।</em></p>
+</blockquote>
+<hr />
+<h2 id="-cp-রোডমযাপ-শুরুর-পথ-থেকে-একসপারট-হবার-জারনি"><a class="header" href="#-cp-রোডমযাপ-শুরুর-পথ-থেকে-একসপারট-হবার-জারনি">🛣️ CP রোডম্যাপ: শুরুর পথ থেকে এক্সপার্ট হবার জার্নি</a></h2>
+<p>এই গাইডে আমরা যেভাবে এগোবো — এটি শুধু একটি সঠিক পথ না, বরং বাস্তবভিত্তিক ও প্রমাণিত একটি রোডম্যাপ। ধাপে ধাপে শেখা, চর্চা করা এবং নিজের স্কিল লেভেল বাড়ানোই আমাদের মূল লক্ষ্য।</p>
+<hr />
+<h4 id="1-programming-language-basics-go"><a class="header" href="#1-programming-language-basics-go">1. Programming Language Basics (Go)</a></h4>
+<p>→ variable, data type, input/output, loop, function, scope ইত্যাদি নিয়ে হাতে-কলমে শেখা।</p>
+<h4 id="2-philosophy-এবং-mindset-of-problem-solving"><a class="header" href="#2-philosophy-এবং-mindset-of-problem-solving">2. Philosophy এবং Mindset of Problem Solving</a></h4>
+<p>→ প্রবলেম সলভিং-এর পিছনের ভাবনা, attitude ও সফল mindset তৈরি করার কৌশল।</p>
+<h4 id="3-basic-exercise-using-go"><a class="header" href="#3-basic-exercise-using-go">3. Basic Exercise using Go</a></h4>
+<p>→ Go দিয়ে ছোট ছোট প্র্যাকটিস প্রবলেম সমাধান করা যাতে core concepts ক্লিয়ার হয়।</p>
+<h4 id="4-basic-math-problem-solving-with-go"><a class="header" href="#4-basic-math-problem-solving-with-go">4. Basic Math Problem Solving with Go</a></h4>
+<p>→ GCD, LCM, Prime Check, Divisor, Modulo Math, Factorial ইত্যাদি সমস্যার প্র্যাকটিস।</p>
+<h4 id="5-solid-math-foundation-তৈরি"><a class="header" href="#5-solid-math-foundation-তৈরি">5. Solid Math Foundation তৈরি</a></h4>
+<p>→ number theory-এর দরকারি অংশ, intuition বিল্ড করা এবং ম্যাথ নিয়ে ভয় কেটে ফেলা।</p>
+<h4 id="6-algorithm-introduction"><a class="header" href="#6-algorithm-introduction">6. Algorithm Introduction</a></h4>
+<p>→ algorithm মানে কী, কেন গুরুত্বপূর্ণ, এবং কীভাবে চিন্তা করে algorithm ডিজাইন করবেন।</p>
+<h4 id="7-data-structure-basic-operations-read-search-add-using-go"><a class="header" href="#7-data-structure-basic-operations-read-search-add-using-go">7. Data Structure Basic Operations (Read, Search, Add) using Go</a></h4>
+<p>→ array, slice, map এর উপর কাজ করা এবং basic operation বুঝে নেওয়া।</p>
+<h4 id="8-time-complexity-এবং-big-o-notation-explained"><a class="header" href="#8-time-complexity-এবং-big-o-notation-explained">8. Time Complexity এবং Big O Notation Explained</a></h4>
+<p>→ প্রবলেম সলভিং-এ efficiency বোঝা, Big O এর ধারণা তৈরি করা।</p>
+<h4 id="9-array-এবং-slice-ভিততিক-algorithms"><a class="header" href="#9-array-এবং-slice-ভিততিক-algorithms">9. Array এবং Slice ভিত্তিক Algorithms</a></h4>
+<p>→ prefix sum, sliding window, two pointer technique এর ব্যবহার।</p>
+<h4 id="10-search-algorithms"><a class="header" href="#10-search-algorithms">10. Search Algorithms</a></h4>
+<p>→ linear search, binary search, এবং binary search on answer।</p>
+<h4 id="11-greedy-algorithms"><a class="header" href="#11-greedy-algorithms">11. Greedy Algorithms</a></h4>
+<p>→ কখন greedy কাজ করে, coin change, activity selection ইত্যাদি প্রবলেম।</p>
+<h4 id="12-sorting-techniques"><a class="header" href="#12-sorting-techniques">12. Sorting Techniques</a></h4>
+<p>→ built-in ও custom sort: bubble, selection, insertion, merge sort, recursion এর প্রাথমিক ধারণা।</p>
+<h4 id="13-recursion"><a class="header" href="#13-recursion">13. Recursion</a></h4>
+<p>→ base case, call stack, এবং recursive thinking।</p>
+<h4 id="14-dynamic-programming-dp"><a class="header" href="#14-dynamic-programming-dp">14. Dynamic Programming (DP)</a></h4>
+<p>→ memoization এবং tabulation, classic DP প্রবলেমের মাধ্যমে concept বোঝা।</p>
+<h4 id="15-introduction-to-graphs"><a class="header" href="#15-introduction-to-graphs">15. Introduction to Graphs</a></h4>
+<p>→ node, edge, BFS, DFS এবং graph traversal-এর মূল ধারণা।</p>
+<h4 id="16-basic-contest-strategy"><a class="header" href="#16-basic-contest-strategy">16. Basic Contest Strategy</a></h4>
+<p>→ contest time management, কোন প্রবলেম আগে করবেন, frustration handle করার টিপস।</p>
+<hr />
+<blockquote>
+<p>এই রোডম্যাপ অনুযায়ী আগালে, আপনি একদিকে যেমন প্রোগ্রামিং-এর বেসিক মজবুত করতে পারবেন, অন্যদিকে ধীরে ধীরে advanced level-এ প্রবেশ করার জন্য প্রস্তুত হবেন।</p>
+</blockquote>
+<hr />
+<h2 id="কিভাবে-এই-guide-বযাবহার-করবেন"><a class="header" href="#কিভাবে-এই-guide-বযাবহার-করবেন">কিভাবে এই guide ব্যাবহার করবেন</a></h2>
+<ol>
+<li>প্রতিদিন discord এ দেওয়া exercises/problems গুলো solve করবেন।</li>
+<li>নিয়মিত আমাদের session এবং contest গুলোতে participate করুন।</li>
+<li>সেশন লিস্ট নিয়মিত আপডেট করুন।</li>
+<li>বেশি problem solve করা উদ্দেশ্য নয়, বরং ভালোভাবে বুঝে problem solving করবেন।</li>
+<li>নিজের একটি github repo তৈরি করুন এবং এই guide এর problem solution গুলো সেখানে add করতে পারেন।</li>
+</ol>
+<hr />
+<p><em>এই গাইডের সাথে থাকুন, নিজের প্রগ্রেস ট্র্যাক করুন, আর শেখা চালিয়ে যান!</em></p>
+<h2 id="events-full-term"><a class="header" href="#events-full-term">Events (full term)</a></h2>
+<ol>
+<li>dncpc = Daily (Nebula-Clash) practice contest</li>
+<li>NC = Nebula Clash</li>
+</ol>
 
                     </main>
 
