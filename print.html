@@ -252,20 +252,193 @@ Let’s archive knowledge, share what we’ve learned, and help the next generat
 <hr />
 <h2 id="-category-overview"><a class="header" href="#-category-overview">📁 <strong>Category Overview</strong></a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Microservice</th><th>Description</th><th>Documentation Link</th></tr></thead><tbody>
-<tr><td><code>1-interview-qa/</code></td><td>Real interview Q&amp;A and Go-topic challenges</td><td>🔗 <a href="category/./docs/services/intereview-qa/inteview-qa.html">Golang Interview Q&amp;A - Bangla</a></td></tr>
-<tr><td><code>2-class-notes/</code></td><td>Academic and bootcamp course notes &amp; summaries</td><td>🔗 <a href="category/index.html#">Class Notes Documentation</a></td></tr>
-<tr><td><code>3-project-archive/</code></td><td>Real-world Go projects (CLI, web, microservices)</td><td>🔗 <a href="category/index.html#">Project Archive Documentation</a></td></tr>
-<tr><td><code>4-image-infographic-archive/</code></td><td>Diagrams, cheat sheets, flowcharts</td><td>🔗 <a href="category/index.html#">Visual Archive Documentation</a></td></tr>
-<tr><td><code>5-community-stories/</code></td><td>Job search experiences, lessons, and career stories</td><td>🔗 <a href="category/index.html#">Community Stories Documentation</a></td></tr>
-<tr><td><code>6-package-archive/</code></td><td>Go libraries, middleware, API clients, etc.</td><td>🔗 <a href="category/index.html#">Package Archive Documentation</a></td></tr>
-<tr><td><code>7-community-blogs/</code></td><td>Blogs, how-tos, opinion pieces from the community</td><td>🔗 <a href="category/index.html#">Community Blogs Documentation</a></td></tr>
-<tr><td><code>8-news-events/</code></td><td>Go community news, events, hackathons</td><td>🔗 <a href="category/index.html#">News &amp; Events Documentation</a></td></tr>
-<tr><td><code>9-video-archive/</code></td><td>Curated learning videos, tech talks, playlists</td><td>🔗 <a href="category/index.html#">Video Archive Documentation</a></td></tr>
-<tr><td><code>10-course-content/</code></td><td>Full-length open-source Go courses</td><td>🔗 <a href="category/index.html#">Course Content Documentation</a></td></tr>
-<tr><td><code>11-link-resource-archive/</code></td><td>Curated links to tools, documentation, benchmarks</td><td>🔗 <a href="category/index.html#">Link Resources Documentation</a></td></tr>
+<tr><td><code>1-interview-qa/</code></td><td>Real interview Q&amp;A and Go-topic challenges</td><td>🔗 <a href="introduction/category/./docs/services/intereview-qa/inteview-qa.html">Golang Interview Q&amp;A - Bangla</a></td></tr>
+<tr><td><code>2-class-notes/</code></td><td>Academic and bootcamp course notes &amp; summaries</td><td>🔗 <a href="introduction/category/index.html#">Class Notes Documentation</a></td></tr>
+<tr><td><code>3-project-archive/</code></td><td>Real-world Go projects (CLI, web, microservices)</td><td>🔗 <a href="introduction/category/index.html#">Project Archive Documentation</a></td></tr>
+<tr><td><code>4-image-infographic-archive/</code></td><td>Diagrams, cheat sheets, flowcharts</td><td>🔗 <a href="introduction/category/index.html#">Visual Archive Documentation</a></td></tr>
+<tr><td><code>5-community-stories/</code></td><td>Job search experiences, lessons, and career stories</td><td>🔗 <a href="introduction/category/index.html#">Community Stories Documentation</a></td></tr>
+<tr><td><code>6-package-archive/</code></td><td>Go libraries, middleware, API clients, etc.</td><td>🔗 <a href="introduction/category/index.html#">Package Archive Documentation</a></td></tr>
+<tr><td><code>7-community-blogs/</code></td><td>Blogs, how-tos, opinion pieces from the community</td><td>🔗 <a href="introduction/category/index.html#">Community Blogs Documentation</a></td></tr>
+<tr><td><code>8-news-events/</code></td><td>Go community news, events, hackathons</td><td>🔗 <a href="introduction/category/index.html#">News &amp; Events Documentation</a></td></tr>
+<tr><td><code>9-video-archive/</code></td><td>Curated learning videos, tech talks, playlists</td><td>🔗 <a href="introduction/category/index.html#">Video Archive Documentation</a></td></tr>
+<tr><td><code>10-course-content/</code></td><td>Full-length open-source Go courses</td><td>🔗 <a href="introduction/category/index.html#">Course Content Documentation</a></td></tr>
+<tr><td><code>11-link-resource-archive/</code></td><td>Curated links to tools, documentation, benchmarks</td><td>🔗 <a href="introduction/category/index.html#">Link Resources Documentation</a></td></tr>
 </tbody></table>
 </div>
 <hr />
+<div style="break-before: page; page-break-before: always;"></div><p><strong>comprehensive and detailed RBAC permission list</strong> Golang Community Vault platform. This will allow <strong>fine-grained control</strong> for various roles across all the directories and content types outlined in README.</p>
+<hr />
+<h2 id="-universal-permission-categories-applicable-to-all-modules"><a class="header" href="#-universal-permission-categories-applicable-to-all-modules">🔒 Universal Permission Categories (Applicable to all modules)</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>view:&lt;resource&gt;</code></td><td>Can view/read the resource (public or restricted)</td></tr>
+<tr><td><code>create:&lt;resource&gt;</code></td><td>Can create/upload new items</td></tr>
+<tr><td><code>edit:&lt;resource&gt;</code></td><td>Can update or modify existing items</td></tr>
+<tr><td><code>delete:&lt;resource&gt;</code></td><td>Can remove an item</td></tr>
+<tr><td><code>publish:&lt;resource&gt;</code></td><td>Can mark content as published (if there’s a review process)</td></tr>
+<tr><td><code>archive:&lt;resource&gt;</code></td><td>Can archive or unpublish without deletion</td></tr>
+<tr><td><code>feature:&lt;resource&gt;</code></td><td>Can mark content as featured</td></tr>
+<tr><td><code>comment:&lt;resource&gt;</code></td><td>Can comment on resource</td></tr>
+<tr><td><code>moderate:&lt;resource&gt;</code></td><td>Can manage others' comments and discussions</td></tr>
+<tr><td><code>rate:&lt;resource&gt;</code></td><td>Can give rating (if rating system exists)</td></tr>
+<tr><td><code>tag:&lt;resource&gt;</code></td><td>Can add/edit tags or metadata</td></tr>
+<tr><td><code>assign:&lt;resource&gt;</code></td><td>Can assign reviewers or contributors to a resource</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="-resource-specific-permissions"><a class="header" href="#-resource-specific-permissions">🔖 Resource-Specific Permissions</a></h2>
+<p>Here's a breakdown by directory and subtype:</p>
+<hr />
+<h3 id="1-interview-qa"><a class="header" href="#1-interview-qa">1. <code>interview-qa/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>curate:interview_qa</code></td><td>Can organize, categorize, and reorder Q&amp;A content</td></tr>
+<tr><td><code>bulk_upload:interview_qa</code></td><td>Upload multiple Q&amp;As via CSV or UI</td></tr>
+<tr><td><code>label:difficulty_level</code></td><td>Can assign difficulty labels (easy/med/hard)</td></tr>
+<tr><td><code>verify:interview_qa</code></td><td>Trusted users can verify accuracy of Q&amp;A</td></tr>
+<tr><td><code>suggest_edit:interview_qa</code></td><td>Submit Q&amp;A revisions for approval</td></tr>
+<tr><td><code>link:qa_to_topic</code></td><td>Link questions across topic-wise and company-wise sections</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="2-class-notes"><a class="header" href="#2-class-notes">2. <code>class-notes/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>format:class_note</code></td><td>Format content (LaTeX, markdown support)</td></tr>
+<tr><td><code>translate:class_note</code></td><td>Upload alternate language versions</td></tr>
+<tr><td><code>rate:note_quality</code></td><td>Rate based on helpfulness/accuracy</td></tr>
+<tr><td><code>submit_note_review</code></td><td>Peer review notes</td></tr>
+<tr><td><code>merge_notes</code></td><td>Combine similar notes into one resource</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="3-project-archive"><a class="header" href="#3-project-archive">3. <code>project-archive/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>link:project_github</code></td><td>Attach GitHub repo link</td></tr>
+<tr><td><code>mark:project_stable</code></td><td>Certify project as stable/maintained</td></tr>
+<tr><td><code>fork:community_project</code></td><td>Duplicate project into sandbox for experimentation</td></tr>
+<tr><td><code>assign:maintainer</code></td><td>Assign project maintainers</td></tr>
+<tr><td><code>create:project_tags</code></td><td>Define tags like "CLI", "REST", "gRPC" etc.</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="4-image-infographic-archive"><a class="header" href="#4-image-infographic-archive">4. <code>image-infographic-archive/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>upload:image_infographic</code></td><td>Upload PNG/SVG/PDF</td></tr>
+<tr><td><code>optimize:image</code></td><td>Resize/compress for performance</td></tr>
+<tr><td><code>annotate:image</code></td><td>Add notes or highlight sections</td></tr>
+<tr><td><code>group:infographics</code></td><td>Create themes/sets (e.g., Goroutine Internals Set)</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="5-community-stories"><a class="header" href="#5-community-stories">5. <code>community-stories/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>submit:story</code></td><td>Submit a personal or experience story</td></tr>
+<tr><td><code>moderate:story</code></td><td>Approve or reject stories</td></tr>
+<tr><td><code>tag:story_category</code></td><td>Label stories (job hunt, rejections, etc.)</td></tr>
+<tr><td><code>feature:story</code></td><td>Highlight on community page</td></tr>
+<tr><td><code>approve:anonymous_story</code></td><td>Allow anonymous publishing</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="6-package-archive"><a class="header" href="#6-package-archive">6. <code>package-archive/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>upload:package_source</code></td><td>Upload zip/tarball or Git link</td></tr>
+<tr><td><code>verify:package_integrity</code></td><td>Ensure no malicious code</td></tr>
+<tr><td><code>test:package</code></td><td>Run CI on submitted code</td></tr>
+<tr><td><code>mark:package_deprecated</code></td><td>Deprecate old packages</td></tr>
+<tr><td><code>create:package_doc</code></td><td>Write documentation for package</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="7-community-blogs"><a class="header" href="#7-community-blogs">7. <code>community-blogs/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>submit:blog_post</code></td><td>Write and submit a blog</td></tr>
+<tr><td><code>edit:others_blog</code></td><td>Allow editing of other authors' blogs (moderator only)</td></tr>
+<tr><td><code>review:blog_post</code></td><td>Can review before publishing</td></tr>
+<tr><td><code>pin:blog_post</code></td><td>Pin post to top of page</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="8-news-events"><a class="header" href="#8-news-events">8. <code>news-events/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>submit:event</code></td><td>Submit conference or event</td></tr>
+<tr><td><code>create:event_recap</code></td><td>Summarize events</td></tr>
+<tr><td><code>organize:event_listing</code></td><td>Curate future/past events</td></tr>
+<tr><td><code>assign:event_host</code></td><td>Add moderators for meetups/hackathons</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="9-video-archive"><a class="header" href="#9-video-archive">9. <code>video-archive/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>embed:video_link</code></td><td>Attach YouTube or local hosted video</td></tr>
+<tr><td><code>transcribe:video</code></td><td>Add subtitle or transcript</td></tr>
+<tr><td><code>review:video_content</code></td><td>Moderate for quality or relevance</td></tr>
+<tr><td><code>feature:video</code></td><td>Spotlight video on homepage</td></tr>
+<tr><td><code>clip:video_segment</code></td><td>Create mini-clips or highlights</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="10-course-content"><a class="header" href="#10-course-content">10. <code>course-content/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>submit:course_module</code></td><td>Create lessons or sections</td></tr>
+<tr><td><code>assign:course_owner</code></td><td>Appoint course maintainer(s)</td></tr>
+<tr><td><code>review:course_content</code></td><td>Approve/reject modules</td></tr>
+<tr><td><code>track:course_progress</code></td><td>See student analytics (admin only)</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="11-link-resource-archive"><a class="header" href="#11-link-resource-archive">11. <code>link-resource-archive/</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>submit:link</code></td><td>Add blog/tool/documentation link</td></tr>
+<tr><td><code>validate:link</code></td><td>Check for broken/dead links</td></tr>
+<tr><td><code>approve:external_resource</code></td><td>Manual approval for outbound links</td></tr>
+<tr><td><code>organize:bookmark_list</code></td><td>Allow curating themed collections</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="-bonus-system-permissions"><a class="header" href="#-bonus-system-permissions">✅ Bonus System Permissions</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
+<tr><td><code>manage:users</code></td><td>Admin only — manage roles, bans, profile data</td></tr>
+<tr><td><code>manage:roles</code></td><td>Create/update roles and their permission sets</td></tr>
+<tr><td><code>audit:logs</code></td><td>View user activity logs</td></tr>
+<tr><td><code>backup:data</code></td><td>Export platform content</td></tr>
+<tr><td><code>toggle:maintenance_mode</code></td><td>Take platform down for maintenance</td></tr>
+<tr><td><code>view:analytics</code></td><td>See usage and traffic reports</td></tr>
+<tr><td><code>send:notifications</code></td><td>System-wide announcement access</td></tr>
+</tbody></table>
+</div>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h2 id="-tech-stack--tools"><a class="header" href="#-tech-stack--tools">🧩 <strong>Tech Stack &amp; Tools</strong></a></h2>
+<p>This vault is powered by several modern tools and practices for collaboration, code sharing, and documentation. Feel free to explore more about our tech stack.</p>
+<hr />
+<h2 id="-inspiration--vision"><a class="header" href="#-inspiration--vision">🌟 <strong>Inspiration &amp; Vision</strong></a></h2>
+<p>“<strong>Code fades. Community lasts.</strong>”</p>
+<p>This archive is designed to support, uplift, and celebrate the <strong>Golang Community</strong>. It’s not just about sharing code — it’s about collecting <strong>collective knowledge</strong>, <strong>hard-won experiences</strong>, and <strong>stories that shape our journey</strong>. Whether you're new to Go or a veteran, this vault is your home.</p>
+<hr />
+<h2 id="-tech-stack-future-web-app-vision"><a class="header" href="#-tech-stack-future-web-app-vision">🧩 <strong>Tech Stack (Future Web App Vision)</strong></a></h2>
+<p>This vault is powered by several modern tools and practices for collaboration, code sharing, and documentation. Feel free to explore more about our tech stack:</p>
+<p>If this turns into a community-driven web interface:</p>
+<pre><code class="language-bash">• Frontend: React / Svelte / Next.js / Vue
+• Backend: Go
+• Storage: GitHub + SQLite/Postgres
+• Auth: GitHub OAuth (optional)
+• Deployment: AWS
+</code></pre>
+<p>UI/UX ideas for the future web App</p>
+<pre><code class="language-bash">Most preferable one for now:
+1. Modern Library-Style UI
+   - Homepage: A clean, minimalist grid of featured archives with a search bar in the center.
+   - Filters &amp; Categories: Sidebar with quick access to categories (by year, author, tags, etc.).
+   - Reading Mode: Dark/light mode toggle, distraction-free fullscreen mode.
+   - Bookmarking &amp; Notes: Users can highlight text and add personal notes to archives.
+</code></pre>
+<p>Other types of UI</p>
+<pre><code class="language-bash">2. Timeline-Based UI
+3. Grid &amp; Gallery UI
+4. Terminal-Inspired UI
+5. Tag-Based UI
+6. Map-Based UI
+7. AI-Assisted UI
+8. Infinite Scroll vs. Pagination Debate
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="contribution-guide"><a class="header" href="#contribution-guide">Contribution Guide</a></h2>
 <h3 id="-how-to-contribute"><a class="header" href="#-how-to-contribute">✍️ <strong>How to Contribute?</strong></a></h3>
 <p>We're excited to have you contribute to the <strong>Golang Community Vault</strong>! Whether you’re adding resources, sharing your experiences, or helping to maintain content — you are adding to the growth and strength of our community.</p>
@@ -1250,18 +1423,17 @@ func call() func(x int, y int) {
 <strong>Date:</strong> 2025-05-01
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-24--go-internal-memory-code-data-stack-heap"><a class="header" href="#class-24--go-internal-memory-code-data-stack-heap">Class 24 — Go Internal Memory (Code, Data, Stack, Heap)</a></h1>
-<h3 id="-topics-covered"><a class="header" href="#-topics-covered">🧠 Topics Covered</a></h3>
-<p>This class dives deep into how Go programs are structured in memory. Concepts explained include:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৪---go-internal-memory-code-data-stack-heap"><a class="header" href="#কলাস-২৪---go-internal-memory-code-data-stack-heap">ক্লাস ২৪ - Go Internal Memory (Code, Data, Stack, Heap)</a></h1>
+<h2 id="-আলোচনার-বিষয়বসতু"><a class="header" href="#-আলোচনার-বিষয়বসতু">🧠 আলোচনার বিষয়বস্তু</a></h2>
+<p>এই ক্লাসে একটি <code>Go program</code> কম্পিউটারের মেমরিতে কীভাবে বিন্যস্ত থাকে সেটি নিয়ে বিস্তারিত আলোচনা করা হয়েছে। নিচে প্রয়োজনীয় ধারনাগুলো উল্লেখ করা হল :</p>
 <ul>
-<li><strong>Code Segment</strong>: Stores compiled instructions (functions).</li>
-<li><strong>Data Segment</strong>: Stores global/static variables (like <code>var a = 10</code>).</li>
-<li><strong>Stack</strong>: Stores local function variables. Each function call creates a new <em>stack frame</em>.</li>
-<li><strong>Heap</strong>: Used for dynamically allocated memory (we'll explore this more later).</li>
-<li><strong>Garbage Collector</strong>: Runs on the heap. Cleans up memory that's no longer in use.</li>
+<li><strong>কোড সেগমেন্ট (Code Segment):</strong> কম্পাইল্ড ইন্সট্রাকশন (যেমন ফাংশন, কনস্ট্যান্ট ভ্যারিয়েবল ইত্যাদি যা পরবর্তীতে পরিবর্তন হওয়ার সুযোগ নেই) সংরক্ষণ করে।</li>
+<li><strong>ডেটা সেগমেন্ট (Data Segment):</strong> প্রোগ্রামের স্ট্যাটিক (static) এবং গ্লোবাল (global) ভ্যারিয়েবল সংরক্ষণের জন্য ব্যবহৃত হয় (যেমন <code>var a = 10</code>)।</li>
+<li><strong>স্ট্যাক (Stack):</strong> ফাংশনের মধ্যে ব্যবহৃত লোকাল ভেরিয়েবলগুলো স্ট্যাকে সংরক্ষণ করা হয়। প্রতিটি ফাংশন কলের জন্য নতুন স্ট্যাকফ্রেম (Stack Frame) তৈরি করে।</li>
+<li><strong>হিপ (Heap):</strong> ডাইনামিক মেমোরি অ্যালোকেশন (dynamic memory allocation) এর জন্য ব্যবহৃত হয় (এটি নিয়ে পরবর্তীতে বিস্তারিত আলোচনা করা হবে)।</li>
+<li><strong>গারবেজ কালেক্টর (Garbage Collector):</strong> হিপ মেমোরি (heap memory) থেকে অব্যবহৃত বা অপ্রয়োজনীয় মেমোরি সরিয়ে মেমোরি ফাঁকা করে।</li>
 </ul>
-<hr />
-<h3 id="-code-from-class-24"><a class="header" href="#-code-from-class-24">📜 Code from Class 24</a></h3>
+<h2 id="-কলাসের-কোড"><a class="header" href="#-কলাসের-কোড">📜 ক্লাসের কোড:</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -1269,107 +1441,100 @@ import "fmt"
 var a = 10
 
 func add(x, y int) {
-	z := x + y
-	fmt.Println(z)
+    z := x + y
+    fmt.Println(z)
 }
 
 func main() {
-	add(5,4)
-	add(a,3)
+    add(5,4)
+    add(a,3)
 }
 
 func init() {
-	fmt.Println("Hello")
+    fmt.Println("Hello")
 }
 </code></pre>
-<h2 id="-code-execution-flow--memory-layout"><a class="header" href="#-code-execution-flow--memory-layout">🔍 Code Execution Flow &amp; Memory Layout</a></h2>
-<pre><code class="language-pgsql">           ┌────────────────────────────────────────────┐
-           │               Code Segment                 │
-           │--------------------------------------------│
-           │ Functions: init, main, add                 │
-           └────────────────────────────────────────────┘
-                          │
-                          ▼
-           ┌────────────────────────────────────────────┐
-           │              Data Segment                  │
-           │--------------------------------------------│
-           │ Global Variable: a = 10                    │
-           └────────────────────────────────────────────┘
-                          │
-                          ▼
-              ┌────────────────────────────┐
-              │          Stack             │
-              │----------------------------│
-              │ main() Stack Frame         │
-              │   - Calls add(5, 4)        │
-              │       - x=5, y=4           │
-              │       - z=9                │
-              │   - Calls add(10, 3)       │
-              │       - x=10, y=3          │
-              │       - z=13               │
-              └────────────────────────────┘
-                          │
-                          ▼
-           ┌────────────────────────────────────────────┐
-           │               Heap (Unused here)           │
-           │       (Managed by the Garbage Collector)   │
-           └────────────────────────────────────────────┘
+<h2 id="-কোড-একসিকিউশন-ফলো-এবং-মেমোরি-লেআউট"><a class="header" href="#-কোড-একসিকিউশন-ফলো-এবং-মেমোরি-লেআউট">🔍 কোড এক্সিকিউশন ফ্লো এবং মেমোরি লেআউট</a></h2>
+<pre><code>       ┌────────────────────────────────────────────┐
+       │               Code Segment                 │
+       │--------------------------------------------│
+       │ Functions: init, main, add                 │
+       └────────────────────────────────────────────┘
+                      │
+                      ▼
+       ┌────────────────────────────────────────────┐
+       │              Data Segment                  │
+       │--------------------------------------------│
+       │ Global Variable: a = 10                    │
+       └────────────────────────────────────────────┘
+                      │
+                      ▼
+          ┌────────────────────────────┐
+          │          Stack             │
+          │----------------------------│
+          │ main() Stack Frame         │
+          │   - Calls add(5, 4)        │
+          │       - x=5, y=4           │
+          │       - z=9                │
+          │   - Calls add(10, 3)       │
+          │       - x=10, y=3          │
+          │       - z=13               │
+          └────────────────────────────┘
+                      │
+                      ▼
+       ┌────────────────────────────────────────────┐
+       │               Heap (Unused here)           │
+       │       (Managed by the Garbage Collector)   │
+       └────────────────────────────────────────────┘
 </code></pre>
-<h2 id="-execution-order"><a class="header" href="#-execution-order">⚙️ Execution Order</a></h2>
-<ol>
-<li><code>init()</code> is run automatically before <code>main()</code> → prints:</li>
-</ol>
-<pre><code class="language-nginx">Hello
+<h2 id="-একসিকিউশন-অরডার-execution-order"><a class="header" href="#-একসিকিউশন-অরডার-execution-order">⚙️ এক্সিকিউশন অর্ডার (Execution Order)</a></h2>
+<p>১। <code>init()</code> একটি বিশেষ ফাংশন, যা main() ফাংশনের আগে স্বয়ংক্রিয়ভাবে (automatically) রান হয়। তাই এটি শুরুতে <code>Hello</code> প্রিন্ট করবে।</p>
+<pre><code class="language-go">Hello
 </code></pre>
-<ol start="2">
-<li><code>main()</code> runs and calls:
--[] <code>add(5, 4)</code> → prints:
+<p>২। এই পর্যায়ে <code>main()</code> ফাংশন রান হবে এবং -[] <code>add(5, 4)</code> ফাংশনকে কল করবে। ফলে প্রিন্ট হবে <code>9</code></p>
 <pre><code>9
 </code></pre>
--[] <code>add(a, 3)</code> → uses <code>a = 10</code> → prints:
+<p>এরপর -[] <code>add(a, 3)</code> ফাংশনকে কল করবে যেখানে <code>a</code> এর মান <code>10</code> ব্যবহার করবে (ডেটা সেগমেন্ট থেকে)। ফলে প্রিন্ট হবে <code>13</code></p>
 <pre><code>13
 </code></pre>
-</li>
-</ol>
-<h2 id="-key-concepts-recap"><a class="header" href="#-key-concepts-recap">📌 Key Concepts Recap</a></h2>
-<p>Concept | Meaning
-Code Segment | Where all functions live after compilation
-Data Segment | Stores global variables
-Stack | Temporary memory for function execution (local vars, params)
-Heap | For dynamic memory (we didn't use heap explicitly here)
-Garbage Collector | Automatically manages memory on the heap
-init() Function | Special function in Go — runs before main()</p>
+<h2 id="-মূল-ধারনা-পুনরালোচনা-key-concepts-recap"><a class="header" href="#-মূল-ধারনা-পুনরালোচনা-key-concepts-recap">📌 মূল ধারনা পুনরালোচনা (Key Concepts Recap)</a></h2>
+<ul>
+<li>কোড সেগমেন্ট | সব ফাংশন কম্পাইল হওয়ার পর যেখানে থাকে</li>
+<li>ডেটা সেগমেন্ট | গ্লোবাল ভেরিয়েবল সংরক্ষণ করে</li>
+<li>স্ট্যাক | ফাংশন রান হওয়ার সময় অস্থায়ী মেমরি (লোকাল ভেরিয়েবল, প্যারামিটার)</li>
+<li>হিপ | ডাইনামিক মেমরির জন্য</li>
+<li>গারবেজ কালেক্টর | হিপে থাকা মেমরি স্বয়ংক্রিয়ভাবে ম্যানেজ করে</li>
+<li><code>init()</code> ফাংশন | <code>Go</code>-তে বিশেষ ফাংশন — <code>main()</code> এর আগে রান হয়</li>
+</ul>
 <blockquote>
-<p>🧼 Garbage Collector Insight:
-Go’s GC sits on the heap and sweeps unused allocations to keep memory clean. You won't notice it in this small program, but it's your bestie when your app scales.</p>
+<p>🧼 গারবেজ কালেক্টর সম্পর্কে উপলব্ধি:
+Go-এর গারবেজ কালেক্টর হিপে থেকে অব্যবহৃত মেমরি মুছে ফেলে। ছোট প্রোগ্রামে এটি তেমন বোঝা যায় না, তবে অ্যাপ বড় হলে এটি আপনার সেরা বন্ধু।</p>
 </blockquote>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-14
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-25---internal-memory-deep-dive-compilation--execution-phases"><a class="header" href="#class-25---internal-memory-deep-dive-compilation--execution-phases">Class 25 - Internal Memory Deep Dive: Compilation &amp; Execution Phases</a></h1>
-<hr />
-<h2 id="-topics-covered-1"><a class="header" href="#-topics-covered-1">✨ Topics Covered</a></h2>
-<p>This class focused on the internal workings of a Go program with a spotlight on what happens under the hood during:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৫---ইনটারনাল-মেমরি-গভীর-বিশলেষণ-কমপাইলেশন-ও-একসিকিউশন-পরযায"><a class="header" href="#কলাস-২৫---ইনটারনাল-মেমরি-গভীর-বিশলেষণ-কমপাইলেশন-ও-একসিকিউশন-পরযায">ক্লাস ২৫ - ইন্টারনাল মেমরি গভীর বিশ্লেষণ: কম্পাইলেশন ও এক্সিকিউশন পর্যায়</a></h1>
+<h2 id="-আলোচিত-বিষযবসতু"><a class="header" href="#-আলোচিত-বিষযবসতু">✨ আলোচিত বিষয়বস্তু</a></h2>
+<p>এই ক্লাসে একটি Go প্রোগ্রামের অভ্যন্তরীণ কার্যকলাপ নিয়ে আলোচনা করা হয়েছে, বিশেষ করে নিচের বিষয়গুলোর ওপর:</p>
 <ul>
-<li><strong>Compilation Phase</strong></li>
-<li><strong>Execution Phase</strong></li>
-<li>How Go builds a binary with <code>go build</code></li>
-<li>What gets stored in that binary (functions, constants, globals, etc.)</li>
-<li>How function expressions (e.g., <code>add := func(...)</code>) are treated in memory</li>
+<li><strong>কম্পাইলেশন পর্যায় (Compilation Phase)</strong></li>
+<li><strong>এক্সিকিউশন পর্যায় / রানটাইম (Execution Phase / Runtime)</strong></li>
+<li>Go কীভাবে <code>go build</code> দিয়ে বাইনারি ফাইল তৈরি করে</li>
+<li>সেই বাইনারি ফাইলে কী কী সংরক্ষিত হয় (ফাংশন, কনস্ট্যান্ট, গ্লোবাল ভেরিয়েবল ইত্যাদি)</li>
+<li>ফাংশন এক্সপ্রেশনের (যেমন, <code>add := func(...)</code>) মেমরিতে কীভাবে হ্যান্ডল করা হয়</li>
 </ul>
-<hr />
-<h2 id="-key-concepts-6"><a class="header" href="#-key-concepts-6">👍 Key Concepts</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Concept</th><th>Explanation</th></tr></thead><tbody>
-<tr><td><strong>Compilation Phase</strong></td><td>Parses and compiles source code into a binary executable. No code runs yet.</td></tr>
-<tr><td><strong>Execution Phase</strong></td><td>Runs the compiled binary, starting from <code>init()</code> and then <code>main()</code>.</td></tr>
-<tr><td><strong>Code Segment</strong></td><td>Where compiled functions (<code>main</code>, <code>call</code>, anonymous <code>add</code>) and constants (<code>a</code>) are stored as part of executable instructions.</td></tr>
-<tr><td><strong>Data Segment</strong></td><td>Holds global variables (like <code>p</code>).</td></tr>
-<tr><td><strong>Function Expressions</strong></td><td>Treated as runtime function objects, stored in code segment.</td></tr>
+<h2 id="-আলোচনার-বিষয়বসতু-1"><a class="header" href="#-আলোচনার-বিষয়বসতু-1">👍 আলোচনার বিষয়বস্তু</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>ধারনা</th><th>ব্যাখ্যা</th></tr></thead><tbody>
+<tr><td><strong>কম্পাইলেশন পর্যায়</strong></td><td>সোর্স কোডকে বাইনারি এক্সিকিউটেবল এ পরিণত করে। এখনো কোনো কোড রান হয় না।</td></tr>
+<tr><td><strong>এক্সিকিউশন পর্যায়</strong></td><td>কম্পাইল হওয়া বাইনারি ফাইল রান করে, প্রথমে <code>init()</code> এবং তারপর <code>main()</code> থেকে শুরু হয়।</td></tr>
+<tr><td><strong>কোড সেগমেন্ট</strong></td><td>কম্পাইল হওয়া ফাংশন (<code>main</code>, <code>call</code>, anonymous <code>add</code>) এবং কনস্ট্যান্ট (<code>a</code>) এক্সিকিউটেবল ইন্সট্রাকশনের অংশ হিসেবে এখানে সংরক্ষিত থাকে।</td></tr>
+<tr><td><strong>ডেটা সেগমেন্ট</strong></td><td>গ্লোবাল ভেরিয়েবল (যেমন, <code>p</code>) এখানে সংরক্ষিত হয়।</td></tr>
+<tr><td><strong>ফাংশন এক্সপ্রেশন</strong></td><td>রানটাইমে ফাংশন অবজেক্ট হিসেবে বিবেচিত হয় এবং কোড সেগমেন্টে সংরক্ষিত থাকে।</td></tr>
 </tbody></table>
 </div>
 <hr />
-<h2 id="-code-used-in-class-25"><a class="header" href="#-code-used-in-class-25">📋 Code Used in Class 25</a></h2>
+<h2 id="-কলাস-২৫-এর-কোড"><a class="header" href="#-কলাস-২৫-এর-কোড">📋 ক্লাস ২৫ এর কোড:</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -1396,37 +1561,36 @@ func init() {
 	fmt.Println("Hello")
 }
 </code></pre>
-<hr />
-<h2 id="-compilation-phase-visualized"><a class="header" href="#-compilation-phase-visualized">🔄 Compilation Phase Visualized</a></h2>
-<h3 id="go-build-maingo"><a class="header" href="#go-build-maingo"><code>go build main.go</code></a></h3>
+<h2 id="-কমপাইলেশন-পরযাযের-ভিজযুযালাইজেশন"><a class="header" href="#-কমপাইলেশন-পরযাযের-ভিজযুযালাইজেশন">🔄 কম্পাইলেশন পর্যায়ের ভিজ্যুয়ালাইজেশন</a></h2>
+<pre><code>go build main.go
+</code></pre>
 <ul>
-<li><strong>Parser/Compiler</strong> checks for syntax, scope, and dependencies.</li>
-<li>Stores:
+<li><strong>পার্সার/কম্পাইলার</strong>: সিনট্যাক্স, স্কোপ এবং ডিপেন্ডেন্সি যাচাই করে।</li>
+<li><strong>সংরক্ষণ করে:</strong>
 <ul>
-<li>Constants: <code>a = 10</code></li>
-<li>Globals: <code>p = 100</code></li>
-<li>Functions: <code>init</code>, <code>main</code>, <code>call</code>, and the anonymous <code>add</code> function inside <code>call</code></li>
+<li>কনস্ট্যান্ট: a = 10</li>
+<li>গ্লোবাল ভেরিয়েবল: p = 100</li>
+<li>ফাংশন: <code>init</code>, <code>main</code>, <code>call</code>, এবং <code>call</code> এর ভেতরের anonymous <code>add</code> ফাংশন</li>
+<li>প্রয়োজনীয় মেশিন কোড + মেটাডাটার <code>বাইনারি</code> জেনারেট করে</li>
 </ul>
 </li>
-<li>Generates a <strong>binary</strong> that includes all necessary machine code + metadata.</li>
 </ul>
-<p>Binary includes:</p>
+<p>বাইনারি ফাইলে থাকে:</p>
 <ul>
-<li>Code Segment: <code>const a</code>, <code>main</code>, <code>call</code>, anonymous function</li>
-<li>Data Segment: <code>var p</code></li>
-<li>No execution happens here.</li>
+<li>কোড সেগমেন্ট: কনস্ট্যান্ট <code>a</code>, <code>main</code>, <code>call</code>, anonymous ফাংশন</li>
+<li>ডেটা সেগমেন্ট: ভ্যারিয়েবল <code>p</code></li>
+<li>এখানে কোনো এক্সিকিউশন হয় না।</li>
 </ul>
-<hr />
-<h2 id="-execution-phase-visualized"><a class="header" href="#-execution-phase-visualized">⏱ Execution Phase Visualized</a></h2>
-<pre><code>   1. init()            =&gt; "Hello"
-   2. main()            =&gt; calls call()
-   3. call()            =&gt; declares and invokes add()
+<h2 id="-একসিকিউশন-পরযাযের-ভিজযুযালাইজেশন"><a class="header" href="#-একসিকিউশন-পরযাযের-ভিজযুযালাইজেশন">⏱ এক্সিকিউশন পর্যায়ের ভিজ্যুয়ালাইজেশন</a></h2>
+<pre><code>   ১. init()            =&gt; "Hello"
+   ২. main()            =&gt; call() ফাংশনকে কল করে
+   ৩. call()            =&gt; add() ফাংশনকে ডিক্লেয়ার এবং কল করে
        - add(5, 6)      =&gt; 11
        - add(100, 10)   =&gt; 110
-   4. fmt.Println(a)    =&gt; 10
+   ৪. fmt.Println(a)    =&gt; 10
 </code></pre>
 <hr />
-<h2 id="-memory-layout"><a class="header" href="#-memory-layout">🧠 Memory Layout</a></h2>
+<h2 id="-মেমরি-লেআউট"><a class="header" href="#-মেমরি-লেআউট">🧠 মেমরি লেআউট</a></h2>
 <pre><code>┌─────────────────────────────┐
 │       Code Segment          │
 │-----------------------------│
@@ -1449,17 +1613,17 @@ func init() {
 └─────────────────────────────┘
 </code></pre>
 <hr />
-<h2 id="-summary"><a class="header" href="#-summary">🔹 Summary</a></h2>
+<h2 id="সারাংশ"><a class="header" href="#সারাংশ">🔹সারাংশ</a></h2>
 <ul>
-<li>Go runs in <strong>two phases</strong>: Compilation and Execution.</li>
-<li>During <strong>compilation</strong>, Go prepares memory layout, compiles functions and expressions.</li>
-<li>In <strong>execution</strong>, it runs <code>init()</code> and then <code>main()</code>.</li>
-<li><strong>Function expressions</strong> like <code>add := func(...)</code> are first-class values and live in the code segment.</li>
-<li>The resulting binary from <code>go build</code> holds everything: code, data, metadata.</li>
+<li>একটি Go প্রোগ্রাম <strong>দুইটি পর্যায়ে</strong> রান হয়: কম্পাইলেশন এবং এক্সিকিউশন।</li>
+<li><strong>কম্পাইলেশন</strong> চলাকালে, Go মেমরি লেআউট প্রস্তুত করে, ফাংশন এবং এক্সপ্রেশন কম্পাইল করে।</li>
+<li><strong>এক্সিকিউশন</strong> পর্যায়ে, প্রথমে <code>init()</code> এবং তারপর <code>main()</code> রান হয়।</li>
+<li><strong>ফাংশন এক্সপ্রেশন</strong> (যেমন, <code>add := func(...)</code>) হলো <code>ফার্স্ট ক্লাস ভ্যালু</code>, যা কোড সেগমেন্টে সংরক্ষিত থাকে।</li>
+<li><code>go build</code> থেকে তৈরি হওয়া বাইনারি ফাইলে কোড, ডেটা, এবং মেটাডাটা সহ প্রয়োজনীয় সবকিছু থাকে।</li>
 </ul>
 <hr />
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-14
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="class-26-closure--go-internal-memory-deep-dive-"><a class="header" href="#class-26-closure--go-internal-memory-deep-dive-">Class 26: Closure &amp; Go Internal Memory Deep Dive 💡</a></h1>
@@ -1505,7 +1669,7 @@ func init() {
 }
 </code></pre>
 <hr />
-<h2 id="-key-concepts-7"><a class="header" href="#-key-concepts-7">🔍 Key Concepts</a></h2>
+<h2 id="-key-concepts-6"><a class="header" href="#-key-concepts-6">🔍 Key Concepts</a></h2>
 <h3 id="-what-is-a-closure"><a class="header" href="#-what-is-a-closure">🔒 What is a Closure?</a></h3>
 <p>A <strong>closure</strong> is a function that references variables from outside its own scope. In this case:</p>
 <pre><code class="language-go">show := func() {
@@ -1620,7 +1784,7 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-key-concepts-8"><a class="header" href="#-key-concepts-8">🧠 Key Concepts</a></h2>
+<h2 id="-key-concepts-7"><a class="header" href="#-key-concepts-7">🧠 Key Concepts</a></h2>
 <h3 id="-what-is-a-struct"><a class="header" href="#-what-is-a-struct">🧩 What is a Struct?</a></h3>
 <p>A <strong>struct</strong> is a user-defined type in Go used to group related data together. It’s like a custom container for fields.</p>
 <pre><code class="language-go">type User struct {
@@ -1790,7 +1954,7 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-summary-1"><a class="header" href="#-summary-1">⚙️ Summary</a></h2>
+<h2 id="-summary"><a class="header" href="#-summary">⚙️ Summary</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
 <tr><td>Receiver</td><td>The type a method is attached to (e.g., <code>*Todos</code>)</td></tr>
 <tr><td>Value Receiver</td><td>Gets a copy of the value; doesn't affect the original</td></tr>
@@ -1810,7 +1974,7 @@ func main() {
 ]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="class-29---go-arrays-and-memory-layout"><a class="header" href="#class-29---go-arrays-and-memory-layout">Class 29 - Go Arrays and Memory Layout</a></h1>
 <p>📅 <em>Date: April 24, 2025</em></p>
-<h2 id="-key-concepts-9"><a class="header" href="#-key-concepts-9">🔑 Key Concepts</a></h2>
+<h2 id="-key-concepts-8"><a class="header" href="#-key-concepts-8">🔑 Key Concepts</a></h2>
 <h3 id="-what-is-an-array"><a class="header" href="#-what-is-an-array">✅ What is an Array?</a></h3>
 <ul>
 <li>An <strong>array</strong> is a fixed-size collection of elements of the same type.</li>
@@ -1876,7 +2040,7 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-summary-2"><a class="header" href="#-summary-2">📦 Summary</a></h2>
+<h2 id="-summary-1"><a class="header" href="#-summary-1">📦 Summary</a></h2>
 <ul>
 <li>Arrays are great for working with fixed-size collections.</li>
 <li>Be aware of default values.</li>
@@ -2530,7 +2694,7 @@ func variadic(numbers ...int) {
 Stack grows downward ↓
 </code></pre>
 <hr />
-<h2 id="-summary-3"><a class="header" href="#-summary-3">✅ Summary</a></h2>
+<h2 id="-summary-2"><a class="header" href="#-summary-2">✅ Summary</a></h2>
 <ul>
 <li>CPU is divided into <strong>Processing Unit</strong> and <strong>Register Set</strong></li>
 <li>The <strong>Stack Frame</strong> is key to function call handling</li>
@@ -8304,179 +8468,6 @@ docker run -it --name go-debug jsiqbal/go-debug-ready
 </code></pre>
 <h2 id="contributing-2"><a class="header" href="#contributing-2">Contributing</a></h2>
 <p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
-<div style="break-before: page; page-break-before: always;"></div><p><strong>comprehensive and detailed RBAC permission list</strong> Golang Community Vault platform. This will allow <strong>fine-grained control</strong> for various roles across all the directories and content types outlined in README.</p>
-<hr />
-<h2 id="-universal-permission-categories-applicable-to-all-modules"><a class="header" href="#-universal-permission-categories-applicable-to-all-modules">🔒 Universal Permission Categories (Applicable to all modules)</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>view:&lt;resource&gt;</code></td><td>Can view/read the resource (public or restricted)</td></tr>
-<tr><td><code>create:&lt;resource&gt;</code></td><td>Can create/upload new items</td></tr>
-<tr><td><code>edit:&lt;resource&gt;</code></td><td>Can update or modify existing items</td></tr>
-<tr><td><code>delete:&lt;resource&gt;</code></td><td>Can remove an item</td></tr>
-<tr><td><code>publish:&lt;resource&gt;</code></td><td>Can mark content as published (if there’s a review process)</td></tr>
-<tr><td><code>archive:&lt;resource&gt;</code></td><td>Can archive or unpublish without deletion</td></tr>
-<tr><td><code>feature:&lt;resource&gt;</code></td><td>Can mark content as featured</td></tr>
-<tr><td><code>comment:&lt;resource&gt;</code></td><td>Can comment on resource</td></tr>
-<tr><td><code>moderate:&lt;resource&gt;</code></td><td>Can manage others' comments and discussions</td></tr>
-<tr><td><code>rate:&lt;resource&gt;</code></td><td>Can give rating (if rating system exists)</td></tr>
-<tr><td><code>tag:&lt;resource&gt;</code></td><td>Can add/edit tags or metadata</td></tr>
-<tr><td><code>assign:&lt;resource&gt;</code></td><td>Can assign reviewers or contributors to a resource</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h2 id="-resource-specific-permissions"><a class="header" href="#-resource-specific-permissions">🔖 Resource-Specific Permissions</a></h2>
-<p>Here's a breakdown by directory and subtype:</p>
-<hr />
-<h3 id="1-interview-qa"><a class="header" href="#1-interview-qa">1. <code>interview-qa/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>curate:interview_qa</code></td><td>Can organize, categorize, and reorder Q&amp;A content</td></tr>
-<tr><td><code>bulk_upload:interview_qa</code></td><td>Upload multiple Q&amp;As via CSV or UI</td></tr>
-<tr><td><code>label:difficulty_level</code></td><td>Can assign difficulty labels (easy/med/hard)</td></tr>
-<tr><td><code>verify:interview_qa</code></td><td>Trusted users can verify accuracy of Q&amp;A</td></tr>
-<tr><td><code>suggest_edit:interview_qa</code></td><td>Submit Q&amp;A revisions for approval</td></tr>
-<tr><td><code>link:qa_to_topic</code></td><td>Link questions across topic-wise and company-wise sections</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="2-class-notes"><a class="header" href="#2-class-notes">2. <code>class-notes/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>format:class_note</code></td><td>Format content (LaTeX, markdown support)</td></tr>
-<tr><td><code>translate:class_note</code></td><td>Upload alternate language versions</td></tr>
-<tr><td><code>rate:note_quality</code></td><td>Rate based on helpfulness/accuracy</td></tr>
-<tr><td><code>submit_note_review</code></td><td>Peer review notes</td></tr>
-<tr><td><code>merge_notes</code></td><td>Combine similar notes into one resource</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="3-project-archive"><a class="header" href="#3-project-archive">3. <code>project-archive/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>link:project_github</code></td><td>Attach GitHub repo link</td></tr>
-<tr><td><code>mark:project_stable</code></td><td>Certify project as stable/maintained</td></tr>
-<tr><td><code>fork:community_project</code></td><td>Duplicate project into sandbox for experimentation</td></tr>
-<tr><td><code>assign:maintainer</code></td><td>Assign project maintainers</td></tr>
-<tr><td><code>create:project_tags</code></td><td>Define tags like "CLI", "REST", "gRPC" etc.</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="4-image-infographic-archive"><a class="header" href="#4-image-infographic-archive">4. <code>image-infographic-archive/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>upload:image_infographic</code></td><td>Upload PNG/SVG/PDF</td></tr>
-<tr><td><code>optimize:image</code></td><td>Resize/compress for performance</td></tr>
-<tr><td><code>annotate:image</code></td><td>Add notes or highlight sections</td></tr>
-<tr><td><code>group:infographics</code></td><td>Create themes/sets (e.g., Goroutine Internals Set)</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="5-community-stories"><a class="header" href="#5-community-stories">5. <code>community-stories/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>submit:story</code></td><td>Submit a personal or experience story</td></tr>
-<tr><td><code>moderate:story</code></td><td>Approve or reject stories</td></tr>
-<tr><td><code>tag:story_category</code></td><td>Label stories (job hunt, rejections, etc.)</td></tr>
-<tr><td><code>feature:story</code></td><td>Highlight on community page</td></tr>
-<tr><td><code>approve:anonymous_story</code></td><td>Allow anonymous publishing</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="6-package-archive"><a class="header" href="#6-package-archive">6. <code>package-archive/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>upload:package_source</code></td><td>Upload zip/tarball or Git link</td></tr>
-<tr><td><code>verify:package_integrity</code></td><td>Ensure no malicious code</td></tr>
-<tr><td><code>test:package</code></td><td>Run CI on submitted code</td></tr>
-<tr><td><code>mark:package_deprecated</code></td><td>Deprecate old packages</td></tr>
-<tr><td><code>create:package_doc</code></td><td>Write documentation for package</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="7-community-blogs"><a class="header" href="#7-community-blogs">7. <code>community-blogs/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>submit:blog_post</code></td><td>Write and submit a blog</td></tr>
-<tr><td><code>edit:others_blog</code></td><td>Allow editing of other authors' blogs (moderator only)</td></tr>
-<tr><td><code>review:blog_post</code></td><td>Can review before publishing</td></tr>
-<tr><td><code>pin:blog_post</code></td><td>Pin post to top of page</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="8-news-events"><a class="header" href="#8-news-events">8. <code>news-events/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>submit:event</code></td><td>Submit conference or event</td></tr>
-<tr><td><code>create:event_recap</code></td><td>Summarize events</td></tr>
-<tr><td><code>organize:event_listing</code></td><td>Curate future/past events</td></tr>
-<tr><td><code>assign:event_host</code></td><td>Add moderators for meetups/hackathons</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="9-video-archive"><a class="header" href="#9-video-archive">9. <code>video-archive/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>embed:video_link</code></td><td>Attach YouTube or local hosted video</td></tr>
-<tr><td><code>transcribe:video</code></td><td>Add subtitle or transcript</td></tr>
-<tr><td><code>review:video_content</code></td><td>Moderate for quality or relevance</td></tr>
-<tr><td><code>feature:video</code></td><td>Spotlight video on homepage</td></tr>
-<tr><td><code>clip:video_segment</code></td><td>Create mini-clips or highlights</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="10-course-content"><a class="header" href="#10-course-content">10. <code>course-content/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>submit:course_module</code></td><td>Create lessons or sections</td></tr>
-<tr><td><code>assign:course_owner</code></td><td>Appoint course maintainer(s)</td></tr>
-<tr><td><code>review:course_content</code></td><td>Approve/reject modules</td></tr>
-<tr><td><code>track:course_progress</code></td><td>See student analytics (admin only)</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h3 id="11-link-resource-archive"><a class="header" href="#11-link-resource-archive">11. <code>link-resource-archive/</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>submit:link</code></td><td>Add blog/tool/documentation link</td></tr>
-<tr><td><code>validate:link</code></td><td>Check for broken/dead links</td></tr>
-<tr><td><code>approve:external_resource</code></td><td>Manual approval for outbound links</td></tr>
-<tr><td><code>organize:bookmark_list</code></td><td>Allow curating themed collections</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h2 id="-bonus-system-permissions"><a class="header" href="#-bonus-system-permissions">✅ Bonus System Permissions</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Permission</th><th>Applies to</th></tr></thead><tbody>
-<tr><td><code>manage:users</code></td><td>Admin only — manage roles, bans, profile data</td></tr>
-<tr><td><code>manage:roles</code></td><td>Create/update roles and their permission sets</td></tr>
-<tr><td><code>audit:logs</code></td><td>View user activity logs</td></tr>
-<tr><td><code>backup:data</code></td><td>Export platform content</td></tr>
-<tr><td><code>toggle:maintenance_mode</code></td><td>Take platform down for maintenance</td></tr>
-<tr><td><code>view:analytics</code></td><td>See usage and traffic reports</td></tr>
-<tr><td><code>send:notifications</code></td><td>System-wide announcement access</td></tr>
-</tbody></table>
-</div>
-<hr />
-<div style="break-before: page; page-break-before: always;"></div><h2 id="-tech-stack--tools"><a class="header" href="#-tech-stack--tools">🧩 <strong>Tech Stack &amp; Tools</strong></a></h2>
-<p>This vault is powered by several modern tools and practices for collaboration, code sharing, and documentation. Feel free to explore more about our tech stack.</p>
-<hr />
-<h2 id="-inspiration--vision"><a class="header" href="#-inspiration--vision">🌟 <strong>Inspiration &amp; Vision</strong></a></h2>
-<p>“<strong>Code fades. Community lasts.</strong>”</p>
-<p>This archive is designed to support, uplift, and celebrate the <strong>Golang Community</strong>. It’s not just about sharing code — it’s about collecting <strong>collective knowledge</strong>, <strong>hard-won experiences</strong>, and <strong>stories that shape our journey</strong>. Whether you're new to Go or a veteran, this vault is your home.</p>
-<hr />
-<h2 id="-tech-stack-future-web-app-vision"><a class="header" href="#-tech-stack-future-web-app-vision">🧩 <strong>Tech Stack (Future Web App Vision)</strong></a></h2>
-<p>This vault is powered by several modern tools and practices for collaboration, code sharing, and documentation. Feel free to explore more about our tech stack:</p>
-<p>If this turns into a community-driven web interface:</p>
-<pre><code class="language-bash">• Frontend: React / Svelte / Next.js / Vue
-• Backend: Go
-• Storage: GitHub + SQLite/Postgres
-• Auth: GitHub OAuth (optional)
-• Deployment: AWS
-</code></pre>
-<p>UI/UX ideas for the future web App</p>
-<pre><code class="language-bash">Most preferable one for now:
-1. Modern Library-Style UI
-   - Homepage: A clean, minimalist grid of featured archives with a search bar in the center.
-   - Filters &amp; Categories: Sidebar with quick access to categories (by year, author, tags, etc.).
-   - Reading Mode: Dark/light mode toggle, distraction-free fullscreen mode.
-   - Bookmarking &amp; Notes: Users can highlight text and add personal notes to archives.
-</code></pre>
-<p>Other types of UI</p>
-<pre><code class="language-bash">2. Timeline-Based UI
-3. Grid &amp; Gallery UI
-4. Terminal-Inspired UI
-5. Tag-Based UI
-6. Map-Based UI
-7. AI-Assisted UI
-8. Infinite Scroll vs. Pagination Debate
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali"><a class="header" href="#-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali">🧠 কম্পিটিটিভ প্রোগ্রামিং গাইড (CP Guide in Bengali)</a></h1>
 <blockquote>
 <p>📘 <em>এই গাইডটি তৈরি করা হয়েছে বাংলায় CP শেখার সুবিধার্থে। টেকনিক্যাল টার্ম এবং কোড ইংরেজিতে রাখা হয়েছে যাতে ইন্টারন্যাশনাল স্ট্যান্ডার্ড ফলো করা যায়।</em></p>
