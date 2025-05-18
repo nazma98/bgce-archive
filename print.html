@@ -692,154 +692,154 @@ Eventually turn this entire <code>golang/</code> folder into part of the <code>b
 <strong>Date:</strong> 2025-05-01
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><p>class-1: array</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-16--package-scope"><a class="header" href="#-class-16--package-scope">📦 Class 16 — Package Scope</a></h1>
-<p>🎥 <strong>Video Title</strong>: <em>Package scope</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
 <hr />
-<h2 id="-code-written-for-this-class"><a class="header" href="#-code-written-for-this-class">🧪 Code Written for This Class</a></h2>
-<h3 id="addgo"><a class="header" href="#addgo"><code>add.go</code></a></h3>
+<h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>
+<p><strong>Package</strong> হলো GoLang কোড গুছিয়ে রাখার একটি পদ্ধতি। একটি Package অনেকগুলো ফাইল থাকতে পারে, এবং সবগুলোর <code>package</code> নাম একই হলে তারা একে অপরের কোড ব্যবহার করতে পারে।</p>
+<h3 id="-নিয়ম"><a class="header" href="#-নিয়ম">✅ নিয়ম:</a></h3>
+<ul>
+<li>একই ফোল্ডারে সব <code>.go</code> ফাইলের <code>package</code> নাম এক হওয়া উচিত।</li>
+<li><code>package main</code> হলে সেটি রানযোগ্য প্রোগ্রাম।</li>
+<li>অন্য প্যাকেজ যেমন <code>package mathlib</code> → লাইব্রেরি বা ইউটিলিটি হিসেবে ব্যবহৃত হয়।</li>
+</ul>
+<hr />
+<h2 id="২-scope-এবং-export-কী"><a class="header" href="#২-scope-এবং-export-কী">২. Scope এবং Export কী?</a></h2>
+<h3 id="-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে"><a class="header" href="#-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে">📌 কোন জায়গা থেকে কোন ফাংশন বা ভেরিয়েবল অ্যাক্সেস করা যাবে।</a></h3>
+<ul>
+<li>যদি function নাম <strong>ছোট হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>add</code>), তাহলে এটি <strong>শুধুমাত্র সেই Packageর ভিতরেই ব্যবহার করা যাবে</strong>।</li>
+<li>যদি <strong>বড় হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>Add</code>), তাহলে সেটি <strong>এক্সপোর্টেড</strong> হয় এবং অন্য প্যাকেজ থেকেও ব্যবহার করা যায়।</li>
+</ul>
+<hr />
+<h2 id="৩-কোড-উদাহরণ"><a class="header" href="#৩-কোড-উদাহরণ">৩. কোড উদাহরণ</a></h2>
+<h3 id="-addgo"><a class="header" href="#-addgo">📁 <code>add.go</code></a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
 
 func add(n1, n2 int) {
-	res := n1 + n2
-	fmt.Println(res)
+    res := n1 + n2
+    fmt.Println(res)
 }
 </code></pre>
-<h3 id="maingo"><a class="header" href="#maingo"><code>main.go</code></a></h3>
+<p>📌 <code>add()</code> function নাম ছোট হাতের অক্ষরে, তাই এটা শুধু <code>main</code> Packageর ভিতরেই কাজ করবে।</p>
+<hr />
+<h3 id="-maingo"><a class="header" href="#-maingo">📁 <code>main.go</code></a></h3>
 <pre><code class="language-go">package main
 
 var (
-	a = 20
-	b = 30
+    a = 20
+    b = 30
 )
 
 func main() {
-	add(4,7)
+    add(4,7)
 }
 </code></pre>
-<h3 id="mathlibmathgo"><a class="header" href="#mathlibmathgo"><code>mathlib/math.go</code></a></h3>
+<p>📌 এখানে <code>add()</code> কল করা হয়েছে কারণ <code>add.go</code> ফাইল একই Package আছে (package main)।<br />
+👉 রান করতে হবে:</p>
+<pre><code class="language-bash">go run main.go add.go
+</code></pre>
+<hr />
+<h3 id="-কাসটম-পযাকেজ-mathlibmathgo"><a class="header" href="#-কাসটম-পযাকেজ-mathlibmathgo">📁 কাস্টম প্যাকেজ <code>mathlib/math.go</code></a></h3>
 <pre><code class="language-go">package mathlib
 
 import "fmt"
 
 func Add(x int, y int) {
-	z := x + y
-	fmt.Println(z)
+    z := x + y
+    fmt.Println(z)
 }
 </code></pre>
-<h3 id="maingo-modified"><a class="header" href="#maingo-modified"><code>main.go (Modified)</code></a></h3>
+<p>📌 এবার <code>Add()</code> function বড় হাতের অক্ষরে শুরু → <strong>Exported</strong><br />
+📌 <code>mathlib</code> নামে প্যাকেজ → একে অন্য ফোল্ডারে রাখতে হবে (যেমন: <code>mathlib/</code>)</p>
+<hr />
+<h3 id="-maingo-পরিবরতিত-ভারসন"><a class="header" href="#-maingo-পরিবরতিত-ভারসন">📁 <code>main.go</code> (পরিবর্তিত ভার্সন)</a></h3>
 <pre><code class="language-go">package main
 
 import (
-	"fmt"
-	"example.com/mathlib"
+    "fmt"
+    "example.com/mathlib"
 )
 
 var (
-	a = 20
-	b = 30
+    a = 20
+    b = 30
 )
 
 func main() {
-	fmt.Println("Showing Custom Package")
-	mathlib.Add(4,7)
+    fmt.Println("Showing Custom Package")
+    mathlib.Add(4,7)
 }
 </code></pre>
-<h1 id="-key-concepts"><a class="header" href="#-key-concepts">🔑 Key Concepts</a></h1>
-<ol>
-<li>
-<p><strong>Same Folder = Same Package</strong>
-All <code>.go</code> files in the same directory should have the same package name (<code>main</code> if you want to run them).</p>
-</li>
-<li>
-<p><strong>Running Multiple Files</strong>
-You must include all necessary files when using <code>go run</code>, like:</p>
-<pre><code class="language-bash">go run main.go add.go
-</code></pre>
-</li>
-<li>
-<p><strong>Initializing a New Module</strong>
-Start with:</p>
-<pre><code class="language-bash">go mod init &lt;module_name&gt;
-</code></pre>
-</li>
-<li>
-<p><strong>Managing Dependencies</strong>
-Use:</p>
-<pre><code class="language-bash">go get &lt;package_name&gt;
-go mod tidy
-</code></pre>
-</li>
-<li>
-<p><strong>Package-Level Scope Rules</strong>
-Only <strong>exported</strong> identifiers (functions/variables that start with a <strong>capital letter</strong>) can be accessed from outside the package.</p>
-</li>
-</ol>
-<p>🧠 This class was all about understanding how Go handles packages, visibility, and modular code — crucial stuff for building real-world Go apps!</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-17"><a class="header" href="#-class-17">📘 Class 17</a></h1>
-<p><strong>Video Name:</strong> Scope with another boring example 🙃</p>
+<p>📌 এখানে <code>mathlib.Add()</code> ব্যবহার করা হয়েছে কারণ <code>Add()</code> এক্সপোর্টেড এবং আমরা <code>import</code> করেছি।</p>
 <hr />
-<h2 id="-code-written-in-this-class"><a class="header" href="#-code-written-in-this-class">🧑‍💻 Code written in this class</a></h2>
+<h2 id="৪-মডিউল-বযবসথাপনা"><a class="header" href="#৪-মডিউল-বযবসথাপনা">৪. মডিউল ব্যবস্থাপনা</a></h2>
+<h3 id="-মডিউল-শুরু-করতে"><a class="header" href="#-মডিউল-শুরু-করতে">✅ মডিউল শুরু করতে:</a></h3>
+<pre><code class="language-bash">go mod init example.com/mathlib
+</code></pre>
+<hr />
+<h2 id="৫-key-concepts"><a class="header" href="#৫-key-concepts">৫. Key Concepts</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>ব্যাখ্যা</th></tr></thead><tbody>
+<tr><td>একই ফোল্ডার = একই প্যাকেজ</td><td><code>main.go</code>, <code>add.go</code> → <code>package main</code></td></tr>
+<tr><td>কাস্টম Package আলাদা ফোল্ডার</td><td>যেমন <code>mathlib/math.go</code></td></tr>
+<tr><td>রান করতে হলে সব ফাইল দিতে হবে</td><td><code>go run main.go add.go</code></td></tr>
+<tr><td>বড় হাতের ফাংশন নাম = এক্সপোর্টেড</td><td>অন্য প্যাকেজ থেকে ব্যবহারযোগ্য</td></tr>
+<tr><td><code>go mod init</code> দিয়ে মডিউল শুরু হয়</td><td>কাস্টম প্যাকেজ ব্যবহারে দরকার</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">🧠 সারাংশ:</a></h2>
+<ul>
+<li>প্যাকেজ ব্যবহারে কোড পরিষ্কার ও পুনঃব্যবহারযোগ্য হয়।</li>
+<li>স্কোপ বুঝে কোড গঠন করলে সমস্যা হয় না।</li>
+<li>এক্সপোর্টেড ফাংশন ও মডিউল ব্যবস্থাপনা জানলে বড় প্রজেক্টেও কাজ সহজ হয়।</li>
+</ul>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-17-scope-with-another-boring-example"><a class="header" href="#-class-17-scope-with-another-boring-example">🧠 Class 17: Scope with another boring example</a></h1>
+<hr />
+<h2 id="-code-example-"><a class="header" href="#-code-example-">🧑‍💻 Code Example :</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
 
 var (
-	a = 10
-	b = 20
+    a = 10
+    b = 20
 )
 
 func printNum(num int) {
-	fmt.Println(num)
+    fmt.Println(num)
 }
 
 func add(x int, y int) {
-	res := x + y
-	printNum(res)
+    res := x + y
+    printNum(res)
 }
 
 func main() {
-	add(a, b)
+    add(a, b)
 }
 </code></pre>
-<h2 id="-key-concepts-1"><a class="header" href="#-key-concepts-1">🧠 Key Concepts</a></h2>
-<ol>
-<li>
-<p><strong>✅ Order doesn't matter (for package-level stuff)</strong>
-The order of functions and globally declared variables does not matter in Go.
-Even if the functions and variables are defined after <code>main()</code>, Go will still recognize and compile everything correctly.</p>
-</li>
-<li>
-<p><strong>🤓 Go ≠ Functional Paradigm</strong>
-Although Go has borrowed some cool ideas from functional languages (like first-class functions, closures, etc.), <strong>Go is not a functional programming language.</strong></p>
-</li>
-<li>
-<p><strong>⚖️ What paradigm is Go really?</strong></p>
+<hr />
+<h2 id="-মূল-ধারণাসমূহ"><a class="header" href="#-মূল-ধারণাসমূহ">🧠 মূল ধারণাসমূহ</a></h2>
+<h3 id="-অরডার-মযাটার-করে-না-পযাকেজ-লেভেলের-জনয"><a class="header" href="#-অরডার-মযাটার-করে-না-পযাকেজ-লেভেলের-জনয">✅ অর্ডার ম্যাটার করে না (প্যাকেজ-লেভেলের জন্য)</a></h3>
+<p>Go তে ফাংশন এবং গ্লোবাল ভ্যারিয়েবলগুলোর অর্ডার (ক্রম) গুরুত্বপূর্ণ নয়। মানে <code>main()</code> ফাংশনের পরেও যদি অন্য ফাংশন বা ভ্যারিয়েবল ডিক্লেয়ার করা হয়, Go ঠিকই সব চিনে নেয় এবং কম্পাইল করে।</p>
+<h3 id="-go--ফাংশনাল-পরোগরামিং-পযারাডাইম"><a class="header" href="#-go--ফাংশনাল-পরোগরামিং-পযারাডাইম">🤓 Go ≠ ফাংশনাল প্রোগ্রামিং প্যারাডাইম</a></h3>
+<p>Go কিছু দারুণ ফিচার ধার করেছে ফাংশনাল ল্যাঙ্গুয়েজ থেকে (যেমন: ফার্স্ট-ক্লাস ফাংশন, ক্লোজার ইত্যাদি), কিন্তু Go নিজে ফাংশনাল প্রোগ্রামিং ল্যাঙ্গুয়েজ নয়।</p>
+<h3 id="-তাহলে-go-কোন-পযারাডাইমে-পডে"><a class="header" href="#-তাহলে-go-কোন-পযারাডাইমে-পডে">⚖️ তাহলে Go কোন প্যারাডাইমে পড়ে?</a></h3>
+<p>Go হলো একাধিক প্যারাডাইম সাপোর্ট করে এমন ভাষা, তবে এর মূল স্টাইল হচ্ছে <strong>imperative</strong> এবং <strong>procedural</strong>। এটি ক্লাসিক OOP-এর বদলে <strong>struct-based composition</strong> কে গুরুত্ব দেয়।</p>
 <blockquote>
-<p>Go is a <strong>multi-paradigm</strong> language, but its primary style is <strong>imperative</strong> and <strong>procedural</strong>, with <strong>struct-based composition</strong> over classic OOP.</p>
+<p>এটি ডিজাইন করা হয়েছে যাতে ভাষাটি হয়:</p>
 </blockquote>
-</li>
-</ol>
-<p>It's built to be:</p>
-<pre><code>✅ Simple
-
-🔍 Predictable
-
-📖 Readable
-</code></pre>
-<p>You can write in a functional-ish style, but Go wasn’t designed for heavy functional abstractions.</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-interview-question-variable-shadowing-in-go"><a class="header" href="#-interview-question-variable-shadowing-in-go">💡 Interview Question: Variable Shadowing in Go</a></h1>
-<h2 id="-code-example"><a class="header" href="#-code-example">🧪 Code Example</a></h2>
+<ul>
+<li>সহজ</li>
+<li>ভবিষ্যৎ অনুমানযোগ্য (Predictable)</li>
+<li>সহজে পড়া যায় এমন (Readable)</li>
+</ul>
+<p>তুমি চাইলে functional-এর মতো স্টাইলে কোড লিখতে পারো, কিন্তু Go কে ডিজাইন করা হয়নি অনেক জটিল functional abstraction-এর জন্য।</p>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-ইনটারভিউ-পরশন-go-তে-variable-shadowing"><a class="header" href="#-ইনটারভিউ-পরশন-go-তে-variable-shadowing">💡 ইন্টারভিউ প্রশ্ন: Go-তে variable shadowing</a></h1>
+<h2 id="-code-example--1"><a class="header" href="#-code-example--1">🧪 Code Example :</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -847,161 +847,202 @@ import "fmt"
 var a = 10
 
 func main() {
-	age := 30
+    age := 30
 
-	if age &gt; 18 {
-		a := 47        // 👇 Shadows the global `a` ONLY inside this `if` block
-		fmt.Println(a) // ➜ 47
-	}
+    if adfaage &gt; 18 {
+        a := 47        //  শুধু এই if ব্লকের ভিতরে গ্লোবাল `a` কে shadow করে
+    adf    fmt.Println(a) // ➜ 47
+    }
 
-	fmt.Println(a)     // ➜ 10 (prints the global `a`)
+    fmt.Println(a)     // ➜ 10 (গ্লোবাল `a` প্রিন্ট করে)
 }
 </code></pre>
-<h2 id="-takeaways"><a class="header" href="#-takeaways">📌 Takeaways:</a></h2>
-<ol>
-<li>
-<p>🔒 Variable shadowing occurs when a local variable has the same name as a variable in an outer scope.</p>
-</li>
-<li>
-<p>⛔ Go won't throw an error — it’ll just use the innermost version in the current scope.</p>
-</li>
-<li>
-<p>📦 Global <code>a</code> is untouched and printed outside the <code>if</code> block.</p>
-</li>
-<li>
-<p>✅ This behavior is intentional and useful for encapsulation and temporary overrides.</p>
-</li>
-</ol>
-<h2 id="-memory--stack-animation--step-by-step"><a class="header" href="#-memory--stack-animation--step-by-step">🧠 Memory &amp; Stack Animation — Step by Step</a></h2>
-<pre><code>// ⏱ Program Start
-📦 Data Segment:
-┌─────────────┐
-│ global a=10 │ ◄── stays alive till program ends
-└─────────────┘
-
-// 🚀 main() gets called
-📚 Stack:
-┌────────────────────────────┐
-│ 🧩 main() Stack Frame      │
-│   └── age = 30             │
-└────────────────────────────┘
-
---- age &gt; 18 is TRUE, so we enter the `if` block ---
-
-🧱 New block scope begins inside main()
-📚 Stack:
-┌────────────────────────────┐
-│ 🧩 main() Stack Frame      │
-│   └── age = 30             │
-│   🔸 a (shadows global) =47│ ◄── new `a` shadows the global
-└────────────────────────────┘
-
-🖨️ fmt.Println(a)
-📤 Output: 47 ✅
-
---- if block ends, block-scope a is destroyed ---
-
-📚 Stack:
-┌────────────────────────────┐
-│ 🧩 main() Stack Frame      │
-│   └── age = 30             │
-└────────────────────────────┘
-
-🖨️ fmt.Println(a)
-📤 Output: 10 ✅ (Back to global `a`)
-
---- main() ends, stack is popped ---
-
-📚 Stack:
-(empty)
-
-🧼 Program exits
-</code></pre>
-<h2 id="-visualization-summary"><a class="header" href="#-visualization-summary">📌 Visualization Summary</a></h2>
-<p>-[] 🧠 Global variables (like a = 10) live in the data segment.</p>
-<p>-[] 🧵 Local variables (like age or shadowed a) live in the stack.</p>
-<p>-[] 🔄 When a new scope is entered (if, for, function block), it pushes new variables to the stack.</p>
-<p>-[] ⛓️ Once the block ends, the shadowed variable gets popped and memory is freed.</p>
-<p>-[] 🧼 At the end, the stack is cleared, but the data segment lives throughout the whole execution.</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="function-types"><a class="header" href="#function-types">Function types</a></h1>
+<h2 id="-গুরুতবপূরণ-বিষয়"><a class="header" href="#-গুরুতবপূরণ-বিষয়">📌 গুরুত্বপূর্ণ বিষয়:</a></h2>
 <ul>
-<li>standard or named fucntion</li>
-<li>Anonymous function</li>
-<li>Function expression or assign function in variable</li>
-<li>Higher order fucntion or first class function</li>
-<li>Callback fucntion</li>
-<li>Variadic function</li>
-<li>Init function - you cannot call this, Computer calls it</li>
-<li>Closure - close over</li>
-<li>Defer function - last in first out</li>
-<li>Receiver function or method</li>
-<li>IIFE- Immediately invoked function expression</li>
+<li>ভেরিয়েবলdi শ্যাডোয়িং হয় যখন লোকাল ভেরিয়েবলের নাম বাইরের স্কোপের ভেরিয়েবলের নামের সঙ্গে মিলে যায়।</li>
+<li>Go কোন Error দিবে না এটি শুধুমাত্র বর্তমান স্কোপে থাকা সবচেয়ে ভিতরের ভেরিয়েবলটি ব্যবহার করবে।</li>
+<li>Global <code>a</code> অপরিবর্তিত থাকে এবং if ব্লকের বাইরে প্রিন্ট হয়।</li>
 </ul>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-19-init-function"><a class="header" href="#-class-19-init-function">🧠 Class 19: Init Function</a></h1>
-<p><strong>Video Topic</strong>: <code>init()</code> Function in Go</p>
-<hr />
-<h2 id="-code-written-in-this-class-1"><a class="header" href="#-code-written-in-this-class-1">🔤 Code Written in This Class</a></h2>
-<pre><code class="language-go">//example 1
-package main
+<h2 id="-memory-ও-stack-animation"><a class="header" href="#-memory-ও-stack-animation">🧠 Memory ও stack animation</a></h2>
+<h3 id="-পরোগরাম-শুরু"><a class="header" href="#-পরোগরাম-শুরু">⏱ প্রোগ্রাম শুরু</a></h3>
+<p>📦 <strong>Data segment:</strong></p>
+<pre><code>┌─────────────┐
+│ global a=10 │ ◄── প্রোগ্রাম শেষ হওয়া পর্যন্ত থাকে
+└─────────────┘
+</code></pre>
+<h3 id="-main-কল-হয়"><a class="header" href="#-main-কল-হয়">🚀 main() কল হয়</a></h3>
+<p>📚 <strong>Stack:</strong></p>
+<pre><code>┌────────────────────────────┐
+│ 🧩 main() stack frame    │
+│   └── age = 30             │
+└────────────────────────────┘
+</code></pre>
+<h3 id="-if-বলকে-পরবেশ-কারণ-age--18-সতয"><a class="header" href="#-if-বলকে-পরবেশ-কারণ-age--18-সতয">✅ if ব্লকে প্রবেশ (কারণ age &gt; 18 সত্য)</a></h3>
+<p>🧱 <strong>নতুন ব্লক স্কোপ শুরু</strong><br />
+📚 <strong>Stack:</strong></p>
+<pre><code>┌────────────────────────────┐
+│ 🧩 main() stack frame    │
+│   └── age = 30             │
+│   🔸 a (shadow করা) = 47   │ ◄── global `a` কে shadow করে
+└────────────────────────────┘
+</code></pre>
+<p>🖨️ fmt.Println(a) ➜ <strong>output: 47 ✅</strong></p>
+<h3 id="-if-বলক-শেষ-shadow-করা-a-ডিলিট-হয়"><a class="header" href="#-if-বলক-শেষ-shadow-করা-a-ডিলিট-হয়">🔚 if ব্লক শেষ, shadow করা <code>a</code> ডিলিট হয়</a></h3>
+<p>📚 <strong>Stack:</strong></p>
+<pre><code>┌────────────────────────────┐
+│ 🧩 main() stack frame     │
+│   └── age = 30             │
+└────────────────────────────┘
+</code></pre>
+<p>🖨️ fmt.Println(a) ➜ <strong>output: 10 ✅</strong> (global <code>a</code>)</p>
+<h3 id="-main-শেষ-stack-clear"><a class="header" href="#-main-শেষ-stack-clear">🔚 main() শেষ, stack clear</a></h3>
+<p>📚 <strong>Stack:</strong></p>
+<pre><code>(empty)
+</code></pre>
+<p>🧼 <strong>প্রোগ্রাম শেষ</strong></p>
+<h2 id="-ভিজযুযাল-সারাংশ"><a class="header" href="#-ভিজযুযাল-সারাংশ">📌 ভিজ্যুয়াল সারাংশ</a></h2>
+<ul>
+<li>গ্লোবাল variable (যেমন <code>a = 10</code>) <strong>ডাটা সেগমেন্টে</strong> থাকে।</li>
+<li>লোকাল variable (যেমন <code>age</code> বা shadow করে  <code>a</code>) <strong>স্ট্যাকে</strong> থাকে।</li>
+<li>নতুন scope (যেমন if, for, function block) এ ঢুকলে নতুন variable <strong>স্ট্যাকে</strong> পুশ হয়।</li>
+<li>ব্লক শেষ হলে shadow করা variable <strong>স্ট্যাক থেকে মুছে যায়</strong>।</li>
+<li>প্রোগ্রাম শেষ হলে স্ট্যাক ক্লিয়ার হয়, কিন্তু ডাটা সেগমেন্ট পুরো সময় জীবিত থাকে।</li>
+</ul>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-19-function-types-in-go"><a class="header" href="#-class-19-function-types-in-go">🧠 Class 19: Function Types in Go</a></h1>
+<h2 id="1-standard-function-নিরধারিত-function"><a class="header" href="#1-standard-function-নিরধারিত-function">1️⃣ Standard Function (নির্ধারিত function)</a></h2>
+<p>একটি সাধারণভাবে নামযুক্ত function যা <code>func</code> কীওয়ার্ড দিয়ে তৈরি করা হয়।</p>
+<pre><code class="language-go">func add() {
+    fmt.Println("Hello!")
+}
+</code></pre>
+<h2 id="2-anonymous-function-নামহীন-function"><a class="header" href="#2-anonymous-function-নামহীন-function">2️⃣ Anonymous Function (নামহীন function)</a></h2>
+<p>এই ফাংশনের কোনো নাম থাকে না। একে ইনলাইন বা তৎক্ষণাৎ ব্যবহার করা যায়।</p>
+<pre><code class="language-go">func() {
+    fmt.Println("I have no name!")
+}()
+</code></pre>
+<h2 id="3-function-expression-ভেরিযেবলে-function-সংরকষণ"><a class="header" href="#3-function-expression-ভেরিযেবলে-function-সংরকষণ">3️⃣ Function Expression (ভেরিয়েবলে function সংরক্ষণ)</a></h2>
+<p>ফাংশনটিকে একটি ভেরিয়েবলে সংরক্ষণ করে পরে ব্যবহার করা হয়।</p>
+<pre><code class="language-go">hello := func() {
+    fmt.Println("Hi there!")
+}
+hello()
+</code></pre>
+<h2 id="4-higher-order-function--first-class-function"><a class="header" href="#4-higher-order-function--first-class-function">4️⃣ Higher-Order Function / First-Class Function</a></h2>
+<p>যে function অন্য ফাংশনকে প্যারামিটার হিসেবে গ্রহণ করে অথবা function রিটার্ন করে।</p>
+<pre><code class="language-go">func operate(a int, b int, fn func(int, int) int) int {
+    return fn(a, b)
+}
+</code></pre>
+<h2 id="5-callback-function-পুনরায-কল-করা-হয-এমন-function"><a class="header" href="#5-callback-function-পুনরায-কল-করা-হয-এমন-function">5️⃣ Callback Function (পুনরায় কল করা হয় এমন function)</a></h2>
+<p>একটি function যা আরেকটি ফাংশনে প্যারামিটার হিসেবে পাঠানো হয় এবং নির্দিষ্ট সময়ে কল করা হয়।</p>
+<pre><code class="language-go">func process(callback func()) {
+    callback()
+}
+</code></pre>
+<h2 id="6-variadic-function-বহু-সংখযক-পযারামিটার-গরহণ-করে"><a class="header" href="#6-variadic-function-বহু-সংখযক-পযারামিটার-গরহণ-করে">6️⃣ Variadic Function (বহু সংখ্যক প্যারামিটার গ্রহণ করে)</a></h2>
+<p>একটি function যা পরিবর্তনশীল সংখ্যক আর্গুমেন্ট গ্রহণ করতে পারে।</p>
+<pre><code class="language-go">func sum(nums ...int) {
+    total := 0
+    for _, num := range nums {
+        total += num
+    }
+    fmt.Println(total)
+}
+</code></pre>
+<h2 id="7-init-function-go-নিজে-থেকে-কল-করে"><a class="header" href="#7-init-function-go-নিজে-থেকে-কল-করে">7️⃣ Init Function (Go নিজে থেকে কল করে)</a></h2>
+<p>Go প্রোগ্রাম রান করার সময় <code>main()</code> এর আগেই <code>init()</code> ফাংশনটি কল হয়। এটি ম্যানুয়ালি কল করা যায় না।</p>
+<pre><code class="language-go">func init() {
+    fmt.Println("Initializing...")
+}
+</code></pre>
+<h2 id="8-closure-বাইরের-সকোপের-ভেরিযেবল-বনধ-করে-ফেলে"><a class="header" href="#8-closure-বাইরের-সকোপের-ভেরিযেবল-বনধ-করে-ফেলে">8️⃣ Closure (বাইরের স্কোপের ভেরিয়েবল বন্ধ করে ফেলে)</a></h2>
+<p>একটি function যা বাইরের স্কোপের ভেরিয়েবল "বন্ধ" বা retain করে রাখে।</p>
+<pre><code class="language-go">func outer() func() int {
+    count := 0
+    return func() int {
+        count++
+        return count
+    }
+}
+</code></pre>
+<h2 id="9-defer-function-শেষে-কল-হয়-stack-এর-last-in-first-out-নিয়মে"><a class="header" href="#9-defer-function-শেষে-কল-হয়-stack-এর-last-in-first-out-নিয়মে">9️⃣ Defer Function (শেষে কল হয় Stack এর Last In First Out নিয়মে)</a></h2>
+<p><code>defer</code> কীওয়ার্ড ব্যবহারে ফাংশনটি পরে কল হয়, সাধারণত function শেষ হওয়ার আগে।</p>
+<pre><code class="language-go">func test() {
+    defer fmt.Println("Three")
+    defer fmt.Println("Two")
+    fmt.Println("One")
+}
+</code></pre>
+<p>🟢 output:</p>
+<pre><code>One
+Two
+Three
+</code></pre>
+<h2 id="-receiver-function--method-struct-এর-সাথে-যুকত-function"><a class="header" href="#-receiver-function--method-struct-এর-সাথে-যুকত-function">🔟 Receiver Function / Method (struct এর সাথে যুক্ত function)</a></h2>
+<p>Go তে struct এর সাথে method সংযুক্ত করা যায়।</p>
+<pre><code class="language-go">type Person struct {
+    name string
+}
+
+func (p Person) add() {
+    fmt.Println("Hello", p.name)
+}
+</code></pre>
+<h2 id="11-iife---immediately-invoked-function-expression"><a class="header" href="#11-iife---immediately-invoked-function-expression">1️⃣1️⃣ IIFE - Immediately Invoked Function Expression</a></h2>
+<p>একটি function যা একসাথে define এবং invoke করা হয়।</p>
+<pre><code class="language-go">func(msg string) {
+    fmt.Println(msg)
+}("IIFE Example")
+</code></pre>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-20-init-function"><a class="header" href="#-class-20-init-function">🧠 Class 20: Init Function</a></h1>
+<p>📺 <strong>Video Topic</strong>: <code>init()</code> Function in Go</p>
+<h2 id="-code-written-in-this-class"><a class="header" href="#-code-written-in-this-class">🔤 Code Written in This Class</a></h2>
+<h3 id="-example-1"><a class="header" href="#-example-1">✅ Example 1</a></h3>
+<pre><code class="language-go">package main
 
 import "fmt"
 
 func main() {
-	fmt.Println("Hello Init Function!")
+    fmt.Println("Hello Init Function!")
 }
 
 func init() {
-	fmt.Println("I am the function that is executed first")
+    fmt.Println("I am the function that is executed first")
 }
 </code></pre>
-<pre><code class="language-go">//example 2
-package main
+<h3 id="-example-2"><a class="header" href="#-example-2">✅ Example 2</a></h3>
+<pre><code class="language-go">package main
 
 import "fmt"
 
 var a = 10
 
 func main() {
-	fmt.Println(a)
+    fmt.Println(a)
 }
 
 func init() {
-	fmt.Println(a)
-	a = 20
+    fmt.Println(a)
+    a = 20
 }
 </code></pre>
-<h2 id="-key-concepts-2"><a class="header" href="#-key-concepts-2">🔍 Key Concepts</a></h2>
-<ol>
-<li>
-<p><code>init()</code> is a special Go function that runs before <code>main()</code>, automatically.</p>
-</li>
-<li>
-<p>You can have multiple <code>init()</code> functions across different files and packages. They all run in the order of:</p>
+<h2 id="-key-concepts"><a class="header" href="#-key-concepts">🔍 Key Concepts</a></h2>
 <ul>
-<li>
-<p>Dependency packages first</p>
-</li>
-<li>
-<p>File order (top to bottom) next</p>
-</li>
+<li><code>init()</code> একটি বিশেষ Go function যা <code>main()</code> এর আগে automatically run হয় ।</li>
+<li>একাধিক ফাইল এবং প্যাকেজে একাধিক <code>init()</code> থাকতে পারে। চালানোর ক্রম:
+<ul>
+<li>Dependency packages আগে</li>
+<li>তারপর ফাইল অর্ডার অনুযায়ী (উপরে থেকে নিচে)</li>
 </ul>
 </li>
-<li>
-<p>You don't call <code>init()</code> manually. It runs automatically before the program starts.</p>
-</li>
-</ol>
-<h2 id="-cli-memory--execution-visualization-example-1"><a class="header" href="#-cli-memory--execution-visualization-example-1">🧠 CLI Memory &amp; Execution Visualization (example 1)</a></h2>
-<p>Let’s visualize how Go handles <code>init()</code> under the hood:</p>
-<pre><code>// 🛠 Compile Time: Go detects init()
-
+<li><code>init()</code> ম্যানুয়ালি কল করা যায় না। এটি প্রোগ্রাম শুরু হওয়ার আগেই চলে।</li>
+</ul>
+<hr />
+<h2 id="-cli-memory--execution-visualization-example-1"><a class="header" href="#-cli-memory--execution-visualization-example-1">🧠 CLI Memory &amp; Execution Visualization (Example 1)</a></h2>
+<pre><code class="language-text">🛠 Compile Time: Go detects init()
 Found init() in main package ✅
 
 ----------- EXECUTION BEGINS -----------
@@ -1029,8 +1070,9 @@ Found init() in main package ✅
 
 ✅ Program ends gracefully
 </code></pre>
-<h2 id="-cli-visualization-execution--memory-layout-example-2"><a class="header" href="#-cli-visualization-execution--memory-layout-example-2">🔍 CLI Visualization: Execution &amp; Memory Layout (example 2)</a></h2>
-<pre><code>=========== Program Compilation ===========
+<hr />
+<h2 id="-cli-visualization-execution--memory-layout-example-2"><a class="header" href="#-cli-visualization-execution--memory-layout-example-2">🔍 CLI Visualization: Execution &amp; Memory Layout (Example 2)</a></h2>
+<pre><code class="language-text">=========== Program Compilation ===========
 Found global variable: a = 10
 Found init() ✅
 Found main() ✅
@@ -1061,368 +1103,352 @@ Stack after init():
 → Prints: 20
 
 =========== Execution Ends ================
-
-📌 Summary
-
-    ✅ Global variable a is initialized before any function runs.
-
-    ⚙️ init() executes first:
-
-        Reads a = 10
-
-        Changes a = 20
-
-    🧨 main() sees updated value: 20
-
-This is a classic example of how init() can prepare or modify the runtime environment before the actual program logic in main() kicks in.
-
 </code></pre>
-<h2 id="-quick-recap"><a class="header" href="#-quick-recap">⚡ Quick Recap</a></h2>
-<ol>
-<li>
-<p>✅ <code>init()</code> always runs before <code>main()</code> even if it’s written after <code>main()</code> in your code.</p>
-</li>
-<li>
-<p>⛓️ You can use it to initialize configs, connections, default values, etc.</p>
-</li>
-<li>
-<p>💡 A Go file can have at most one <code>main()</code>, but multiple <code>init()</code>s.</p>
-</li>
-</ol>
-<blockquote>
-<p>🧪 "Init is like the secret backstage crew. You don’t see them during the show, but they’re the reason the lights come on."</p>
-</blockquote>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-21--expressions-anonymous-functions--iife-in-go"><a class="header" href="#-class-21--expressions-anonymous-functions--iife-in-go">📘 Class 21 – Expressions, Anonymous Functions &amp; IIFE in Go</a></h1>
-<h3 id="-video-name"><a class="header" href="#-video-name">🎥 Video Name:</a></h3>
-<p><strong>Anonymous function, Expression &amp; IIFE</strong></p>
 <hr />
-<h2 id="-code-written-in-this-class-2"><a class="header" href="#-code-written-in-this-class-2">📦 Code Written in This Class</a></h2>
-<pre><code class="language-go">// Anonymous function
-// IIFE - Immediately Invoked Function Expression
+<h2 id="-summary"><a class="header" href="#-summary">📌 Summary</a></h2>
+<ul>
+<li>Global variable <code>a</code> প্রোগ্রাম চলার আগেই initialized হয়।</li>
+<li><code>init()</code> প্রথমে execute হয়:
+<ul>
+<li><code>a = 10</code> পড়ে</li>
+<li><code>a = 20</code> করে আপডেট করে</li>
+</ul>
+</li>
+<li><code>main()</code> updated value দেখায়: <code>20</code></li>
+</ul>
+<blockquote>
+<p>এটি একটি ক্লাসিক উদাহরণ, যেখানে <code>init()</code> মূল প্রোগ্রাম চলার আগে runtime environment প্রস্তুত করে।</p>
+</blockquote>
+<hr />
+<h2 id="-quick-recap"><a class="header" href="#-quick-recap">⚡ Quick Recap</a></h2>
+<ul>
+<li><code>init()</code> সবসময় <code>main()</code> এর আগে চলে, এমনকি যদি কোডে পরে লেখা থাকে।</li>
+<li>এটি config, database connection, default value ইত্যাদি initialize করার জন্য ব্যবহার করা হয়।</li>
+<li>একটি Go ফাইলে একটাই <code>main()</code> থাকতে পারে, কিন্তু একাধিক <code>init()</code> থাকতে পারে।</li>
+</ul>
+<blockquote>
+<p>Init is like the secret backstage crew. You don’t see them during the show, but they’re the reason the lights come on.</p>
+</blockquote>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="class-21--expression-anonymous-function-ও-iife---in-go"><a class="header" href="#class-21--expression-anonymous-function-ও-iife---in-go">Class 21 – expression, anonymous function ও IIFE - in go</a></h1>
+<h2 id="-ভিডিও-নাম-anonymous-function-expression-ও-iife"><a class="header" href="#-ভিডিও-নাম-anonymous-function-expression-ও-iife">🎥 ভিডিও নাম: anonymous function, expression ও IIFE</a></h2>
+<h2 id="-code-written-in-this-class-1"><a class="header" href="#-code-written-in-this-class-1">🔤 Code Written in This Class</a></h2>
+<pre><code class="language-go">// anonymous function
+// IIFE - ইমিডিয়েটলি ইনভোকড function expression
 
 package main
 
 import "fmt"
 
 func main() {
-	// Anonymous function
-	func(a int, b int) {
-		c := a + b
-		fmt.Println(c)
-	}(5, 7) // IIFE
+    // anonymous function
+    func(a int, b int) {
+        c := a + b
+        fmt.Println(c)
+    }(5, 7) // IIFE
 }
 
 func init() {
-	fmt.Println("I'll be called first")
+    fmt.Println("আমি সবার আগে কল হব")
 }
 </code></pre>
-<h2 id="-key-concepts-3"><a class="header" href="#-key-concepts-3">🧠 Key Concepts</a></h2>
-<h3 id="-expression-in-go"><a class="header" href="#-expression-in-go">🧮 Expression in Go</a></h3>
-<blockquote>
-<p>An expression is any snippet of code that evaluates to a value.</p>
-</blockquote>
-<p><strong>Examples:</strong></p>
-<pre><code class="language-go">a + b          // is an expression
-func(x, y){}   // is a function expression
+<h2 id="-মূল-ধারণাসমূহ-1"><a class="header" href="#-মূল-ধারণাসমূহ-1">🧠 মূল ধারণাসমূহ</a></h2>
+<h3 id="go-তে-expression-expression"><a class="header" href="#go-তে-expression-expression">Go-তে Expression (expression)</a></h3>
+<p>expression হলো যেকোনো code snippet যা কোনো মান (value) রিটার্ন করে।</p>
+<p>example:</p>
+<pre><code class="language-go">a + b          // একটি expression
+func(x, y){}   // একটি function expression
 </code></pre>
-<p>Expressions can be used as values, passed around, or even executed immediately — which leads us to…</p>
-<h3 id="-anonymous-function"><a class="header" href="#-anonymous-function"><strong>🧙 Anonymous Function</strong></a></h3>
-<p>An <strong>anonymous function</strong> is a function <strong>without a name.</strong></p>
-<p>Instead of:</p>
-<pre><code class="language-go">func add(a, b int) int {
-	return a + b
-}
-</code></pre>
-<p>You write:</p>
+<p>expression মান হিসেবে ব্যবহার, pass অথবা সাথে সাথেই execute করা যায়।</p>
+<h3 id="anonymous-function"><a class="header" href="#anonymous-function">anonymous function</a></h3>
+<p>anonymous function হলো নামবিহীন function।</p>
 <pre><code class="language-go">func(a, b int) int {
-	return a + b
+    return a + b
 }
 </code></pre>
-<p>✅ You can assign it to a variable, pass it as an argument, or invoke it on the spot.</p>
+<p>✅ এটি ভ্যারিয়েবল হিসেবে সংরক্ষণ, আর্গুমেন্ট হিসেবে pass বা সাথে সাথেই কল করা যায়।</p>
 <h3 id="-iife-immediately-invoked-function-expression"><a class="header" href="#-iife-immediately-invoked-function-expression">⚡ IIFE (Immediately Invoked Function Expression)</a></h3>
-<blockquote>
-<p>An <strong>IIFE</strong> is an anonymous function that is <strong>executed immediately</strong> right after it's defined.</p>
-</blockquote>
-<p>Syntax:</p>
+<p>IIFE হলো এমন একটি anonymous function যেটি ডিক্লেয়ার করার সাথেসাথে execute হয়।</p>
 <pre><code class="language-go">func(a int, b int) {
-	// do stuff
+    // কাজ
 }(5, 7)
 </code></pre>
-<p><strong>Use-case</strong>: You want to run a small block of logic <strong>immediately, without polluting the namespace</strong> with a new function name.</p>
-<h2 id="-cli-style-execution-visualization"><a class="header" href="#-cli-style-execution-visualization">🖥️ CLI-style Execution Visualization</a></h2>
-<pre><code>=========== Compilation Phase =============
-Found init() ✅
-Found main() ✅
+<p><strong>ব্যবহার:</strong> ছোট লজিক ব্লক তাৎক্ষণিক চালানোর জন্য উপযোগী, নতুন নাম না দিয়েই।</p>
+<h3 id="-cli---execution-vizualization"><a class="header" href="#-cli---execution-vizualization">🖥️ CLI-  execution vizualization</a></h3>
+<pre><code>=========== compilation ধাপ =============
+init() function খুঁজে পাওয়া গেছে ✅
+main() function খুঁজে পাওয়া গেছে ✅
 
-=========== Execution Phase ===============
+=========== এক্সিকিউশন ধাপ =============
 
-🔁 init() runs first
-→ Prints: I'll be called first
+🔁 init() প্রথমে চলে
+→ আউটপুট: আমি সবার আগে কল হব
 
-🧠 Data Segment:
-(No global vars in this case)
+🧠 ডেটা সেগমেন্ট:
+(কোনো গ্লোবাল ভ্যারিয়েবল নেই)
 
-📚 Stack Frame:
+📚 stack frame:
 ┌─────────────────────┐
 │    main()           │
 │ ┌─────────────────┐ │
-│ │  anonymous func │ │
+│ │  anonymous function │ │
 │ └─────────────────┘ │
 └─────────────────────┘
 
-main() calls an IIFE:
-→ Passes 5 and 7
-→ Inside IIFE: c := 5 + 7 = 12
-→ Prints: 12
+main() একটি IIFE কল করে:
+→ 5 এবং 7 pass করে
+→ ভিতরে: c := 5 + 7 = 12
+→ output: 12
 
-=========== Execution Complete =============
+=========== execution সম্পূর্ণ ============
 </code></pre>
-<h2 id="-tldr"><a class="header" href="#-tldr">🧵 TL;DR</a></h2>
-<p>-[] ✅ Expressions return values and can be assigned or executed.</p>
-<p>-[] 🧪 Anonymous functions have no name, great for quick logic blocks.</p>
-<p>-[] 🚀 IIFE: Define &amp; execute in one go. Great for one-off logic.</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-22--function-expressions--shadowing-in-go"><a class="header" href="#-class-22--function-expressions--shadowing-in-go">📘 Class 22 – Function Expressions &amp; Shadowing in Go</a></h1>
-<h3 id="-video-name-1"><a class="header" href="#-video-name-1">🎥 Video Name:</a></h3>
-<p><strong>Function Expression Example</strong></p>
+<h3 id="-tldr-সংকষেপে"><a class="header" href="#-tldr-সংকষেপে">🧵 TL;DR (সংক্ষেপে)</a></h3>
+<ul>
+<li>[]  expression- মান রিটার্ন করে, এসাইন বা execute করা যায়।</li>
+<li>[]  anonymous function- দ্রুত লজিক ব্লক চালাতে ব্যবহৃত হয়।</li>
+<li>[]  IIFE- ডিফাইন এবং execute একসাথে — একবারের কাজের জন্য দারুন!</li>
+</ul>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-22--go-function-expression--shadowing"><a class="header" href="#-class-22--go-function-expression--shadowing">📘 CLass 22 – Go Function Expression &amp; Shadowing</a></h1>
+<p>🎥 <strong>ভিডিও নাম:</strong> Function Expression Example</p>
 <hr />
-<h2 id="-code-1-working-example"><a class="header" href="#-code-1-working-example">✅ Code 1: Working Example</a></h2>
+<h2 id="-example-1-1"><a class="header" href="#-example-1-1">✅ Example 1:</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
 
-// Global function expression
+// গ্লোবাল ফাংশন এক্সপ্রেশন
 var add = func(x, y int) {
-	fmt.Println(x + y)
+    fmt.Println(x + y)
 }
 
 func main() {
-	add(4, 7) // Calls the global `add`
+    add(4, 7) // গ্লোবাল `add` কল হচ্ছে
 
-	// Function expression assigned to local variable
-	add := func(a int, b int) {
-		c := a + b
-		fmt.Println(c)
-	}
+    // লোকাল ভেরিয়েবলে ফাংশন এক্সপ্রেশন অ্যাসাইন করা
+    add := func(a int, b int) {
+        c := a + b
+        fmt.Println(c) কোড ২
+    }
 
-	add(2, 3) // Calls the local `add`
+    add(2, 3) // এখন লোকাল `add` কল হচ্ছে
 }
 
 func init() {
-	fmt.Println("I will be called first")
-}
+    fmt.Println("আমি প্রথমে কল হব")
 </code></pre>
-<h2 id="-key-concepts-4"><a class="header" href="#-key-concepts-4">🧠 Key Concepts</a></h2>
+<hr />
+<h2 id="-মূল-ধারণাসমূহ-2"><a class="header" href="#-মূল-ধারণাসমূহ-2">🧠 মূল ধারণাসমূহ</a></h2>
 <h3 id="-function-expression"><a class="header" href="#-function-expression">🔧 Function Expression</a></h3>
-<p>A function <strong>assigned to a variable</strong>. It allows us to:</p>
-<p>-[] Store logic in a variable</p>
-<p>-[] Treat functions like first-class citizens</p>
-<p>-[] Create inline, nameless (anonymous) functions</p>
-<p><strong>Example:</strong></p>
+<p>যখন কোনো ফাংশনকে একটি ভেরিয়েবলে সংরক্ষণ করা হয়। এর মাধ্যমে আমরা —</p>
+<ul>
+<li>logic একটি ভেরিয়েবলে রাখতে পারি</li>
+<li>ফাংশনকে ফার্স্ট-ক্লাস সিটিজেন হিসেবে ব্যবহার করতে পারি</li>
+<li>inline বা anonymous ফাংশন তৈরি করতে পারি</li>
+</ul>
+<p><strong>উদাহরণ:</strong></p>
 <pre><code class="language-go">add := func(a int, b int) {
-	fmt.Println(a + b)
+    fmt.Println(a + b)
 }
 </code></pre>
+<hr />
 <h3 id="-shadowing"><a class="header" href="#-shadowing">🧱 Shadowing</a></h3>
-<p>When a variable in a <strong>smaller (local) scope</strong> has the <strong>same name</strong> as one in a <strong>larger (outer) scope</strong>, it "shadows" or hides it temporarily.</p>
-<p>In the <code>main()</code> function:</p>
+<p>যখন একটি ছোট স্কোপে (লোকাল স্কোপে) থাকা ভেরিয়েবলের নাম বড় স্কোপে থাকা একই নামের ভেরিয়েবলকে ঢেকে ফেলে বা “শ্যাডো” করে।</p>
 <pre><code class="language-go">add := func(a int, b int) {...}
 </code></pre>
-<p>This local <code>add</code> shadows the global <code>add</code> from that point onward.</p>
-<h2 id="-execution-visualization-working-example"><a class="header" href="#-execution-visualization-working-example">🖥️ Execution Visualization (Working Example)</a></h2>
-<pre><code>========== Compilation Phase ==========
-✔ Found init()
-✔ Found main()
-✔ Global `add` assigned to function
+<p>এই <code>add</code> লোকাল স্কোপে গ্লোবাল <code>add</code> কে ঢেকে দেয়।</p>
+<hr />
+<h3 id="--cli---execution-vizualization"><a class="header" href="#--cli---execution-vizualization">🖥️  CLI-  execution vizualization</a></h3>
+<pre><code>========== কম্পাইলেশন ফেজ ==========
+✔ init() পাওয়া গেছে
+✔ main() পাওয়া গেছে
+✔ গ্লোবাল `add` ফাংশন অ্যাসাইন করা হয়েছে
 
-========== Execution Begins ===========
-
+========== এক্সিকিউশন শুরু ==========
 init():
-→ Prints: I will be called first
+→ প্রিন্ট করে: আমি প্রথমে কল হব
 
 main():
-→ Calls global `add(4, 7)` → Prints: 11
+→ গ্লোবাল `add(4, 7)` → প্রিন্ট: 11
 
-Local Scope in main():
+main() এর ভিতরের লোকাল স্কোপ:
 ┌──────── Stack Frame ───────┐
 │ main()                     │
 │ ┌──────────────┐          │
-│ │ add (local)  │────────┐ │
+│ │ add (লোকাল)  │────────┐ │
 │ └──────────────┘        │ │
 └─────────────────────────┘ │
-       (shadows global) ◄───┘
+       (গ্লোবালটিকে ঢেকে দেয়) ◄───┘
 
-→ Calls local `add(2, 3)` → Prints: 5
+→ লোকাল `add(2, 3)` → প্রিন্ট: 5
 
-========== Execution Ends ==========
+========== এক্সিকিউশন শেষ ==========
 </code></pre>
-<h2 id="-code-2-fails-to-compile"><a class="header" href="#-code-2-fails-to-compile">❌ Code 2: Fails to Compile</a></h2>
+<hr />
+<h2 id="-example--2-কমপাইল-হয-না"><a class="header" href="#-example--2-কমপাইল-হয-না">❌ Example  2: কম্পাইল হয় না</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
 
-// Global function expression
+// গ্লোবাল ফাংশন এক্সপ্রেশন
 var add = func(x, y int) {
-	fmt.Println(x + y)
+    fmt.Println(x + y)
 }
 
 func main() {
-	adder(4, 7) // ❌ ERROR: undefined: adder
+    adder(4, 7) // ❌ ERROR: undefined: adder
 
-	// Function expression or Assign function in variable
-	adder := func(a int, b int) {
-		c := a + b
-		fmt.Println(c)
-	}
+    adder := func(a int, b int) {
+        c := a + b
+        fmt.Println(c)
+    }
 
-	add(2, 3)
+    add(2, 3)
 }
 
 func init() {
-	fmt.Println("I will be called first")
+    fmt.Println("আমি প্রথমে কল হব")
 }
 </code></pre>
-<h3 id="-why-it-fails"><a class="header" href="#-why-it-fails">❌ Why it fails</a></h3>
-<p>This line:</p>
+<hr />
+<h2 id="-কেন-এটা-কাজ-করে-না"><a class="header" href="#-কেন-এটা-কাজ-করে-না">❌ কেন এটা কাজ করে না?</a></h2>
+<p>এই লাইনটি:</p>
 <pre><code class="language-go">adder(4, 7)
 </code></pre>
-<p>is <strong>above</strong> the declaration:</p>
+<p>ডিক্লেয়ারেশনের উপরে আছে:</p>
 <pre><code class="language-go">adder := func(a int, b int) { ... }
 </code></pre>
-<h3 id="-the-problem-temporal-dead-zone"><a class="header" href="#-the-problem-temporal-dead-zone">⛔ The Problem: Temporal Dead Zone</a></h3>
-<p>In Go, <strong>you can't use a variable before it's declared</strong>, even if it’s in the same block.</p>
-<p>So, when you try to use <code>adder</code>, it hasn’t been declared yet. Hence:</p>
+<p>🛑 <strong>সমস্যা: Temporal Dead Zone</strong></p>
+<p>Go তে তুমি কোনো ভেরিয়েবলকে তার ডিক্লেয়ারেশনের আগে ব্যবহার করতে পারো না even একই ব্লকের মধ্যেও।</p>
+<p>তাই <code>adder</code> ব্যবহার করার সময়ে সেটি এখনো ডিক্লেয়ার হয়নি।</p>
+<p>ভুল:</p>
 <pre><code class="language-bash">./main.go:10:2: undefined: adder
 </code></pre>
-<h2 id="-tldr-1"><a class="header" href="#-tldr-1">📚 TL;DR</a></h2>
-<p>Concept | Meaning
-Function Expression | A function assigned to a variable
-Anonymous Function | A function with no name
-Shadowing | Local variable hides the same-named global one
-Temporal Dead Zone | You can't use variables before their declaration in Go
-IIFE vs Assignment | IIFE executes immediately; assignment waits to be called explicitly</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-23-functional-programming-concepts-in-go"><a class="header" href="#class-23-functional-programming-concepts-in-go">Class 23: Functional Programming Concepts in Go</a></h1>
-<h2 id="code-example"><a class="header" href="#code-example">Code Example</a></h2>
+<hr />
+<h2 id="-tldr"><a class="header" href="#-tldr">📚 TL;DR</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>ধারণা</th><th>অর্থ</th></tr></thead><tbody>
+<tr><td>Function Expression</td><td>একটি ভেরিয়েবলে সংরক্ষিত ফাংশন</td></tr>
+<tr><td>Anonymous Function</td><td>নামবিহীন ফাংশন</td></tr>
+<tr><td>Shadowing</td><td>লোকাল ভেরিয়েবল গ্লোবালটিকে ঢেকে দেয়</td></tr>
+<tr><td>Temporal Dead Zone</td><td>ডিক্লেয়ারেশনের আগে কোনো ভেরিয়েবল ব্যবহার করা যায় না</td></tr>
+<tr><td>IIFE vs Assignment</td><td>IIFE সাথে সাথে চলে; অ্যাসাইনমেন্ট পরে কল করতে হয়</td></tr>
+</tbody></table>
+</div>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="class-23-go-তে-functional-programming-ধারণা"><a class="header" href="#class-23-go-তে-functional-programming-ধারণা">Class 23: Go-তে Functional Programming ধারণা</a></h1>
 <pre><code class="language-go">package main
 
 import "fmt"
 
 func add(a int, b int) { // Parameter: a and b
-	c := a + b
-	fmt.Println(c)
+    c := a + b
+    fmt.Println(c)
 }
 
 func main() {
-	add(2, 5) // 2 and 5 are arguments
-	processOperation(4, 5, add)
-	sum := call() // function expression
-	sum(4, 7)
+    add(2, 5) // 2 এবং 5 হলো argument
+    processOperation(4, 5, add)
+    sum := call() // function expression
+    sum(4, 7)
 }
 
 func processOperation(a int, b int, op func(p int, q int)) { // Higher order function
-	op(a, b)
+    op(a, b)
 }
 
 func call() func(x int, y int) {
-	return add
+    return add
 }
 </code></pre>
 <hr />
-<h2 id="-key-concepts-5"><a class="header" href="#-key-concepts-5">🧠 Key Concepts</a></h2>
-<h3 id="1-parameter-vs-argument"><a class="header" href="#1-parameter-vs-argument">1. <strong>Parameter vs Argument</strong></a></h3>
+<h2 id="-মূল-ধারণাসমূহ-3"><a class="header" href="#-মূল-ধারণাসমূহ-3">🧠 মূল ধারণাসমূহ</a></h2>
+<h3 id="১-parameter-বনাম-argument"><a class="header" href="#১-parameter-বনাম-argument">১. Parameter বনাম Argument</a></h3>
 <ul>
-<li><strong>Parameter</strong>: The variable listed inside the function definition. (e.g., <code>a int, b int</code> in <code>add(a, b)</code>)</li>
-<li><strong>Argument</strong>: The actual value passed to the function when it's called. (e.g., <code>add(2, 5)</code>)</li>
+<li><strong>Parameter:</strong> ফাংশনের ভিতরে ডিফাইন করা ভেরিয়েবল (যেমন: <code>a int</code>, <code>b int</code> in <code>add(a, b)</code>).</li>
+<li><strong>Argument:</strong> ফাংশন কল করার সময় যেসব মান পাঠানো হয় (যেমন: <code>add(2, 5)</code> এ <code>2</code> এবং <code>5</code>).</li>
 </ul>
-<h3 id="2-first-order-function"><a class="header" href="#2-first-order-function">2. <strong>First Order Function</strong></a></h3>
-<p>A regular function that does not take another function as input or return one.</p>
+<hr />
+<h3 id="২-first-order-function"><a class="header" href="#২-first-order-function">২. First Order Function</a></h3>
 <ul>
-<li>Examples:
+<li>এমন ফাংশন যেটি অন্য কোনো ফাংশন নেয় না বা ফেরত দেয় না।</li>
+<li>উদাহরণ:
 <ul>
 <li>Named function: <code>func add(a, b int)</code></li>
 <li>Anonymous function: <code>func(a int, b int) { ... }</code></li>
-<li>IIFE (Immediately Invoked Function Expression): <code>func(a, b int) { ... }(5, 7)</code></li>
+<li>IIFE: <code>func(a, b int) { ... }(5, 7)</code></li>
 <li>Function expression: <code>sum := func(a, b int) { ... }</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="3-higher-order-function"><a class="header" href="#3-higher-order-function">3. <strong>Higher Order Function</strong></a></h3>
-<p>A function that <strong>takes a function as a parameter</strong>, <strong>returns a function</strong>, or <strong>both</strong>.</p>
+<hr />
+<h3 id="৩-higher-order-function"><a class="header" href="#৩-higher-order-function">৩. Higher Order Function</a></h3>
 <ul>
-<li>Example:
+<li>এমন ফাংশন যা অন্য ফাংশন নেয়, ফেরত দেয়, অথবা দুটোই করে।</li>
+<li>উদাহরণ:
 <ul>
-<li><code>processOperation</code> takes a function <code>op</code> as a parameter</li>
-<li><code>call()</code> returns a function <code>add</code></li>
+<li><code>processOperation</code> একটি ফাংশন নেয়</li>
+<li><code>call()</code> একটি ফাংশন রিটার্ন করে</li>
 </ul>
 </li>
 </ul>
-<h3 id="4-callback-function"><a class="header" href="#4-callback-function">4. <strong>Callback Function</strong></a></h3>
+<hr />
+<h3 id="৪-callback-function"><a class="header" href="#৪-callback-function">৪. Callback Function</a></h3>
 <ul>
-<li>A function that is passed into another function to be executed later.</li>
-<li>In <code>processOperation(4, 5, add)</code>, the function <code>add</code> is a callback.</li>
-</ul>
-<h3 id="5-first-class-citizen-function"><a class="header" href="#5-first-class-citizen-function">5. <strong>First-Class Citizen (Function)</strong></a></h3>
-<ul>
-<li>In Go, functions can be assigned to variables, passed as arguments, and returned from other functions.</li>
-<li>This makes them <em>first-class citizens</em>.</li>
+<li>যেসব ফাংশন অন্য ফাংশনের ভিতরে পাঠানো হয় এবং পরে কল করা হয়।</li>
+<li>উদাহরণ: <code>processOperation(4, 5, add)</code> → এখানে <code>add</code> হলো callback function</li>
 </ul>
 <hr />
-<h2 id="-conceptual-context-functional-paradigm"><a class="header" href="#-conceptual-context-functional-paradigm">🧠 Conceptual Context (Functional Paradigm)</a></h2>
-<blockquote>
-<p>Functional programming treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.</p>
-</blockquote>
-<h3 id="inspiration-from-mathematics"><a class="header" href="#inspiration-from-mathematics">Inspiration from Mathematics</a></h3>
+<h3 id="৫-first-class-citizen-function"><a class="header" href="#৫-first-class-citizen-function">৫. First-Class Citizen (Function)</a></h3>
 <ul>
-<li><strong>First Order Logic</strong>: Objects with properties (e.g., <code>Person</code>, <code>Car</code>, etc.)</li>
-<li><strong>Higher Order Logic</strong>: Functions and their relation with other functions (like in Go's higher-order functions)</li>
+<li>Go-তে ফাংশনগুলো first-class citizen অর্থাৎ:
+<ul>
+<li>ফাংশন ভেরিয়েবলে রাখা যায়</li>
+<li>আর্গুমেন্ট হিসেবে পাঠানো যায়</li>
+<li>অন্য ফাংশন থেকে রিটার্ন করা যায়</li>
 </ul>
-<p>Languages like <strong>Haskell</strong>, <strong>Racket</strong>, etc., are built on deep functional paradigms.</p>
-<p>Go borrows <strong>some</strong> of these concepts, but it is still <strong>imperative and procedural</strong> by nature.</p>
+</li>
+</ul>
 <hr />
-<h2 id="-cli-visualization-call-stack--segments"><a class="header" href="#-cli-visualization-call-stack--segments">📟 CLI Visualization (Call Stack + Segments)</a></h2>
-<h3 id="1-data-segment"><a class="header" href="#1-data-segment">1. <strong>Data Segment</strong></a></h3>
+<h2 id="-ধারণাগত-পরেকষাপট-functional-programming-paradigm"><a class="header" href="#-ধারণাগত-পরেকষাপট-functional-programming-paradigm">🧠 ধারণাগত প্রেক্ষাপট (Functional Programming Paradigm)</a></h2>
 <ul>
-<li><code>add</code> (global function definition)</li>
-<li><code>call</code> (returns a function)</li>
-<li><code>processOperation</code> (stored function)</li>
+<li>Functional programming হলো গণিতের ফাংশনের মত হিসাব করা এবং mutable state পরিহার করা।</li>
+<li>অনুপ্রেরণা: গণিতের দুইটি লজিক ধারা —
+<ul>
+<li>First Order Logic → বস্তু ও তার প্রপার্টি</li>
+<li>Higher Order Logic → ফাংশন এবং তার সম্পর্ক</li>
 </ul>
-<h3 id="2-code-execution-flow-stack-frames"><a class="header" href="#2-code-execution-flow-stack-frames">2. <strong>Code Execution Flow (Stack Frames)</strong></a></h3>
-<pre><code class="language-shell">Call Stack:
+</li>
+<li>Haskell, Racket ইত্যাদি ভাষা ফাংশনাল প্রোগ্রামিং ভিত্তিক।</li>
+<li>Go এই ধারণা কিছুটা গ্রহণ করলেও মূলত এটি imperative/procedural ভাষা।</li>
+</ul>
+<hr />
+<h2 id="-cli-visualization-call-stack--segment"><a class="header" href="#-cli-visualization-call-stack--segment">🖥️ CLI Visualization (Call Stack + Segment)</a></h2>
+<h3 id="ডেটা-সেগমেনট"><a class="header" href="#ডেটা-সেগমেনট">ডেটা সেগমেন্ট:</a></h3>
+<ul>
+<li><code>add</code> (গ্লোবাল ফাংশন)</li>
+<li><code>call</code> (ফাংশন রিটার্ন করে)</li>
+<li><code>processOperation</code> (স্টোর করা ফাংশন)</li>
+</ul>
+<hr />
+<h3 id="একসিকিউশন-ফলো-সটযাক-ফরেম-অনুযাযী"><a class="header" href="#একসিকিউশন-ফলো-সটযাক-ফরেম-অনুযাযী">এক্সিকিউশন ফ্লো (স্ট্যাক ফ্রেম অনুযায়ী):</a></h3>
+<pre><code>Call Stack:
 ┌──────────────────────────┐
 │ main()                   │
-│ ├── add(2, 5)            │ =&gt; prints 7
+│ ├── add(2, 5)            │ =&gt; ৭ প্রিন্ট করে
 │ ├── processOperation     │
-│ │   └── op(4, 5) =&gt; add  │ =&gt; prints 9
-│ ├── call()               │ =&gt; returns add
-│ └── sum(4, 7)            │ =&gt; prints 11
+│ │   └── op(4, 5) → add   │ =&gt; ৯ প্রিন্ট করে
+│ ├── call()               │ =&gt; add রিটার্ন করে
+│ └── sum(4, 7)            │ =&gt; ১১ প্রিন্ট করে
 └──────────────────────────┘
 </code></pre>
-<p>Everything runs in the order written, but since functions are first-class, Go can pass and return them like variables.</p>
 <hr />
-<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<h2 id="সারসংকষেপ"><a class="header" href="#সারসংকষেপ">সারসংক্ষেপ</a></h2>
 <ul>
-<li>🌱 Go supports functional programming <strong>concepts</strong> like first-class and higher-order functions.</li>
-<li>💡 You can pass around functions like variables — extremely powerful for modular and clean code.</li>
-<li>🧠 Understanding <strong>first order vs higher order functions</strong>, <strong>parameters vs arguments</strong>, and <strong>callback functions</strong> gives you a major edge in writing elegant Go code.</li>
+<li>Go ফাংশনাল প্রোগ্রামিং এর অনেক ধারণা সমর্থন করে যেমন: first-class ও higher-order functions।</li>
+<li>ফাংশনগুলোকে ভেরিয়েবলের মত ব্যবহার করা যায় — কোড মডুলার ও পরিষ্কার হয়।</li>
+<li>Parameter বনাম Argument, First vs Higher Order Function, এবং Callback Function ভালোভাবে বোঝা clean এবং power-efficient কোড লেখার জন্য জরুরি।</li>
 </ul>
-<hr />
-<p>✅ This was a big brain class. You crushed it!</p>
-<hr />
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
-<strong>Category:</strong> interview-qa/class-wise
-]</p>
+<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৪---go-internal-memory-code-data-stack-heap"><a class="header" href="#কলাস-২৪---go-internal-memory-code-data-stack-heap">ক্লাস ২৪ - Go Internal Memory (Code, Data, Stack, Heap)</a></h1>
 <h2 id="-আলোচনার-বিষয়বসতু"><a class="header" href="#-আলোচনার-বিষয়বসতু">🧠 আলোচনার বিষয়বস্তু</a></h2>
 <p>এই ক্লাসে একটি <code>Go program</code> কম্পিউটারের মেমরিতে কীভাবে বিন্যস্ত থাকে সেটি নিয়ে বিস্তারিত আলোচনা করা হয়েছে। নিচে প্রয়োজনীয় ধারনাগুলো উল্লেখ করা হল :</p>
@@ -2041,7 +2067,7 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">📦 সারাংশ</a></h2>
+<h2 id="-সারাংশ-1"><a class="header" href="#-সারাংশ-1">📦 সারাংশ</a></h2>
 <ul>
 <li>অ্যারে নির্দিষ্ট সাইজের ডেটা সংরক্ষণে ভালো।</li>
 <li>ডিফল্ট মান সম্পর্কে সচেতন থাকুন।</li>
@@ -2691,7 +2717,7 @@ func variadic(numbers ...int) {
 Stack grows downward ↓
 </code></pre>
 <hr />
-<h2 id="-summary"><a class="header" href="#-summary">✅ Summary</a></h2>
+<h2 id="-summary-1"><a class="header" href="#-summary-1">✅ Summary</a></h2>
 <ul>
 <li>CPU is divided into <strong>Processing Unit</strong> and <strong>Register Set</strong></li>
 <li>The <strong>Stack Frame</strong> is key to function call handling</li>
@@ -5506,7 +5532,7 @@ func main() {
 }
 </code></pre>
 <p>In this example, the <code>init</code> function initializes the <code>globalVar</code> before the <code>main</code> function is executed.</p>
-<h2 id="summary-1"><a class="header" href="#summary-1">Summary</a></h2>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
 <ul>
 <li><strong>Code Segment</strong>: Contains all the functions and executable instructions.</li>
 <li><strong>Data Segment</strong>: Contains global and static variables.</li>
