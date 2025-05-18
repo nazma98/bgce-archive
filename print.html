@@ -1626,10 +1626,10 @@ func init() {
 <strong>Date:</strong> 2025-05-01 - 2025-05-14
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-26-closure--go-internal-memory-deep-dive-"><a class="header" href="#class-26-closure--go-internal-memory-deep-dive-">Class 26: Closure &amp; Go Internal Memory Deep Dive 💡</a></h1>
-<p>Welcome to Class 26, where we uncover the magic behind closures in Go, escape analysis, and how memory is managed under the hood! 🧠🔥</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৬-কলোজার-এবং-go-এর-অভযনতরীণ-মেমোরি-গভীর-বিশলেষণ-"><a class="header" href="#কলাস-২৬-কলোজার-এবং-go-এর-অভযনতরীণ-মেমোরি-গভীর-বিশলেষণ-">ক্লাস ২৬: ক্লোজার এবং Go এর অভ্যন্তরীণ মেমোরি গভীর বিশ্লেষণ 💡</a></h1>
+<p>এই ক্লাসে আমরা closure, escape analysis নিয়ে বিস্তারিত পড়াশুনা করব এবং অভ্যন্তরীণ মেমরি কিভাবে মেনেজ করা হয় তা জানব! 🧠🔥</p>
 <hr />
-<h2 id="-the-code"><a class="header" href="#-the-code">🧾 The Code</a></h2>
+<h2 id="-কলাস-২৬-এর-কোড"><a class="header" href="#-কলাস-২৬-এর-কোড">📋 ক্লাস ২৬ এর কোড:</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -1669,42 +1669,40 @@ func init() {
 }
 </code></pre>
 <hr />
-<h2 id="-key-concepts-6"><a class="header" href="#-key-concepts-6">🔍 Key Concepts</a></h2>
-<h3 id="-what-is-a-closure"><a class="header" href="#-what-is-a-closure">🔒 What is a Closure?</a></h3>
-<p>A <strong>closure</strong> is a function that references variables from outside its own scope. In this case:</p>
+<h2 id="-মূল-বিষয়বসতু"><a class="header" href="#-মূল-বিষয়বসতু">🔍 মূল বিষয়বস্তু</a></h2>
+<h3 id="কলোজার-closure-কী"><a class="header" href="#কলোজার-closure-কী">🔒ক্লোজার (Closure) কী?</a></h3>
+<p><strong>ক্লোজার</strong> এমন একটি ফাংশন যা তার নিজস্ব স্কোপের বাইরের ভেরিয়েবলগুলোর সাথে সম্পর্ক স্থাপন করতে পারে। এই ক্ষেত্রে:</p>
 <pre><code class="language-go">show := func() {
     money = money + a + p
     fmt.Println(money)
 }
 </code></pre>
-<p><code>show</code> forms a closure by capturing the <code>money</code> variable defined in <code>outer()</code>.</p>
-<h3 id="-why-is-closure-important"><a class="header" href="#-why-is-closure-important">🧠 Why is Closure Important?</a></h3>
-<p>Closures let you encapsulate logic along with state. This is why <code>incr1()</code> and <code>incr2()</code> maintain separate <code>money</code> values even though they use the same function.</p>
-<h3 id="-stack-vs-heap"><a class="header" href="#-stack-vs-heap">🧮 Stack vs Heap</a></h3>
+<p><code>show</code> ফাংশনটি <code>outer()</code> ফাংশনের ভেতরের <code>money</code> ভেরিয়েবলটি মনে রাখার মাধ্যমে একটি ক্লোজার তৈরি করে।</p>
+<h3 id="-কলোজার-কেন-গুরুতবপূরণ"><a class="header" href="#-কলোজার-কেন-গুরুতবপূরণ">🧠 ক্লোজার কেন গুরুত্বপূর্ণ?</a></h3>
+<p>ক্লোজার যুক্তি ও অবস্থাকে একসাথে ধরে রাখতে সাহায্য করে। এজন্য <code>incr1()</code> এবং <code>incr2()</code> একই ফাংশন ব্যবহার করলেও আলাদা <code>money</code> মান ধরে রাখতে পারে।</p>
+<h3 id="-সটযাক-বনাম-হিপ"><a class="header" href="#-সটযাক-বনাম-হিপ">🧮 স্ট্যাক বনাম হিপ</a></h3>
+<p><strong>স্ট্যাক</strong>: দ্রুত মেমোরি, ফাংশন কল এবং লোকাল ভেরিয়েবলের জন্য ব্যবহৃত হয়।</p>
+<p><strong>হিপ</strong>: যখন ভেরিয়েবল ফাংশন কলের পরেও থাকা দরকার (যেমন ক্লোজারে), তখন ব্যবহৃত হয়।</p>
+<p><code>money</code> ফাংশন <code>outer()</code> শেষ হওয়ার পরও থাকতে হবে, তাই এস্কেপ অ্যানালাইসিস এটা বুঝে <code>money</code> হিপে রাখে।</p>
+<h3 id="-এসকেপ-অযানালাইসিস-escape-analysis-কী"><a class="header" href="#-এসকেপ-অযানালাইসিস-escape-analysis-কী">🧪 এস্কেপ অ্যানালাইসিস (Escape Analysis) কী?</a></h3>
+<p><strong>এস্কেপ অ্যানালাইসিস</strong> হলো একটি প্রক্রিয়া যার মাধ্যমে <strong>Go কম্পাইলার</strong> ফাংশনগুলো <strong>কম্পাইল করার সময়</strong> বুঝতে পারে কোন ভেরিয়েবল স্ট্যাকে নিরাপদে রাখা যাবে আর কোনগুলো হিপে পাঠাতে হবে।</p>
 <ul>
-<li><strong>Stack</strong>: Fast memory, used for function calls and local variables.</li>
-<li><strong>Heap</strong>: Used when variables need to persist beyond the function call (like in closures!).</li>
+<li>✅ যদি কোনো ভেরিয়েবল <strong>শুধুমাত্র ফাংশনের ভেতর</strong> ব্যবহার হয়, তাহলে সেটি <strong>স্ট্যাকে</strong> রাখা হয়।</li>
+<li>🚀 যদি কোনো ভেরিয়েবল <strong>ফাংশনের বাইরে (যেমন একটি রিটার্ন করা ক্লোজারে)</strong> ব্যবহার হয়, তাহলে সেটি হিপে স্থানান্তরিত হয়।</li>
 </ul>
-<p>Because <code>money</code> needs to stick around <em>after</em> <code>outer()</code> returns, <strong>escape analysis</strong> detects this and allocates <code>money</code> on the heap.</p>
-<h3 id="-what-is-escape-analysis"><a class="header" href="#-what-is-escape-analysis">🧪 What is Escape Analysis?</a></h3>
-<p>Escape analysis is the process that the <strong>Go compiler</strong> uses during the <strong>compilation phase</strong> to determine whether variables can be safely allocated on the stack or must go to the heap.</p>
-<ul>
-<li>✅ If a variable is used <em>only</em> inside a function, it's put on the <strong>stack</strong>.</li>
-<li>🚀 If a variable is used <em>outside</em> (like in a returned closure), it's moved to the <strong>heap</strong>.</li>
-</ul>
-<h3 id="-memory-segments"><a class="header" href="#-memory-segments">🧱 Memory Segments</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Segment</th><th>What's Stored</th></tr></thead><tbody>
-<tr><td>Code Segment</td><td>Compiled instructions and const (functions, <code>a</code>)</td></tr>
-<tr><td>Data Segment</td><td>Global variables (<code>p</code>)</td></tr>
-<tr><td>Stack</td><td>Local variables (<code>age</code>)</td></tr>
-<tr><td>Heap</td><td>Escaping variables (<code>money</code>)</td></tr>
+<h3 id="-মেমোরি-সেগমেনট"><a class="header" href="#-মেমোরি-সেগমেনট">🧱 মেমোরি সেগমেন্ট</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>সেগমেন্ট</th><th>কী সংরক্ষণ করে</th></tr></thead><tbody>
+<tr><td>কোড সেগমেন্ট</td><td>কম্পাইল করা নির্দেশাবলী এবং কনস্ট্যান্ট (ফাংশন, <code>a</code>)</td></tr>
+<tr><td>ডেটা সেগমেন্ট</td><td>গ্লোবাল ভেরিয়েবল (<code>p</code>)</td></tr>
+<tr><td>স্ট্যাক</td><td>লোকাল ভেরিয়েবল (<code>age</code>)</td></tr>
+<tr><td>হিপ</td><td>এস্কেপিং ভেরিয়েবল (<code>money</code>)</td></tr>
 </tbody></table>
 </div>
 <hr />
-<h2 id="-visualization"><a class="header" href="#-visualization">🧠 Visualization</a></h2>
-<h3 id="cli-style-memory-layout"><a class="header" href="#cli-style-memory-layout">CLI-Style Memory Layout</a></h3>
+<h2 id="-ভিজযুযালাইজেশন"><a class="header" href="#-ভিজযুযালাইজেশন">🧠 ভিজ্যুয়ালাইজেশন</a></h2>
+<h3 id="cli-সটাইল-মেমোরি-বিনযাস"><a class="header" href="#cli-সটাইল-মেমোরি-বিনযাস">CLI-স্টাইল মেমোরি বিন্যাস</a></h3>
 <pre><code>┌─────────────────────────────┐
-│       Code Segment          │
+│       কোড সেগমেন্ট         │
 │-----------------------------│
 │ const a = 10,               |
 | main, call, init, outer,    │
@@ -1712,13 +1710,13 @@ func init() {
 └─────────────────────────────┘
           ↓
 ┌─────────────────────────────┐
-│       Data Segment          │
+│        ডেটা সেগমেন্ট            │
 │-----------------------------│
-│ var p = 100                 │              
+│ var p = 100                 │
 └─────────────────────────────┘
           ↓
 ┌─────────────────────────────┐
-│           Stack             │
+│            স্ট্যাক              │
 │-----------------------------│
 │ outer() frame               │
 │   age = 30                  │
@@ -1726,34 +1724,34 @@ func init() {
 └─────────────────────────────┘
           ↓
 ┌─────────────────────────────┐
-│            Heap             │
+│            হিপ             │
 │-----------------------------│
 │ money = 100 (for incr1)     │
 │ money = 100 (for incr2)     │
 └─────────────────────────────┘
 </code></pre>
-<p>Each closure has its own <code>money</code> on the heap. Every call to <code>outer(100)</code> results in a new memory block being allocated.</p>
-<h3 id="garbage-collectors-role-"><a class="header" href="#garbage-collectors-role-">Garbage Collector’s Role 🧹</a></h3>
-<p>When the closure is no longer referenced (e.g., <code>incr1</code> or <code>incr2</code> goes out of scope), the <strong>Garbage Collector</strong> detects that the heap memory (e.g., <code>money</code>) is unreachable. It then safely reclaims that memory so your program doesn’t become a memory hoarder. This is vital for maintaining efficiency, especially when many closures are involved.</p>
-<p>GC is triggered automatically and runs concurrently with your program. It uses a combination of <strong>mark-and-sweep</strong> and <strong>concurrent garbage collection techniques</strong> to do this efficiently.</p>
+<p>প্রতিটি ক্লোজারের জন্য হিপে নিজস্ব <code>money</code> থাকে। প্রতিবার <code>outer(100)</code> কল করার সময় একটি নতুন মেমোরি ব্লক অ্যালোকেট করা হয়।</p>
+<h3 id="গারবেজ-কালেকটরের-ভূমিকা-"><a class="header" href="#গারবেজ-কালেকটরের-ভূমিকা-">গারবেজ কালেক্টরের ভূমিকা 🧹</a></h3>
+<p>যখন কোনো ক্লোজার আর রেফারেন্স করা হয় না (যেমন <code>incr1</code> বা <code>incr2</code> স্কোপের বাইরে চলে যায়), তখন <code>গারবেজ কালেক্টর</code> সেই হিপ মেমোরি (যেমন <code>money</code>) মুছে ফেলে, যাতে অপ্রয়োজনীয় মেমোরি দখল না থাকে। অনেক ক্লোজার থাকলে কর্মদক্ষতা বজায় রাখতে এটা খুবই গুরুত্বপূর্ণ।</p>
+<p>GC স্বয়ংক্রিয়ভাবে ট্রিগার হয় এবং প্রোগ্রামের সাথে একযোগে চলে। এটি কার্যকরভাবে কাজ করার জন্য <strong>mark-and-sweep</strong> এবং <strong>concurrent garbage collection techniques</strong> ব্যবহার করে।</p>
 <hr />
-<h2 id="-tldr-2"><a class="header" href="#-tldr-2">🧠 TL;DR</a></h2>
+<h2 id="-সংকষেপে"><a class="header" href="#-সংকষেপে">🧠 সংক্ষেপে</a></h2>
 <ul>
-<li>Closures can capture and remember variable state 🔁</li>
-<li>Escape analysis figures out which variables must live on the heap 📦</li>
-<li>Stack is temporary, heap is persistent (with GC 🧹)</li>
-<li>Go separates memory into Code, Data, Stack, Heap — each with its role 🧩</li>
-<li>GC ensures unused heap memory (like old closure data) is recycled ♻️</li>
+<li>ক্লোজার ভেরিয়েবলের অবস্থা ধরে রাখতে পারে 🔁</li>
+<li>এস্কেপ অ্যানালাইসিস নির্ধারণ করে কোন ভেরিয়েবল হিপে রাখা প্রয়োজন 📦</li>
+<li>স্ট্যাক সাময়িক, হিপ স্থায়ী (GC 🧹 এর সাথে)</li>
+<li>Go মেমোরি চারটি ভাগে ভাগ করে: কোড, ডেটা, স্ট্যাক, হীপ 🧩</li>
+<li>GC অপ্রচলিত হীপ মেমোরি পুনর্ব্যবহারযোগ্য করে তোলে ♻️</li>
 </ul>
 <hr />
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-17
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-27-structs--memory-layout-in-go-"><a class="header" href="#class-27-structs--memory-layout-in-go-">Class 27: Structs &amp; Memory Layout in Go 🧱</a></h1>
-<p>Welcome to Class 27! Today we're diving into <strong>structs</strong>, how to define and instantiate them, and how they interact with Go's memory model. Let's visualize everything from scratch like pros. 🧠💡</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৭-go-সটরাকট-এবং-মেমোরি-বিনযাস-"><a class="header" href="#কলাস-২৭-go-সটরাকট-এবং-মেমোরি-বিনযাস-">ক্লাস ২৭: Go স্ট্রাক্ট এবং মেমোরি বিন্যাস 🧱</a></h1>
+<p>এই ক্লাসে আমরা <strong>স্ট্রাক্ট</strong> কীভাবে ডিফাইন ও ইন্সট্যানশিয়েট করতে হয়, এবং এগুলো কীভাবে Go এর মেমোরি মডেলের সাথে কাজ করে তা শিখব। 🧠💡</p>
 <hr />
-<h2 id="-the-code-1"><a class="header" href="#-the-code-1">✍️ The Code</a></h2>
+<h2 id="-কলাস-২৭-এর-কোড"><a class="header" href="#-কলাস-২৭-এর-কোড">✍️ ক্লাস ২৭ এর কোড:</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -1784,42 +1782,42 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-key-concepts-7"><a class="header" href="#-key-concepts-7">🧠 Key Concepts</a></h2>
-<h3 id="-what-is-a-struct"><a class="header" href="#-what-is-a-struct">🧩 What is a Struct?</a></h3>
-<p>A <strong>struct</strong> is a user-defined type in Go used to group related data together. It’s like a custom container for fields.</p>
+<h2 id="-মূল-ধারণা"><a class="header" href="#-মূল-ধারণা">🧠 মূল ধারণা</a></h2>
+<h3 id="-সটরাকট-struct-কী"><a class="header" href="#-সটরাকট-struct-কী">🧩 স্ট্রাক্ট (Struct) কী?</a></h3>
+<p>Go তে <strong>স্ট্রাক্ট</strong> হলো একটি ইউজার ডিফাইন্ড টাইপ(user-defined type), যা ব্যবহারকারী নিজের মতো করে তৈরি করতে পারে, যাতে সম্পর্কিত ডেটা একসাথে রাখা যায়। এটি মূলত বিভিন্ন ফিল্ডের জন্য একটি কাস্টম কন্টেইনার।</p>
 <pre><code class="language-go">type User struct {
 	Name string
 	Age  int
 }
 </code></pre>
-<p>This defines a new type called <code>User</code> with fields <code>Name</code> and <code>Age</code>.</p>
+<p>এটি <code>User</code> নামে একটি নতুন টাইপ ডিফাইন করে, যার ফিল্ড হলো <code>Name</code> এবং <code>Age</code>।</p>
 <hr />
-<h3 id="-creating-instances-instantiation"><a class="header" href="#-creating-instances-instantiation">🔨 Creating Instances (Instantiation)</a></h3>
-<p>When we create an actual value using a struct type, that’s called <strong>instantiating</strong>.</p>
+<h3 id="-ইনসটযানস-তৈরি-instantiation"><a class="header" href="#-ইনসটযানস-তৈরি-instantiation">🔨 ইনস্ট্যান্স তৈরি (Instantiation)</a></h3>
+<p>যখন আমরা স্ট্রাক্ট টাইপ ব্যবহার করে একটি আসল মান তৈরি করি, সেটাই <strong>ইনস্ট্যান্সিয়েশন (Instantiation)</strong>.।</p>
 <pre><code class="language-go">user1 := User{
 	Name: "Ruhin",
 	Age:  21,
 }
 </code></pre>
-<p>Here <code>user1</code> is an <strong>instance</strong> of <code>User</code>. This allocates memory to hold <code>Name</code> and <code>Age</code> values.</p>
+<p>এখানে <code>user1</code> হলো <code>User</code> টাইপের একটি <strong>ইনস্ট্যান্স</strong>। এটি <code>Name</code> এবং <code>Age</code> মানগুলো রাখার জন্য মেমোরি অ্যালোকেট করে।</p>
 <hr />
-<h2 id="-memory-layout-visualization"><a class="header" href="#-memory-layout-visualization">🧠 Memory Layout (Visualization)</a></h2>
+<h2 id="-মেমোরি-লেআউট-ভিজযুয়ালাইজেশন"><a class="header" href="#-মেমোরি-লেআউট-ভিজযুয়ালাইজেশন">🧠 মেমোরি লেআউট (ভিজ্যুয়ালাইজেশন)</a></h2>
 <pre><code>┌─────────────────────────────┐
-│       Code Segment          │
+│       কোড সেগমেন্ট         │
 │-----------------------------│
 │ main, printDetails,         │
 │ type User struct {...}      │
 └─────────────────────────────┘
           ↓
 ┌─────────────────────────────┐
-│       Data Segment          │
+│       ডেটা সেগমেন্ট         │
 │-----------------------------│
 │ -                           │
-│ (Global vars if present)    │
+│(গ্লোবাল ভেরিয়েবল থাকলে)    │
 └─────────────────────────────┘
           ↓
 ┌─────────────────────────────┐
-│           Stack             │
+│           স্ট্যাক             │
 │-----------------------------│
 │ main() frame →              │
 │   user1 → Name: "Ruhin"     │
@@ -1829,10 +1827,11 @@ func main() {
 └─────────────────────────────┘
 </code></pre>
 <blockquote>
-<p>⚠️ NOTE: If a struct is returned from a function or captured by a closure, it may escape to the heap instead of stack.</p>
+<p>⚠️ NOTE: If a struct is returned from a function or captured by a closure, it may escape to the heap instead of stack.
+⚠️ নোট: যদি কোনো স্ট্রাক্ট ফাংশন থেকে রিটার্ন হয় বা ক্লোজারে ব্যবহার হয়, তাহলে এটি স্ট্যাকের বদলে হিপে স্থানান্তরিত হতে পারে।</p>
 </blockquote>
 <hr />
-<h2 id="-example-use-case"><a class="header" href="#-example-use-case">📋 Example Use Case</a></h2>
+<h2 id="-উদাহরণ"><a class="header" href="#-উদাহরণ">📋 উদাহরণ</a></h2>
 <pre><code class="language-go">type Book struct {
 	Title  string
 	Author string
@@ -1845,66 +1844,65 @@ book1 := Book{
 	Pages: 328,
 }
 </code></pre>
-<p>This lets us build real-world models with multiple fields.</p>
+<p>এভাবে আমরা একাধিক তথ্য নিয়ে বাস্তব জীবনের মতো মডেল তৈরি করতে পারি।</p>
 <hr />
-<h2 id="-role-of-the-garbage-collector-gc"><a class="header" href="#-role-of-the-garbage-collector-gc">🧹 Role of the Garbage Collector (GC)</a></h2>
+<h2 id="-গারবেজ-কালেকটরের-ভূমিকা"><a class="header" href="#-গারবেজ-কালেকটরের-ভূমিকা">🧹 গারবেজ কালেক্টরের ভূমিকা</a></h2>
 <ul>
-<li>If a struct instance <strong>escapes</strong> (used outside the function, stored long-term, etc.), Go stores it on the <strong>heap</strong>.</li>
-<li>Go’s <strong>garbage collector</strong> then tracks and cleans it when it’s no longer in use.</li>
-<li>This means you don’t have to manually <code>free()</code> anything — Go handles memory cleanup for heap objects.</li>
+<li>যদি কোনো স্ট্রাক্ট ইনস্ট্যান্স <strong>এস্কেপ</strong> করে (ফাংশনের বাইরে ব্যবহার হয়, দীর্ঘ সময় ধরে রাখা হয়), তাহলে Go সেটি হিপে রাখে।</li>
+<li>Go এর <strong>গারবেজ কালেক্টর</strong> তখন সেটি ট্র্যাক করে আর ব্যবহার না হলে মেমোরি ফাঁকা করে দেয়।</li>
+<li>তাই ম্যানুয়ালি <code>free()</code> করার দরকার নেই, Go নিজেই হিপের মেমোরি পরিচ্ছন্ন করে।</li>
 </ul>
 <hr />
-<h2 id="-tldr-3"><a class="header" href="#-tldr-3">🚀 TL;DR</a></h2>
+<h2 id="-সংকষেপে-1"><a class="header" href="#-সংকষেপে-1">🚀 সংক্ষেপে</a></h2>
 <ul>
-<li><code>type User struct {...}</code> is metadata → stored in the <strong>Code Segment</strong>.</li>
-<li><code>user1 := User{...}</code> is runtime data → stored in <strong>Stack</strong> or <strong>Heap</strong> depending on usage.</li>
-<li>Structs bundle fields into one logical unit ✅</li>
-<li>Memory layout varies depending on usage → escape analysis decides 📦🧳</li>
-<li>GC only manages objects in the <strong>heap</strong>, not on the <strong>stack</strong> 🧹</li>
+<li><code>type User struct {...}</code> হলো টাইপের তথ্য → কোড সেগমেন্ট-এ থাকে।</li>
+<li><code>user1 := User{...}</code> হলো রানটাইম ডেটা → স্ট্যাক বা হিপের রাখা হয় ব্যবহার অনুযায়ী।</li>
+<li>স্ট্রাক্ট একসাথে অনেক ফিল্ডকে একটি লজিক্যাল ইউনিটে গুছিয়ে রাখে ✅</li>
+<li>মেমোরি লেআউট ব্যবহার অনুসারে বদলায় → এস্কেপ অ্যানালাইসিসের সিদ্ধান্ত অনুসারে 📦🧳</li>
+<li>গারবেজ কালেক্টর শুধু হিপের মেমোরি পরিষ্কার করে, স্ট্যাক নয় 🧹</li>
 </ul>
 <hr />
-<h3 id="q-is-struct-a-datatype"><a class="header" href="#q-is-struct-a-datatype">Q: Is struct a datatype?</a></h3>
-<p><strong>Ans:</strong>
-Yes, 100% — a struct in Go is a user-defined data type. Think of it like creating your own custom "blueprint" for a data object. 💡</p>
-<p><strong>Here's how it fits in:</strong></p>
-<p>-[] Go has primitive data types like <code>int</code>, <code>string</code>, <code>bool</code>, <code>etc</code>.</p>
-<p>-[] You can then use <code>struct</code> to define a custom data type that groups multiple fields together.</p>
-<p>For example:</p>
+<h3 id="পরশন-সটরাকট-কি-একটি-ডেটাটাইপ"><a class="header" href="#পরশন-সটরাকট-কি-একটি-ডেটাটাইপ">প্রশ্ন: স্ট্রাক্ট কি একটি ডেটাটাইপ?</a></h3>
+<p><strong>উত্তর:</strong> হ্যাঁ, ১০০% — Go-তে স্ট্রাক্ট হলো ব্যবহারকারীর তৈরি একটি ডেটাটাইপ। এটা এমন একটা "ব্লুপ্রিন্ট" যেটা দিয়ে তুমি নিজের মতো করে ডেটা অবজেক্ট বানাতে পারো। 💡</p>
+<p><strong>কিভাবে:</strong></p>
+<p>-[] Go তে <code>int</code>, <code>string</code>, <code>bool</code> ইত্যাদির মতো প্রিমিটিভ ডেটা টাইপ থাকে।
+-[] তুমি <code>struct</code> ব্যবহার করে নিজের কাস্টম টাইপ তৈরি করতে পারো, যাতে একাধিক ফিল্ড একসাথে থাকে।</p>
+<p>যেমন:</p>
 <pre><code class="language-go">type User struct {
 	Name string
 	Age  int
 }
 </code></pre>
-<p>This <code>User</code> struct becomes its own data type, and now you can create instances of it just like you would for <code>int</code> or <code>string</code>:</p>
+<p>এখন User নিজেই একটা ডেটাটাইপ এর মতো কাজ করবে, আর তুমি এর ইনস্ট্যান্স তৈরি করে কাজ করতে পারো ঠিক <code>int</code> বা <code>string</code> এর মতো:</p>
 <pre><code class="language-go">var u User
 u.Name = "Ruhin"
 u.Age = 21
 </code></pre>
-<p>It’s like building your own Lego brick with a custom shape, and then making as many copies of that brick as you want. 🧱✨</p>
+<p>এটা এমন যেন তুমি নিজের মতো একটা লেগো ব্রিক তৈরি করছো, আর যত খুশি কপি বানাতে পারো। 🧱✨</p>
 <blockquote>
-<p>You’re now struct-urally sound in Go! 😎 Next time you model data, flex your type muscles and track those memory segments like a boss.</p>
+<p>তোমার Go প্রোগ্রাম এখন স্ট্রাকচার্ড! 😎 পরের বার ডেটা মডেল করলে নিজের টাইপ তৈরি করো আর মেমোরি সেগমেন্ট বুঝে কাজ করো!</p>
 </blockquote>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-17
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-28-receiver-functions-in-go"><a class="header" href="#class-28-receiver-functions-in-go">Class 28: Receiver Functions in Go</a></h1>
-<h2 id="-key-concept-receiver-functions"><a class="header" href="#-key-concept-receiver-functions">🔑 Key Concept: Receiver Functions</a></h2>
-<p>In Go, a <strong>receiver function</strong> (also called a <strong>method</strong>) is a function that is associated with a particular <strong>type</strong> (usually a struct). It allows us to add behavior to data types, like attaching functions to objects in other languages (e.g., methods in OOP).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৮-go-তে-রিসিভার-ফাংশন-receiver-functions"><a class="header" href="#কলাস-২৮-go-তে-রিসিভার-ফাংশন-receiver-functions">ক্লাস ২৮: Go তে রিসিভার ফাংশন (Receiver Functions)</a></h1>
+<h2 id="-মূল-ধারণা--রিসিভার-ফাংশন"><a class="header" href="#-মূল-ধারণা--রিসিভার-ফাংশন">🔑 মূল ধারণা: : রিসিভার ফাংশন</a></h2>
+<p>Go তে, একটি <strong>রিসিভার ফাংশন (receiver function)</strong> (যাকে <strong>method</strong> ও বলা হয়) হলো এমন একটি ফাংশন যা কোনো নির্দিষ্ট টাইপ <strong>(সাধারণত struct)</strong> এর সাথে জুড়ে থাকে। এটা আমাদের ডেটাটাইপের কোনো কাজ বা ব্যবহার যুক্ত করার সুযোগ দেয়, যেমন অন্য প্রোগ্রামিং ভাষায় অবজেক্টের method থাকে।</p>
 <hr />
-<h2 id="-what-is-a-receiver-function"><a class="header" href="#-what-is-a-receiver-function">🧠 What Is a Receiver Function?</a></h2>
-<p>A <strong>receiver function</strong> is defined like a normal function, but with a special receiver parameter placed between the <code>func</code> keyword and the function name.</p>
+<h2 id="-রিসিভার-ফাংশন-কি"><a class="header" href="#-রিসিভার-ফাংশন-কি">🧠 রিসিভার ফাংশন কি?</a></h2>
+<p>একটা <strong>রিসিভার ফাংশন</strong> দেখতে সাধারণ ফাংশনের মতোই, কিন্তু <code>func</code> কী-ওয়ার্ড এবং ফাংশনের নামের মাঝে একটা বিশেষ receiver parameter থাকে।</p>
 <pre><code class="language-go">func (r ReceiverType) FunctionName(params) returnType {
     // function body
 }
 </code></pre>
-<p>The receiver type can be:</p>
+<p>রিসিভার টাইপটি হতে পারে:</p>
 <ul>
-<li>A <strong>value receiver</strong>: <code>(t Type)</code> → receives a copy</li>
-<li>A <strong>pointer receiver</strong>: <code>(t *Type)</code> → receives a reference (can modify original)</li>
+<li>একটি <strong>ভ্যালু রিসিভার (value receiver)</strong>: <code>(t Type)</code> → একটি কপি রিসিভ করে</li>
+<li>একটি <strong>পয়েন্টার রিসিভার (pointer receiver)</strong>: <code>(t *Type)</code> → একটি রেফারেন্স রিসিভ করে (অরিজিনাল ডেটা পরিবর্তন করতে পারে)</li>
 </ul>
 <hr />
-<h2 id="-from-the-project-code"><a class="header" href="#-from-the-project-code">🏗️ From the Project Code</a></h2>
+<h2 id="-পরোজেকটের-কোড-থেকে-দেখতে-পাই"><a class="header" href="#-পরোজেকটের-কোড-থেকে-দেখতে-পাই">🏗️ প্রোজেক্টের কোড থেকে দেখতে পাই</a></h2>
 <pre><code class="language-go">func (todos *Todos) add(title string) {
     todo := Todo{
         Title: title,
@@ -1915,23 +1913,25 @@ u.Age = 21
     *todos = append(*todos, todo)
 }
 </code></pre>
+<p>হলো রিসিভার
+এই মেথড টি এর সাথে এটাচড</p>
 <ul>
-<li><code>todos *Todos</code> is the <strong>receiver</strong></li>
-<li>This method is attached to <code>Todos</code> (which is a custom type: <code>[]Todo</code>)</li>
-<li>The <code>*Todos</code> pointer allows modifications to the original slice</li>
+<li><code>todos *Todos</code> হলো <strong>রিসিভার</strong></li>
+<li>এই method টি <code>Todos</code> এর সাথে যুক্ত (<code>[]Todo</code>: একটি কাস্টম টাইপ)</li>
+<li><code>*Todos</code> পয়েন্টারটি অরিজিনাল স্লাইসকে পরিবর্তন করতে দেয়</li>
 </ul>
-<p>Example usage from <code>main.go</code>:</p>
+<p><code>main.go</code> এ ব্যবহারের উদাহরণ:</p>
 <pre><code class="language-go">todos.add("Buy milk")
 </code></pre>
 <hr />
-<h2 id="-why-use-receiver-functions"><a class="header" href="#-why-use-receiver-functions">🔁 Why Use Receiver Functions?</a></h2>
+<h2 id="-রিসিভার-ফাংশন-কেন-বযবহার-করব"><a class="header" href="#-রিসিভার-ফাংশন-কেন-বযবহার-করব">🔁 রিসিভার ফাংশন কেন ব্যবহার করব?</a></h2>
 <ul>
-<li>Organize logic with the data it operates on ✅</li>
-<li>Achieve OOP-like behavior in Go ✅</li>
-<li>Maintain cleaner and modular code ✅</li>
+<li>ডেটার সাথে সম্পর্কিত লজিক গুছিয়ে রাখা ✅</li>
+<li>Go-তে OOP-এর মতো আচরণ পাওয়া ✅</li>
+<li>কোডকে আরও পরিষ্কার ও মডুলার রাখা ✅</li>
 </ul>
 <hr />
-<h2 id="-extra-simple-example"><a class="header" href="#-extra-simple-example">💡 Extra Simple Example</a></h2>
+<h2 id="-আরও-সহজ-উদাহরণ"><a class="header" href="#-আরও-সহজ-উদাহরণ">💡 আরও সহজ উদাহরণ</a></h2>
 <pre><code class="language-go">type User struct {
     Name string
 }
@@ -1954,67 +1954,68 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-summary"><a class="header" href="#-summary">⚙️ Summary</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
-<tr><td>Receiver</td><td>The type a method is attached to (e.g., <code>*Todos</code>)</td></tr>
-<tr><td>Value Receiver</td><td>Gets a copy of the value; doesn't affect the original</td></tr>
-<tr><td>Pointer Receiver</td><td>Gets a reference; can modify the original</td></tr>
+<h2 id="--সারাংশ"><a class="header" href="#--সারাংশ">⚙️ ⚙️ সারাংশ</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>টার্ম</th><th>অর্থ</th></tr></thead><tbody>
+<tr><td>Receiver</td><td>যে টাইপের সাথে মেথড যুক্ত থাকে (যেমন, <code>*Todos</code>)</td></tr>
+<tr><td>Value Receiver</td><td>ডেটার কপি পায়; আসল ডেটা পরিবর্তন করতে পারে না</td></tr>
+<tr><td>Pointer Receiver</td><td>ডেটার রেফারেন্স পায়; আসল ডেটা পরিবর্তন করতে পারে</td></tr>
 </tbody></table>
 </div>
 <hr />
-<h2 id="-visualizing-it"><a class="header" href="#-visualizing-it">📘 Visualizing It</a></h2>
-<p>Think of <code>todos.add()</code> as calling a behavior of the object:</p>
+<h2 id="-ভিজযুয়ালাইজেশন"><a class="header" href="#-ভিজযুয়ালাইজেশন">📘 ভিজ্যুয়ালাইজেশন</a></h2>
+<p><code>todos.add()</code>কে অবজেক্টের কোনো কাজ বা আচরণ কল করার মতো ভাবা যেতে পারে:</p>
 <pre><code class="language-go">object.method()
 </code></pre>
-<p>This pattern lets <code>Todos</code> have its own custom logic, like <code>add</code>, <code>delete</code>, <code>toggle</code>, <code>print</code>, etc., just like class methods in Python/Java.</p>
+<p>এই প্যাটার্নটি <code>Todos</code> কে কাস্টম লজিক যোগ করার সুযোগ দেয়, যেমন <code>add</code>, <code>delete</code>, <code>toggle</code>, <code>print</code> ইত্যাদি, ঠিক Python বা Java-এর ক্লাস মেথডের মতো।</p>
 <hr />
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-17
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-29---go-arrays-and-memory-layout"><a class="header" href="#class-29---go-arrays-and-memory-layout">Class 29 - Go Arrays and Memory Layout</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-২৯---অযারে-array-এবং-মেমোরি-লেআউট"><a class="header" href="#কলাস-২৯---অযারে-array-এবং-মেমোরি-লেআউট">ক্লাস ২৯ - অ্যারে (Array) এবং মেমোরি লেআউট</a></h1>
 <p>📅 <em>Date: April 24, 2025</em></p>
-<h2 id="-key-concepts-8"><a class="header" href="#-key-concepts-8">🔑 Key Concepts</a></h2>
-<h3 id="-what-is-an-array"><a class="header" href="#-what-is-an-array">✅ What is an Array?</a></h3>
+<h2 id="-মূল-বিষয়বসতু-1"><a class="header" href="#-মূল-বিষয়বসতু-1">🔑 মূল বিষয়বস্তু</a></h2>
+<h3 id="-অযারে-array-কী"><a class="header" href="#-অযারে-array-কী">✅ অ্যারে (Array) কী?</a></h3>
 <ul>
-<li>An <strong>array</strong> is a fixed-size collection of elements of the same type.</li>
-<li>In Go, arrays are <strong>value types</strong>, meaning they are copied when passed around.</li>
+<li><strong>অ্যারে</strong> হলো এক ধরনের ডেটা স্ট্রাকচার, যেখানে নির্দিষ্ট সাইজের একই টাইপের একাধিক উপাদান (Element) থাকে।</li>
+<li><code>Go</code> তে, অ্যারে হলো <strong>value type</strong>, যার মানে হলো, ফাংশনে পাস করলে এর কপি তৈরি হয়।</li>
 </ul>
-<h3 id="-array-in-go"><a class="header" href="#-array-in-go">🧠 Array in Go</a></h3>
-<pre><code class="language-go">var arr [2]int       // Declares an array of 2 integers. Default values: [0, 0]
-arr[0] = 3           // Assigning values using index
+<h3 id="-go-তে-অযারে"><a class="header" href="#-go-তে-অযারে">🧠 Go তে অ্যারে</a></h3>
+<pre><code class="language-go">var arr [2]int       // ২ টি ইন্টিজারের একটি ডিক্লেয়ার করে যার ডিফল্ট ভ্যালু: [0, 0]
+arr[0] = 3           // ইনডেক্স ব্যবহার করে ভ্যালু এসাইন করে
 arr[1] = 6
 
-// Short way of declaring an array with values
+// সংক্ষেপে ভ্যালুসহ অ্যারে ডিক্লেয়ার করা
 arr := [2]int{3, 6}
 </code></pre>
-<h3 id="-indexing"><a class="header" href="#-indexing">💡 Indexing</a></h3>
+<h3 id="-ইনডেকসিং"><a class="header" href="#-ইনডেকসিং">💡 ইনডেক্সিং</a></h3>
 <ul>
-<li>Arrays in Go are <strong>zero-indexed</strong>, meaning the first element is accessed with <code>array[0]</code>.</li>
+<li>Go অ্যারে <strong>জিরো-ইনডেক্সড</strong>, অর্থাৎ প্রথম উপাদান array[0] দিয়ে অ্যাক্সেস করা হয়।</li>
 </ul>
-<h3 id="-default-values"><a class="header" href="#-default-values">⚙️ Default Values</a></h3>
+<h3 id="-ডিফলট-মান-default-value"><a class="header" href="#-ডিফলট-মান-default-value">⚙️ ডিফল্ট মান (Default Value)</a></h3>
+<p>ডিফল্ট মান মানে হলো কোনো ভেরিয়েবল বা ডেটা টাইপকে শুরুতে কোনো মান না দিলে, প্রোগ্রামিং ভাষা নিজে থেকে যে মান সেট করে।</p>
 <ul>
-<li>If you declare an array without initializing it, Go assigns default values:
+<li>যদি অ্যারে ডিক্লেয়ার করা হয় কিন্তু ইনিশিয়ালাইজ না করা হয়, Go কিছু ডিফল্ট ভ্যালু সেট করে:
 <ul>
-<li>For <code>int</code>, <code>float</code>, etc: <code>0</code></li>
-<li>For <code>string</code>: <code>""</code> (empty string)</li>
-<li>For <code>bool</code>: <code>false</code></li>
-<li>For pointers/interfaces: <code>nil</code></li>
+<li><code>int</code>, <code>float</code> ইত্যাদির জন্য <code>0</code></li>
+<li><code>string</code> এর জন্য <code>""</code> (ফাঁকা স্ট্রিং)</li>
+<li><code>bool</code> এর জন্য <code>false</code></li>
+<li><code>pointers/interfaces</code> এর জন্য <code>nil</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="-memory-layout-visualization-1"><a class="header" href="#-memory-layout-visualization-1">🔍 Memory Layout Visualization</a></h3>
-<p>Example:</p>
+<h3 id="-মেমোরি-লেআউট-ভিজযুয়ালাইজেশন-1"><a class="header" href="#-মেমোরি-লেআউট-ভিজযুয়ালাইজেশন-1">🔍 মেমোরি লেআউট ভিজ্যুয়ালাইজেশন</a></h3>
+<p>উদাহরণ:</p>
 <pre><code class="language-go">arr := [2]int{3, 6}
 </code></pre>
-<p><strong>Memory Layout</strong></p>
+<p><strong>মেমোরি লেআউট</strong></p>
 <div class="table-wrapper"><table><thead><tr><th>Address</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
 <tr><td>0x1000</td><td>3</td><td>arr[0]</td></tr>
 <tr><td>0x1004</td><td>6</td><td>arr[1]</td></tr>
 </tbody></table>
 </div>
-<p>Note: The actual address is abstract. The concept is: array elements are stored <strong>contiguously</strong> in memory.</p>
-<p>Another example:</p>
+<p>নোট: আসল এড্রেস এখানে কল্পনা করা হয়েছে। মূল ধারণা হলো, অ্যারের সব উপাদান মেমোরিতে একসাথে (contiguously) সংরক্ষিত থাকে।</p>
+<p>আরেকটি উদাহরণ:</p>
 <pre><code class="language-go">arr2 := [3]string{"I", "love", "you"}
 </code></pre>
 <div class="table-wrapper"><table><thead><tr><th>Index</th><th>Value</th></tr></thead><tbody>
@@ -2023,9 +2024,9 @@ arr := [2]int{3, 6}
 <tr><td>2</td><td>"you"</td></tr>
 </tbody></table>
 </div>
-<p>Accessing <code>arr2[1]</code> returns <code>"love"</code>.</p>
+<p><code>arr2[1]</code> এক্সেস করলে <code>"love"</code> রিটার্ন করে।</p>
 <hr />
-<h2 id="-full-code-example-from-class"><a class="header" href="#-full-code-example-from-class">🧪 Full Code Example (From Class)</a></h2>
+<h2 id="-কলাসের-কোড-উদাহরণসহ"><a class="header" href="#-কলাসের-কোড-উদাহরণসহ">🧪 ক্লাসের কোড উদাহরণসহ</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -2040,81 +2041,81 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2 id="-summary-1"><a class="header" href="#-summary-1">📦 Summary</a></h2>
+<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">📦 সারাংশ</a></h2>
 <ul>
-<li>Arrays are great for working with fixed-size collections.</li>
-<li>Be aware of default values.</li>
-<li>They're stored contiguously in memory.</li>
-<li>Go makes it easy to work with arrays, and it's a good base before moving to slices!</li>
+<li>অ্যারে নির্দিষ্ট সাইজের ডেটা সংরক্ষণে ভালো।</li>
+<li>ডিফল্ট মান সম্পর্কে সচেতন থাকুন।</li>
+<li>মেমোরিতে একসাথে (contiguously) সংরক্ষিত থাকে।</li>
+<li>Go তে অ্যারের সাথে কাজ করা সহজ, যা স্লাইসে যাওয়ার আগে ভালো ভিত্তি তৈরি করে।</li>
 </ul>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-17
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="class-30-pointers-in-go"><a class="header" href="#class-30-pointers-in-go">Class 30: Pointers in Go</a></h1>
-<h2 id="what-is-a-pointer"><a class="header" href="#what-is-a-pointer">What is a Pointer?</a></h2>
-<p>A <strong>pointer</strong> is a variable that stores the <strong>memory address</strong> of another variable.</p>
-<p>In Go, memory is divided into several segments:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="কলাস-৩০-go-পযেনটার"><a class="header" href="#কলাস-৩০-go-পযেনটার">ক্লাস ৩০: Go পয়েন্টার</a></h1>
+<h2 id="পযেনটার-কি"><a class="header" href="#পযেনটার-কি">পয়েন্টার কি?</a></h2>
+<p><strong>পয়েন্টার</strong> হলো এমন একটি ভেরিয়েবল যা আরেকটি ভেরিয়েবলের মেমোরি এড্রেস সংরক্ষণ করে।</p>
+<p>Go তে মেমোরি কয়েকটি ভাগে বিভক্ত থাকে। যেমন:</p>
 <ul>
-<li><strong>Code segment</strong>: Stores compiled program instructions (functions).</li>
-<li><strong>Data segment</strong>: Stores global/static variables and constants.</li>
-<li><strong>Heap</strong>: Stores dynamically allocated memory.</li>
-<li><strong>Stack</strong>: Stores local variables and function call information.</li>
+<li><strong>কোড সেগমেন্ট</strong>: কম্পাইল করা প্রোগ্রামের নির্দেশনা (ফাংশন) সংরক্ষণ করে।</li>
+<li><strong>ডেটা সেগমেন্ট</strong>: গ্লোবাল/স্ট্যাটিক ভেরিয়েবল এবং কনস্ট্যান্ট সংরক্ষণ করে।</li>
+<li><strong>স্ট্যাক</strong>: লোকাল ভেরিয়েবল এবং ফাংশন কলের তথ্য সংরক্ষণ করে।</li>
+<li><strong>হিপ</strong>: ডায়নামিকালি অ্যালোকেট করা মেমোরি সংরক্ষণ করে।</li>
 </ul>
-<p>Pointers help us interact directly with memory addresses.</p>
+<p>পয়েন্টারের মাধ্যমে সরাসরি মেমোরি এড্রেসের সাথে কাজ করা যায়।</p>
 <hr />
-<h2 id="symbols-to-know"><a class="header" href="#symbols-to-know">Symbols to Know:</a></h2>
+<h2 id="গুরুতবপূরণ-চিহনগুলো"><a class="header" href="#গুরুতবপূরণ-চিহনগুলো">গুরুত্বপূর্ণ চিহ্নগুলো:</a></h2>
 <ul>
-<li><code>&amp;</code> (Ampersand): Used to get the <strong>address</strong> of a variable.</li>
-<li><code>*</code> (Star/Dereference operator): Used to get the <strong>value</strong> stored at a memory address.</li>
+<li><code>&amp;</code> (Ampersand): <strong>ভেরিয়েবলের এড্রেস</strong> পেতে ব্যবহার হয়।</li>
+<li><code>*</code> (Star/Dereference operator): <strong>মেমোরি এড্রেসে থাকা মান</strong> পেতে ব্যবহার হয়।</li>
 </ul>
-<p>Example:</p>
+<p>উদাহরণ:</p>
 <pre><code class="language-go">x := 20
-p := &amp;x // p holds the address of x
+p := &amp;x // p ভেরিয়েবল, x এর এড্রেস রাখে
 
-*p = 30 // change value at address p (which changes x)
+*p = 30 // এড্রেস p তে থাকা মান (x) পরিবর্তন করে
 
 fmt.Println(x)  // 30
-fmt.Println(p)  // address of x
-fmt.Println(*p) // 30 (value at address)
+fmt.Println(p)  // x এর এড্রেস
+fmt.Println(*p) // 30 (এড্রেসে থাকা মান)
 </code></pre>
 <hr />
-<h2 id="why-use-pointers"><a class="header" href="#why-use-pointers">Why Use Pointers?</a></h2>
+<h2 id="পযেনটার-কেন-বযবহার-করবেন"><a class="header" href="#পযেনটার-কেন-বযবহার-করবেন">পয়েন্টার কেন ব্যবহার করবেন?</a></h2>
 <ul>
-<li><strong>Efficiency</strong>: Instead of copying big structures (like arrays), just pass their memory address.</li>
-<li><strong>Shared Modification</strong>: If multiple functions need to modify the same data.</li>
-<li><strong>Memory Management</strong>: Especially important in lower-level or high-performance programming.</li>
+<li><strong>ইফিসিয়েন্সি (Efficiency)</strong>: বড় স্ট্রাকচার (যেমন অ্যারে) কপি না করে শুধুমাত্র তাদের মেমোরি এড্রেস পাস করা যায়।</li>
+<li><strong>শেয়ারড মডিফিকেশন (Shared Modification)</strong>: যখন একাধিক ফাংশনকে একই ডেটা পরিবর্তন করতে হয়।</li>
+<li><strong>মেমোরি ম্যানেজমেন্ট (Memory Management)</strong>: লো-লেভেল বা হাই-পারফরম্যান্স প্রোগ্রামিংয়ে বিশেষভাবে গুরুত্বপূর্ণ।</li>
 </ul>
-<p>Without pointers, every function call would copy entire objects. That's sloooow and wasteful!</p>
+<p>পয়েন্টার ছাড়া, প্রতিটি ফাংশন কলের সময় পুরো অবজেক্ট কপি করতে হতো। এটা ধীর গতির এবং মেমোরি অপচয় করে!</p>
 <hr />
-<h2 id="pass-by-value-vs-pass-by-reference"><a class="header" href="#pass-by-value-vs-pass-by-reference">Pass by Value vs Pass by Reference</a></h2>
-<p><strong>Pass by Value</strong>:</p>
+<h2 id="পাস-বাই-ভযালু-pass-by-value-vs-পাস-বাই-রেফারেনস-pass-by-reference"><a class="header" href="#পাস-বাই-ভযালু-pass-by-value-vs-পাস-বাই-রেফারেনস-pass-by-reference">পাস বাই ভ্যালু (Pass by Value) vs পাস বাই রেফারেন্স (Pass by Reference)</a></h2>
+<p><strong>পাস বাই ভ্যালু (Pass by Value)</strong>:</p>
 <ul>
-<li>A copy of the variable is passed.</li>
-<li>Changes inside the function don't affect the original.</li>
+<li>ভেরিয়েবলের একটি কপি পাস করা হয়।</li>
+<li>ফাংশনের ভেতরে পরিবর্তন অরিজিনাল ভেরিয়েবলকে প্রভাবিত করে না।</li>
 </ul>
 <pre><code class="language-go">func print(numbers [3]int) {
 	fmt.Println(numbers)
 }
 
 arr := [3]int{1, 2, 3}
-print(arr) // Passing a copy
+print(arr) // একটি কপি পাস
 </code></pre>
-<p><strong>Pass by Reference</strong>:</p>
+<p><strong>পাস বাই রেফারেন্স (Pass by Reference)</strong>:</p>
 <ul>
-<li>Pass the address instead of copying.</li>
-<li>Changes inside the function affect the original.</li>
+<li>কপি না করে ভেরিয়েবলের এড্রেস পাস করা হয়।</li>
+<li>ফাংশনের ভেতরে করা পরিবর্তন অরিজিনাল ভেরিয়েবলকে প্রভাবিত করে।</li>
 </ul>
 <pre><code class="language-go">func print2(numbers *[3]int) {
 	fmt.Println(numbers)
 }
 
 arr := [3]int{1, 2, 3}
-print2(&amp;arr) // Passing a pointer
+print2(&amp;arr) // একটি পয়েন্টার পাস
 </code></pre>
 <hr />
-<h2 id="struct-pointers-and-why-go-is-chill-with-them"><a class="header" href="#struct-pointers-and-why-go-is-chill-with-them">Struct Pointers (and why Go is chill with them)</a></h2>
-<p>When you have a pointer to a struct, Go is smart enough to let you access fields without needing <code>*</code> every time.</p>
+<h2 id="সটরাকট-পয়েনটার-and-why-go-is-chill-with-them"><a class="header" href="#সটরাকট-পয়েনটার-and-why-go-is-chill-with-them">স্ট্রাক্ট পয়েন্টার (and why Go is chill with them)</a></h2>
+<p>যখন স্ট্রাক্ট এ পয়েন্টার থাকে, Go বার বার * (dereference) করার পরিবর্তে নিজেই বুঝে নিয়ে field access দেয়।</p>
 <pre><code class="language-go">user1 := User{
 	Name: "Ruhin",
 	Age: 21,
@@ -2123,7 +2124,7 @@ print2(&amp;arr) // Passing a pointer
 p2 := &amp;user1
 fmt.Println(p2.Age) // no need to write (*p2).Age
 </code></pre>
-<p>Go automatically dereferences it for you. Big W.</p>
+<p>Go নিজে থেকে pointer কে dereference করে field টা দেয়। অসাধারণ, তাই না?</p>
 <hr />
 <h2 id="full-code-example-from-class"><a class="header" href="#full-code-example-from-class">Full Code Example from Class:</a></h2>
 <pre><code class="language-go">package main
@@ -2148,7 +2149,7 @@ func main() {
 	x := 20
 	p := &amp;x
 	*p = 30
-	
+
 	fmt.Println(x)           // 30
 	fmt.Println("Address:", p)
 	fmt.Println("Value:", *p)
@@ -2167,20 +2168,20 @@ func main() {
 }
 </code></pre>
 <hr />
-<h1 id="memory-layout-visualization-cli-style"><a class="header" href="#memory-layout-visualization-cli-style">Memory Layout Visualization (CLI-Style)</a></h1>
+<h1 id="মেমরি-লেআউটের-ভিজযুয়ালাইজেশন-cli"><a class="header" href="#মেমরি-লেআউটের-ভিজযুয়ালাইজেশন-cli">মেমরি লেআউটের ভিজ্যুয়ালাইজেশন (CLI)</a></h1>
 <pre><code>+--------------------+----------------------------------+
-| Segment            | What's stored                   |
+| সেগমেন্ট             |  কি আছে                 |
 +--------------------+----------------------------------+
 | Code Segment       | main(), print(), print2()        |
-| Data Segment       | (none for local vars here)       |
+| Data Segment       | (এখানে কোনো গ্লোবাল ভ্যারিয়েবল নেই)       |
 | Stack              | arr [3]int {1,2,3}, x=30         |
 |                    | p (pointer to x)                 |
 |                    | user1 (User struct)              |
 |                    | p2 (pointer to user1)            |
-| Heap               | (unused for this simple program) |
+| Heap               | (এই প্রোগ্রামে ব্যবহার হয়নি) |
 +--------------------+----------------------------------+
 </code></pre>
-<h3 id="detailed-memory-visualization-addresses-and-values"><a class="header" href="#detailed-memory-visualization-addresses-and-values">Detailed Memory Visualization (Addresses and Values)</a></h3>
+<h3 id="বিসতারিত-মেমরি-ভিজযুয়ালাইজেশন-এডরেস-এবং-মানসহ"><a class="header" href="#বিসতারিত-মেমরি-ভিজযুয়ালাইজেশন-এডরেস-এবং-মানসহ">বিস্তারিত মেমরি ভিজ্যুয়ালাইজেশন (এড্রেস এবং মানসহ)</a></h3>
 <pre><code>Stack Memory:
 
 [ Address 0x1000 ] x = 30
@@ -2193,14 +2194,14 @@ Code Segment:
 - Compiled code of main, print, print2
 
 Data Segment:
-- Empty (no global variables/constants)
+-  খালি (কোন গ্লোবাল ভ্যারিয়েবল নেই)
 
 Heap:
-- Not used in this example
+- এই প্রোগ্রামে ব্যবহার হয়নি
 </code></pre>
 <hr />
-<h1 id="extra-example-swapping-two-numbers-with-pointers"><a class="header" href="#extra-example-swapping-two-numbers-with-pointers">Extra Example: Swapping Two Numbers with Pointers</a></h1>
-<p>Without Pointers (FAIL):</p>
+<h1 id="আরও-উদাহরণ-পযেনটার-বযবহার-করে-দুইটি-নমবর-বিনিময-swap-করা"><a class="header" href="#আরও-উদাহরণ-পযেনটার-বযবহার-করে-দুইটি-নমবর-বিনিময-swap-করা">আরও উদাহরণ: পয়েন্টার ব্যবহার করে দুইটি নম্বর বিনিময় (Swap) করা</a></h1>
+<p><strong>পয়েন্টার ছাড়া (FAIL)</strong>:</p>
 <pre><code class="language-go">func swap(x, y int) {
 	temp := x
 	x = y
@@ -2213,7 +2214,7 @@ func main() {
 	fmt.Println(a, b) // still 1 2
 }
 </code></pre>
-<p>With Pointers (WIN):</p>
+<p><strong>পয়েন্টার ব্যবহার করে (WIN)</strong>:</p>
 <pre><code class="language-go">func swap(x, y *int) {
 	temp := *x
 	*x = *y
@@ -2227,13 +2228,13 @@ func main() {
 }
 </code></pre>
 <hr />
-<h1 id="quick-summary"><a class="header" href="#quick-summary">Quick Summary</a></h1>
+<h1 id="সংকষিপত-সারাংশ"><a class="header" href="#সংকষিপত-সারাংশ">সংক্ষিপ্ত সারাংশ</a></h1>
 <ul>
-<li><code>&amp;</code> gets the address.</li>
-<li><code>*</code> gets the value at an address.</li>
-<li>Pointers = efficient + powerful.</li>
-<li>Struct pointer fields are auto-dereferenced.</li>
-<li>Pass big things (like arrays, structs) by pointer to save memory.</li>
+<li><code>&amp;</code> দিয়ে ভেরিয়েবলের ঠিকানা পাওয়া যায়।</li>
+<li><code>*</code> দিয়ে ঠিকানায় থাকা মান পাওয়া যায়।</li>
+<li>Pointers = efficient + powerful</li>
+<li>struct pointer থাকলে Go নিজে থেকে field access দেয়, আলাদা dereference করার দরকার নেই।</li>
+<li>বড় ডেটা (array, struct) পাস করার সময় পয়েন্টার ব্যবহার করে মেমোরি সেভ করা যায়।</li>
 </ul>
 <hr />
 <p><strong>Bro Tip</strong>:</p>
@@ -2241,148 +2242,145 @@ func main() {
 <p>When in doubt, think: "Am I copying a whole dang castle, or just giving a map to it?"</p>
 </blockquote>
 <p>Pointers = the map. ✅</p>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-17
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-slice-deep-dive-in-go"><a class="header" href="#-slice-deep-dive-in-go">📚 Slice Deep Dive in Go</a></h1>
-<hr />
-<h1 id="-class-31-slice"><a class="header" href="#-class-31-slice">📌 Class 31: Slice</a></h1>
-<h3 id="-key-topics"><a class="header" href="#-key-topics">🚀 Key topics</a></h3>
-<ol>
-<li>What is a Slice?</li>
-<li>How many parts does a Slice have?</li>
-<li>How to determine Pointer, Length, and Capacity of a Slice?</li>
-<li>Creating a Slice from an existing Array</li>
-<li>Creating a Slice from an existing Slice</li>
-<li>Slice Literal</li>
-<li>Creating a Slice with <code>make()</code> (length only)</li>
-<li>Creating a Slice with <code>make()</code> (length and capacity)</li>
-<li>Creating an Empty or Nil Slice</li>
-<li>Appending elements to a Slice</li>
-<li>What happens internally when appending (Heap and Underlying Array behavior)</li>
-<li>How the underlying array increases dynamically</li>
-<li>Some interesting examples and interview questions</li>
-<li>Variadic Functions</li>
-</ol>
-<hr />
-<h1 id="-1-what-is-a-slice"><a class="header" href="#-1-what-is-a-slice">🧠 1. What is a Slice?</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-কলাস-৩১-go-সলাইস-slice"><a class="header" href="#-কলাস-৩১-go-সলাইস-slice">📚 ক্লাস ৩১: Go স্লাইস (Slice)</a></h1>
+<h2 id="-মূল-বিষযসমূহ"><a class="header" href="#-মূল-বিষযসমূহ">🚀 মূল বিষয়সমূহ</a></h2>
 <ul>
-<li>A <strong>slice</strong> is a lightweight data structure in Go.</li>
-<li>Think of it like a dynamic view over an <strong>array</strong>.</li>
-<li>Unlike arrays, slices can grow and shrink.</li>
-</ul>
-<p><strong>Key Points:</strong></p>
-<ul>
-<li>Slices are not arrays.</li>
-<li>Slices are built <em>on top of</em> arrays.</li>
+<li>স্লাইস কী?</li>
+<li>একটি স্লাইসে কয়টি অংশ থাকে?</li>
+<li>স্লাইসের Pointer, Length, এবং Capacity নির্ণয় করা</li>
+<li>বিদ্যমান Array থেকে স্লাইস তৈরি</li>
+<li>বিদ্যমান Slice থেকে নতুন Slice তৈরি</li>
+<li>Slice Literal (সরাসরি ঘোষণা)</li>
+<li><code>make()</code> দিয়ে Slice তৈরি (শুধু length)</li>
+<li><code>make()</code> দিয়ে Slice তৈরি (length এবং capacity)</li>
+<li>খালি বা Nil Slice তৈরি</li>
+<li>স্লাইসে নতুন উপাদান যোগ করা (append)</li>
+<li><code>append</code> করার সময় অভ্যন্তরীণ প্রক্রিয়া (Heap এবং Underlying Array)</li>
+<li>Underlying Array কীভাবে গতিশীলভাবে বাড়ে</li>
+<li>কিছু মজার উদাহরণ এবং ইন্টারভিউ প্রশ্ন</li>
+<li>ভ্যারিয়েডিক ফাংশন (Variadic Functions)</li>
 </ul>
 <hr />
-<h1 id="-2-how-many-parts-does-a-slice-have"><a class="header" href="#-2-how-many-parts-does-a-slice-have">🔥 2. How many parts does a Slice have?</a></h1>
-<p>Under the hood, a Slice is a <strong>struct</strong> with three fields:</p>
+<h1 id="-১-সলাইস-কী"><a class="header" href="#-১-সলাইস-কী">🧠 ১. স্লাইস কী?</a></h1>
+<ul>
+<li><strong>স্লাইস</strong> হলো Go এর একটি ফ্লেক্সিবল ডেটা স্ট্রাকচার।</li>
+<li>এটি মূলত array এর উপরে নির্মিত একটি <strong>dynamic view</strong>।</li>
+<li>array এর মত হলেও, slice এর সাইজ পরিবর্তন করা যায় (বড় বা ছোট করা যায়)।</li>
+</ul>
+<p><strong>মূল পয়েন্ট:</strong></p>
+<ul>
+<li>স্লাইস array নয়।</li>
+<li>স্লাইস array এর উপরে তৈরি হয়।</li>
+</ul>
+<hr />
+<h1 id="-২-একটি-সলাইসের-কয়টি-অংশ-থাকে"><a class="header" href="#-২-একটি-সলাইসের-কয়টি-অংশ-থাকে">🔥 ২. একটি স্লাইসের কয়টি অংশ থাকে?</a></h1>
+<p>স্লাইস মূলত একটি <strong>struct</strong> যা তিনটি অংশ নিয়ে গঠিত:</p>
 <pre><code class="language-go">struct Slice {
-    pointer *T // Pointer to the underlying array
-    length  int // Current number of elements
-    capacity int // Maximum number of elements (until reallocation)
-}
+    pointer *T // underlying array কে পয়েন্ট করে
+    length  int // বর্তমান elements সংখ্যা
+    capacity int // সর্বোচ্চ elements সংখ্যা (রিয়ালোকেশন পর্যন্ত)
+	}
 </code></pre>
-<p>You can think of a slice as a "window" into an array.</p>
+<p>স্লাইসকে মূলত একটি array এর "উইন্ডো" হিসেবে ভাবা যেতে পারে।</p>
 <hr />
-<h1 id="-3-how-to-determine-pointer-length-and-capacity"><a class="header" href="#-3-how-to-determine-pointer-length-and-capacity">🕵️‍♂️ 3. How to determine Pointer, Length, and Capacity</a></h1>
-<p>Use:</p>
+<h1 id="-৩-পযেনটার-লেনথ-এবং-কযাপাসিটি-নিরধারণ-করার-উপায"><a class="header" href="#-৩-পযেনটার-লেনথ-এবং-কযাপাসিটি-নিরধারণ-করার-উপায">🕵️‍♂️ ৩. পয়েন্টার, লেন্থ এবং ক্যাপাসিটি নির্ধারণ করার উপায়</a></h1>
+<p>নিম্নোক্ত built-in ফাংশন ব্যবহার করে স্লাইসের লেন্থ এবং ক্যাপাসিটি বের করা যায়:</p>
 <ul>
 <li><code>len(slice)</code> ➡️ Length</li>
 <li><code>cap(slice)</code> ➡️ Capacity</li>
 </ul>
-<p>Example:</p>
-<pre><code class="language-go">s := arr[1:4] // From index 1 to 3
+<p>উদাহরণ:</p>
+<pre><code class="language-go">s := arr[1:4] // ইনডেক্স 1 থেকে 3
 fmt.Println(len(s)) // 3
-fmt.Println(cap(s)) // depends on how much array is left after index 1
+fmt.Println(cap(s)) //  ইনডেক্স 1 এর পর থেকে অ্যারের শেষ পর্যন্ত
 </code></pre>
 <hr />
-<h1 id="-4-creating-a-slice-from-an-existing-array"><a class="header" href="#-4-creating-a-slice-from-an-existing-array">🏗 4. Creating a Slice from an existing Array</a></h1>
+<h1 id="-৪-অযারে-থেকে-সলাইস-তৈরি-করা"><a class="header" href="#-৪-অযারে-থেকে-সলাইস-তৈরি-করা">🏗 ৪. অ্যারে থেকে স্লাইস তৈরি করা</a></h1>
 <pre><code class="language-go">arr := [6]string{"This", "is", "a", "Go", "interview", "Questions"}
 s := arr[1:4] // slice ["is", "a", "Go"]
 </code></pre>
 <ul>
-<li><code>pointer</code>: points to index 1 of <code>arr</code></li>
-<li><code>length</code>: 3 (from index 1 to 3)</li>
-<li><code>capacity</code>: 5 (indexes 1 to 5)</li>
+<li><code>pointer</code>: <code>arr</code> এর 1 নম্বর ইনডেক্স নির্দেশ করে</li>
+<li><code>length</code>: 3 (ইনডেক্স 1 থেকে 3)</li>
+<li><code>capacity</code>: 5 (ইনডেক্স 1 থেকে 5)</li>
 </ul>
 <hr />
-<h1 id="-5-creating-a-slice-from-an-existing-slice"><a class="header" href="#-5-creating-a-slice-from-an-existing-slice">🔄 5. Creating a Slice from an existing Slice</a></h1>
+<h1 id="-৫-সলাইস-থেকে-নতুন-সলাইস-তৈরি"><a class="header" href="#-৫-সলাইস-থেকে-নতুন-সলাইস-তৈরি">🔄 ৫. স্লাইস থেকে নতুন স্লাইস তৈরি</a></h1>
 <pre><code class="language-go">s1 := s[1:2] // Slice "a"
 </code></pre>
 <ul>
-<li>This slice is again a <strong>view</strong> into the same array!</li>
-<li>Changing <code>s1</code> can affect <code>arr</code>.</li>
+<li><code>s1</code> স্লাইসটি একই অ্যারের একটি <strong>view</strong>!</li>
+<li><code>s1</code> পরিবর্তন করলে <code>arr</code> এর মানও পরিবর্তিত হতে পারে।</li>
 </ul>
 <hr />
-<h1 id="-6-slice-literal"><a class="header" href="#-6-slice-literal">✍️ 6. Slice Literal</a></h1>
-<p>Create a slice without needing an array explicitly.</p>
+<h1 id="-6-সলাইস-লিটারেল"><a class="header" href="#-6-সলাইস-লিটারেল">✍️ 6. স্লাইস লিটারেল</a></h1>
+<p>একটি স্লাইস তৈরি করতে সরাসরি মান ব্যবহার করা যায়, আলাদা করে অ্যারে তৈরি করার প্রয়োজন নেই।</p>
 <pre><code class="language-go">s2 := []int{3, 4, 7}
 </code></pre>
-<p>Here Go automatically creates an underlying array.</p>
-<hr />
-<h1 id="-7-creating-a-slice-with-make-length-only"><a class="header" href="#-7-creating-a-slice-with-make-length-only">🏗️ 7. Creating a Slice with <code>make()</code> (length only)</a></h1>
+<h2 id="এখানে-go-সবযংকরিযভাবে-একটি-underlying-অযারে-তৈরি-করে"><a class="header" href="#এখানে-go-সবযংকরিযভাবে-একটি-underlying-অযারে-তৈরি-করে">এখানে Go স্বয়ংক্রিয়ভাবে একটি underlying অ্যারে তৈরি করে।</a></h2>
+<h1 id="-৭-make-দিযে-একটি-সলাইস-তৈরি-করা"><a class="header" href="#-৭-make-দিযে-একটি-সলাইস-তৈরি-করা">🏗️ ৭. make() দিয়ে একটি স্লাইস তৈরি করা</a></h1>
 <pre><code class="language-go">s3 := make([]int, 3)
 </code></pre>
 <ul>
-<li>Creates a slice of 3 zeroed elements.</li>
+<li><code>make()</code> দিয়ে ৩টি শূন্য মান (zero) সহ একটি স্লাইস তৈরি করে। অর্থাৎ, ৩টি ফাঁকা এলিমেন্ট থাকবে।</li>
 <li><code>len = 3</code>, <code>cap = 3</code></li>
 </ul>
 <hr />
-<h1 id="-8-creating-a-slice-with-make-length-and-capacity"><a class="header" href="#-8-creating-a-slice-with-make-length-and-capacity">🏗️🏗️ 8. Creating a Slice with <code>make()</code> (length and capacity)</a></h1>
+<h1 id="-৮-make-দিযে-একটি-সলাইস-তৈরি-করা-length-এবং-capacity"><a class="header" href="#-৮-make-দিযে-একটি-সলাইস-তৈরি-করা-length-এবং-capacity">🏗️🏗️ ৮. <code>make()</code> দিয়ে একটি স্লাইস তৈরি করা (length এবং capacity)</a></h1>
 <pre><code class="language-go">s4 := make([]int, 3, 5)
 </code></pre>
 <ul>
-<li><code>len = 3</code>, but it can grow up to <code>cap = 5</code> before reallocating.</li>
+<li><code>len = 3</code>, কিন্তু ক্যাপাসিটি <code>cap = 5</code> পর্যন্ত হতে পারে রিঅ্যালোকেশন এর আগ পর্যন্ত</li>
 </ul>
 <hr />
-<h1 id="-9-creating-an-empty-or-nil-slice"><a class="header" href="#-9-creating-an-empty-or-nil-slice">🕳 9. Creating an Empty or Nil Slice</a></h1>
+<h1 id="-9-শুনয-সলাইস-তৈরি-empty--nil-slice"><a class="header" href="#-9-শুনয-সলাইস-তৈরি-empty--nil-slice">🕳 9. শুন্য স্লাইস তৈরি (Empty / Nil Slice)</a></h1>
 <pre><code class="language-go">var s5 []int
 </code></pre>
 <ul>
 <li><code>len = 0</code>, <code>cap = 0</code></li>
-<li>Still valid! You can append to it.</li>
+<li>Still valid! এতে নতুন এলিমেন্ট যোগ (append) করা যাবে।</li>
 </ul>
 <hr />
-<h1 id="-10-appending-elements-to-a-slice"><a class="header" href="#-10-appending-elements-to-a-slice">➕ 10. Appending Elements to a Slice</a></h1>
+<h1 id="-১০-সলাইসে-নতুন-এলিমেনট-যোগ--এপেনড-করা"><a class="header" href="#-১০-সলাইসে-নতুন-এলিমেনট-যোগ--এপেনড-করা">➕ ১০. স্লাইসে নতুন এলিমেন্ট যোগ / এপেন্ড করা</a></h1>
 <pre><code class="language-go">s6 := append(s6, 1)
 </code></pre>
 <ul>
-<li>Go handles growing the underlying array if needed.</li>
-<li>May involve <em>allocating a bigger array</em> and copying elements.</li>
+<li>Go নিজে থেকে underlying অ্যারে বড় করে।</li>
+<li><em>অনেক বড় অ্যারে</em> তৈরি এবং আগের এলিমেন্টগুলো কপি করার কাজও করে থাকে।</li>
 </ul>
 <hr />
-<h1 id="-11-what-happens-internally-with-append"><a class="header" href="#-11-what-happens-internally-with-append">🧬 11. What Happens Internally with Append</a></h1>
-<p>When a slice reaches capacity:</p>
+<h1 id="-১১-এপেনড-করার-সময়-আসলে-কী-হয়"><a class="header" href="#-১১-এপেনড-করার-সময়-আসলে-কী-হয়">🧬 ১১. এপেন্ড করার সময় আসলে কী হয়?</a></h1>
+<p>যখন একটি স্লাইস এর capacity পূর্ণ হয়:</p>
 <ul>
-<li>A <strong>new array</strong> (usually double the size) is created.</li>
-<li>Old elements are copied into the new array.</li>
+<li>একটি <strong>নতুন অ্যারে</strong> (সাধারণত দ্বিগুণ সাইজের) তৈরি করা হয়।</li>
+<li>আগের অ্যারের সমস্ত elements নতুন অ্যারেতে কপি করা হয়।</li>
 </ul>
-<p>This is why sometimes appending seems "fast" and sometimes causes big memory ops.</p>
+<p>এ কারণেই কখনও কখনও অ্যাপেন্ড করা দ্রুত মনে হয় এবং কখনও বড় মেমরি অপারেশন তৈরি করতে পারে।</p>
 <hr />
-<h1 id="-12-how-underlying-array-increases"><a class="header" href="#-12-how-underlying-array-increases">📈 12. How Underlying Array Increases</a></h1>
-<p><strong>Capacity Growth Pattern:</strong> (simplified)</p>
+<h1 id="-১২-underlying-array-কিভাবে-বৃদধি-পায"><a class="header" href="#-১২-underlying-array-কিভাবে-বৃদধি-পায">📈 ১২. Underlying Array কিভাবে বৃদ্ধি পায়:</a></h1>
+<p><strong>যে প্যাটার্নে ক্যাপাসিটি পায় (Capacity Growth Pattern):</strong> (simplified)</p>
 <ul>
 <li>Cap 1 ➡️ 2 ➡️ 4 ➡️ 8 ➡️ 16 ➡️ ...</li>
 </ul>
-<p>This is an optimization trick to ensure appends are amortized O(1).</p>
+<p>এটি একটি অপ্টিমাইজেশন কৌশল যা নিশ্চিত করে যেন অ্যাপেন্ড অপারেশনগুলো গড়ে O(1) সময়ে সম্পন্ন হয়।</p>
 <hr />
-<h1 id="go-slice-growth-understanding-the-dynamics-of-len-and-cap"><a class="header" href="#go-slice-growth-understanding-the-dynamics-of-len-and-cap">Go Slice Growth: Understanding the Dynamics of <code>len</code> and <code>cap</code></a></h1>
-<p>Go slices are a powerful and flexible data structure, providing a dynamic array-like abstraction. One of the key features of slices is their ability to grow automatically when elements are appended. Understanding how and when a slice grows—along with the mechanics of memory allocation—can lead to more efficient use of slices in your programs.</p>
-<p>In this document, we'll break down how Go slices grow, covering:</p>
+<h1 id="go-slice-বৃদধি-len-এবং-cap-এর-ডাযনামিকস-বোঝা"><a class="header" href="#go-slice-বৃদধি-len-এবং-cap-এর-ডাযনামিকস-বোঝা">Go Slice বৃদ্ধি: <code>len</code> এবং <code>cap</code> এর ডায়নামিক্স বোঝা</a></h1>
+<p>Go স্লাইস একটি শক্তিশালী এবং ফ্লেক্সিবল ডেটা স্ট্রাকচার, যা ডায়নামিক অ্যারের মতো কাজ করে। এর একটি মূল বৈশিষ্ট্য হলো, যখন নতুন এলিমেন্ট যোগ করা হয়, তখন স্লাইস নিজে নিজেই বৃদ্ধি পায়। স্লাইস কীভাবে এবং কখন বৃদ্ধি পায়, আর এর মেমরি অ্যালোকেশনের পদ্ধতি বুঝলে অনেক ইফিশিয়েন্ট প্রোগ্রাম ডিজাইন করা সম্ভব।</p>
+<p>এখন আমরা Go স্লাইসের বৃদ্ধির পদ্ধতি বিশ্লেষণ করব:</p>
 <ul>
-<li>The doubling of capacity when the slice's <code>len</code> and <code>cap</code> are less than 1024.</li>
-<li>The 25% growth for slices when the <code>len</code> and <code>cap</code> exceed 1024.</li>
-<li>Why a slice doesn't grow by a fixed amount, such as increasing from 1024 to 1280, but instead grows by larger, more optimized blocks (e.g., 1536).</li>
+<li>যদি স্লাইসের <code>len</code> এবং <code>cap</code> <code>1024</code>-এর কম হয়, তাহলে এটি সাধারণত দ্বিগুণ (2x) বৃদ্ধি পায়।</li>
+<li><code>len</code> এবং <code>cap</code>, <code>1024</code> ছাড়িয়ে গেলে, এটি প্রায় 25% হারে বৃদ্ধি পায়।</li>
+<li>স্লাইস কেন নির্দিষ্ট পরিমাণে (যেমন 1024 থেকে 1280) না বাড়িয়ে বড় ব্লকে (যেমন 1536) বাড়ে, সেটিও ব্যাখ্যা করা হবে।</li>
 </ul>
-<h2 id="slice-growth-overview"><a class="header" href="#slice-growth-overview">Slice Growth Overview</a></h2>
-<p>In Go, slices are backed by arrays. When you append elements to a slice, Go may allocate a new, larger array and copy the old elements into it. The key to this resizing is how Go determines the new capacity and allocates memory.</p>
-<h3 id="1-doubling-the-capacity-for-small-slices-lencap--1024"><a class="header" href="#1-doubling-the-capacity-for-small-slices-lencap--1024">1. Doubling the Capacity for Small Slices (<code>len(cap) &lt; 1024</code>)</a></h3>
-<p>When the slice is relatively small (i.e., when the <code>len</code> and <code>cap</code> of the slice are both smaller than 1024), the growth strategy Go uses is to <strong>double</strong> the capacity. This means that when you append an element to the slice and the slice needs to resize, it will allocate a new array that is twice the size of the current capacity. The <code>len</code> of the slice will increase by one, but the <code>cap</code> will double.</p>
-<h4 id="example"><a class="header" href="#example">Example:</a></h4>
+<h2 id="সলাইস-বৃদধির-ধারণা-slice-growth-overview"><a class="header" href="#সলাইস-বৃদধির-ধারণা-slice-growth-overview">স্লাইস বৃদ্ধির ধারণা (Slice Growth Overview)</a></h2>
+<p>Go তে slice মূলত array এর উপরে ভিত্তি করে কাজ করে। যখন একটি slice-এ নতুন এলিমেন্ট অ্যাপেন্ড করা হয়, তখন প্রয়োজনে Go একটি বড় array তৈরি করে এবং পুরানো এলিমেন্টগুলো তাতে কপি করে। এই প্রসেসটি নির্ভর করে Go কিভাবে নতুন capacity নির্ধারণ করে এবং মেমরি বরাদ্দ করে।</p>
+<h3 id="১২১-ছোট-সলাইসের-কষেতরে-দবিগুণ-বৃদধি-lencap--1024"><a class="header" href="#১২১-ছোট-সলাইসের-কষেতরে-দবিগুণ-বৃদধি-lencap--1024">১২.১. ছোট স্লাইসের ক্ষেত্রে দ্বিগুণ বৃদ্ধি (<code>len(cap) &lt; 1024</code>)</a></h3>
+<p>যখন slice ছোট থাকে (অর্থাৎ, এর <code>len</code> এবং <code>cap</code> দুটোই 1024 এর কম), তখন Go সাধারণত capacity <strong>দ্বিগুণ</strong> করে। এর মানে, যখন slice এ একটি এলিমেন্ট যোগ করা হয় এবং নতুন মেমরি প্রয়োজন হয়, তখন Go আগের capacity এর দ্বিগুণ আকারের একটি নতুন array তৈরি করে এবং পুরানো এলিমেন্টগুলো সেখানে কপি করে। স্লাইসের <code>len</code> ১ বাড়বে, কিন্তু <code>cap</code> দ্বিগুণ হবে।</p>
+<h4 id="উদাহরণ"><a class="header" href="#উদাহরণ">উদাহরণ:</a></h4>
 <pre><code class="language-go">s := []int{1, 2, 3}
 fmt.Println(len(s), cap(s)) // len: 3, cap: 3
 
@@ -2393,13 +2391,13 @@ s = append(s, 5)
 fmt.Println(len(s), cap(s)) // len: 5, cap: 12
 </code></pre>
 <ul>
-<li>Initially, the slice has a length of 3 and a capacity of 3.</li>
-<li>When we append the fourth element, the slice grows to a capacity of 6 (doubling from 3).</li>
-<li>The next append results in the slice growing to a capacity of 12 (doubling from 6).</li>
+<li>প্রথমে, slice এর <code>len</code> ৩ এবং <code>cap</code> ৩ থাকে।</li>
+<li>চতুর্থ এলিমেন্ট যোগ করার সময়, slice এর capacity ৩ থেকে দ্বিগুণ হয়ে ৬ হয়ে যায়।</li>
+<li>পরবর্তী অ্যাপেন্ডে, slice-এর capacity ৬ থেকে দ্বিগুণ হয়ে ১২ হয়।</li>
 </ul>
-<h3 id="2-growth-by-25-for-larger-slices-lencap--1024"><a class="header" href="#2-growth-by-25-for-larger-slices-lencap--1024">2. Growth by 25% for Larger Slices (<code>len(cap) &gt;= 1024</code>)</a></h3>
-<p>Once the slice grows to a size where its <code>len</code> and <code>cap</code> exceed or are equal to 1024, Go switches from doubling the capacity to increasing the capacity by <strong>25%</strong> of the current capacity. This growth strategy helps to strike a balance between minimizing frequent reallocations and not wasting too much memory.</p>
-<h4 id="example-1"><a class="header" href="#example-1">Example:</a></h4>
+<h3 id="১২২-বড-সলাইসের-কষেতরে-২৫-বৃদধি-lencap--1024"><a class="header" href="#১২২-বড-সলাইসের-কষেতরে-২৫-বৃদধি-lencap--1024">১২.২. বড় স্লাইসের ক্ষেত্রে ২৫% বৃদ্ধি (<code>len(cap) &gt;= 1024</code>)</a></h3>
+<p>যখন slice-এর <code>len</code> এবং <code>cap</code> 1024 বা তার বেশি হয়, তখন Go দ্বিগুণের পরিবর্তে বর্তমান capacity এর <strong>২৫%</strong> বৃদ্ধি করে। এই কৌশলটি ঘন ঘন মেমরি পুনর্বণ্টন (reallocation) এড়াতে এবং অপ্রয়োজনীয় মেমরি অপচয় কমাতে সহায়তা করে।</p>
+<h4 id="উদাহরণ-1"><a class="header" href="#উদাহরণ-1">উদাহরণ:</a></h4>
 <pre><code class="language-go">s := make([]int, 1024)  // len: 1024, cap: 1024
 fmt.Println(len(s), cap(s))
 
@@ -2410,16 +2408,16 @@ s = append(s, 1300) // len: 1300, cap: 1600 (1280 + 25% of 1280)
 fmt.Println(len(s), cap(s))
 </code></pre>
 <ul>
-<li>Initially, we create a slice with a length and capacity of 1024.</li>
-<li>When appending the next element, the slice grows to a capacity of 1280, which is 1024 plus 25% of 1024.</li>
-<li>Another append results in a capacity of 1600 (1280 plus 25% of 1280).</li>
+<li>শুরুতে, আমরা length এবং capacity 1024 সহ একটি slice তৈরি করি।</li>
+<li>পরের এলিমেন্ট অ্যাপেন্ড করলে slice এর capacity 1024 থেকে 1280 হয়, যা 1024 এর সাথে ২৫% যোগ করে পাওয়া যায়।</li>
+<li>আরেকটি অ্যাপেন্ড করলে capacity 1600 হয় (1280 এর সাথে ২৫% যোগ করে)।</li>
 </ul>
-<h3 id="3-the-role-of-memory-blocks-eg-1536-for-a-slice"><a class="header" href="#3-the-role-of-memory-blocks-eg-1536-for-a-slice">3. The Role of Memory Blocks (e.g., 1536 for a Slice)</a></h3>
-<p>When the slice's <code>len</code> and <code>cap</code> are near the threshold of 1024 (and higher), Go doesn't always allocate memory blocks in neat, predictable sizes like 1280. Instead, it aligns to <strong>optimal memory blocks</strong> that align better with system memory allocation patterns.</p>
-<p>For example, if a slice's capacity is nearing 1024, the next allocation might not simply be an increment by 256 (i.e., from 1024 to 1280). Instead, Go will allocate memory in larger chunks to optimize memory usage and alignment. A common result of this optimization is the slice's capacity growing to <strong>1536</strong>, which is a more "perfect" memory block for larger sizes.</p>
-<h4 id="why-1536-instead-of-1280"><a class="header" href="#why-1536-instead-of-1280">Why 1536 Instead of 1280?</a></h4>
-<p>This behavior is largely based on <strong>hardware memory alignment</strong>. The number 1536 is chosen because it fits better with memory block sizes that are typically aligned in powers of 2 and optimized for modern CPUs and memory systems. Memory allocations are often made in chunks that align with the system’s memory page size or cache line, resulting in a more efficient memory access pattern.</p>
-<h4 id="example-memory-alignment"><a class="header" href="#example-memory-alignment">Example (Memory Alignment):</a></h4>
+<h3 id="১২৩-মেমরি-বলকের-ভূমিকা-যেমন-1536-কষমতার-সলাইস"><a class="header" href="#১২৩-মেমরি-বলকের-ভূমিকা-যেমন-1536-কষমতার-সলাইস">১২.৩. মেমরি ব্লকের ভূমিকা (যেমন, 1536 ক্ষমতার স্লাইস)</a></h3>
+<p>যখন slice-এর <code>len</code> এবং <code>cap</code> 1024 এর কাছাকাছি বা তার বেশি হয়, তখন Go সর্বদা নিখুঁত গণনা অনুযায়ী মেমরি বরাদ্দ করে না। এর পরিবর্তে এটি সিস্টেম মেমরি বরাদ্দের ধরণ অনুযায়ী <strong>অপ্টিমাল মেমরি ব্লক</strong> ব্যবহার করে।</p>
+<p>উদাহরণস্বরূপ, যদি একটি slice-এর capacity 1024 এর কাছাকাছি থাকে, পরবর্তী বরাদ্দ সরাসরি 256 যোগ করে 1280 না হয়ে, এর থেকে বড় 1536 এর মতো ব্লকে হতে পারে। এটি বড় মেমরি ব্লকের জন্য আরও কার্যকর মেমরি ব্যবহারে সহায়তা করে।</p>
+<h4 id="কেন-1536-এর-পরিবরতে-1280"><a class="header" href="#কেন-1536-এর-পরিবরতে-1280">কেন 1536 এর পরিবর্তে 1280?</a></h4>
+<p>এটি মূলত <strong>হার্ডওয়্যার মেমরি অ্যালাইনমেন্ট</strong> এর উপর নির্ভর করে। 1536 সংখ্যাটি বেছে নেওয়া হয় কারণ এটি সাধারণত 2-এর গুণিতক আকারের মেমরি ব্লকের সাথে ভালোভাবে মিলে যায় এবং আধুনিক CPU এবং মেমরি সিস্টেমের জন্য অপ্টিমাইজ করা। মেমরি অ্যালোকেশন সাধারণত সিস্টেমের মেমরি পেজ সাইজ বা ক্যাশ লাইনের সাথে সামঞ্জস্য রেখে বড় ব্লকে করা হয়, যা মেমরি অ্যাক্সেসকে আরও ইফিশিয়েন্ট করে তোলে।</p>
+<h4 id="উদাহরণ-মেমরি-অযালাইনমেনট"><a class="header" href="#উদাহরণ-মেমরি-অযালাইনমেনট">উদাহরণ (মেমরি অ্যালাইনমেন্ট)::</a></h4>
 <pre><code class="language-go">s := make([]int, 1024) // len: 1024, cap: 1024
 fmt.Println(len(s), cap(s)) // 1024, 1024
 
@@ -2427,15 +2425,15 @@ s = append(s, 1025) // len: 1025, cap: 1536 (next optimal block size)
 fmt.Println(len(s), cap(s)) // 1025, 1536
 </code></pre>
 <ul>
-<li>The capacity grows from 1024 to 1536 rather than 1280, as 1536 is a better memory block that optimizes system memory allocation.</li>
+<li>1024 থেকে 1536 এ capacity বৃদ্ধি হয়, কারণ 1536 একটি বেটার মেমরি ব্লক যা সিস্টেমের ইফিশিয়েন্ট মেমরি অ্যালোকেশন করে।</li>
 </ul>
-<h3 id="4-why-does-this-happen"><a class="header" href="#4-why-does-this-happen">4. Why Does This Happen?</a></h3>
-<p>The reason Go doesn't strictly grow the slice by 256 (as one might expect, like going from 1024 to 1280) is due to <strong>efficiency considerations</strong>. The allocation strategy aims to reduce the number of reallocations while not wasting memory. By allocating a larger chunk (1536 in this case), the Go runtime ensures that the slice has enough room to accommodate several more appends without needing to resize again too soon.</p>
-<p>This leads to better performance, especially in cases where slices grow rapidly.</p>
-<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>Understanding slice growth behavior can help you write more efficient Go code. When the slice is smaller, Go doubles its capacity to handle more elements with fewer reallocations. When the slice reaches a certain size (1024 and beyond), it increases capacity by 25%, and occasionally, it aligns the slice's capacity with optimal memory block sizes for better efficiency. This approach leads to smoother and more performant memory handling, ensuring that slices are both memory-efficient and fast to work with.</p>
+<h3 id="১২৪-কেন-এমন-হয"><a class="header" href="#১২৪-কেন-এমন-হয">১২.৪. কেন এমন হয়?</a></h3>
+<p><strong>ইফিশিয়েন্সি বিবেচনায় (efficiency considerations)</strong> Go সরাসরি 256 করে বৃদ্ধি করে না (যেমন আমরা মনে করি 1024 থেকে 1280)। কারণ এটি ইফিশিয়েন্সি বৃদ্ধির জন্য গুরুত্বপূর্ণ। এই অ্যালোকেশন স্ট্র্যাটেজির ফলে ঘন ঘন রি-অ্যালোকেশন এড়ানো যায় এবং অপ্রয়োজনীয় মেমরি অপচয় কমে যায়। বরং বড় ব্লকে (1536) মেমরি বরাদ্দ করে Go রানটাইম নিশ্চিত করে স্লাইসে পর্যাপ্ত capacity আছে আরও element এপেন্ড করার জন্য এবং খুব তাড়াতাড়ি স্লাইসকে বাড়াতে হবে না।</p>
+<p>এর ফলে আরও ভালো পারফরম্যান্স পাওয়া যায়, বিশেষ করে যখন slice দ্রুত বৃদ্ধি পায়।</p>
+<h2 id="উপসংহার"><a class="header" href="#উপসংহার">উপসংহার</a></h2>
+<p>Go-এর slice বৃদ্ধি কৌশল অনেক ইফিশিয়েন্ট কোড লিখা সম্ভব। ছোট সাইজের slice এর ক্ষেত্রে, Go capacity দ্বিগুণ করে যাতে কম রি-অ্যালোকেশনে আরও এলিমেন্ট ধারণ করতে পারে। বড় slice (1024 এবং এর বেশি) হলে, এটি capacity ২৫% বৃদ্ধি করে এবং মাঝে মাঝে অপ্টিমাল মেমরি ব্লকের সাথে সামঞ্জস্য রাখে। এই পদ্ধতিটি slice কে দ্রুত এবং মেমরি সাশ্রয়ী করে তোলে।</p>
 <hr />
-<h1 id="-13-interesting-interview-question-examples"><a class="header" href="#-13-interesting-interview-question-examples">🤯 13. Interesting Interview Question Examples</a></h1>
+<h1 id="১৩-কিছু-ইনটারেসটিং-ইনটারভিউ-পরশনের-উদাহরণ"><a class="header" href="#১৩-কিছু-ইনটারেসটিং-ইনটারভিউ-পরশনের-উদাহরণ">🤯১৩. কিছু ইন্টারেস্টিং ইন্টারভিউ প্রশ্নের উদাহরণ</a></h1>
 <h3 id="-same-underlying-array-trick"><a class="header" href="#-same-underlying-array-trick">⚡ Same Underlying Array Trick</a></h3>
 <pre><code class="language-go">var x []int
 x = append(x, 1)
@@ -2450,23 +2448,22 @@ x[0] = 10
 fmt.Println(x)
 fmt.Println(y)
 </code></pre>
+<p>-x এবং y একই backing array শেয়ার করে</p>
 <ul>
-<li><code>x</code> and <code>y</code> were sharing the same backing array.</li>
-<li>Mutating one could affect both.</li>
+<li>একটিতে পরিবর্তন (mutation) করলে দুটোরই মান পরিবর্তিত হতে পারে।</li>
 </ul>
-<p>After appending past the cap, they might split into their own arrays.</p>
-<hr />
-<h1 id="-14-variadic-functions"><a class="header" href="#-14-variadic-functions">🛠 14. Variadic Functions</a></h1>
-<p>Functions can accept an arbitrary number of arguments with <code>...</code>.</p>
+<p>কিন্তু <code>cap</code> অতিক্রম করে অ্যাপেন্ড করলে, তারা আলাদা অ্যারেতে বিভক্ত হতে পারে।</p>
+<h1 id="-১৪-ভযারিযাডিক-ফাংশন-variadic-functions"><a class="header" href="#-১৪-ভযারিযাডিক-ফাংশন-variadic-functions">🛠 ১৪. ভ্যারিয়াডিক ফাংশন (Variadic Functions)</a></h1>
+<p>কোন ফাংশন <code>...</code> (ellipsis) operator ব্যবহার করে অসংখ্য আর্গুমেন্ট গ্রহণ করতে পারে।</p>
 <pre><code class="language-go">func variadic(numbers ...int) {
     fmt.Println(numbers)
 }
 
 variadic(2, 3, 4, 6, 8, 10)
 </code></pre>
-<p>Internally, <code>numbers</code> is just a <strong>slice</strong>!</p>
+<p>এখানে <code>numbers</code> কিন্তু একটি <strong>slice</strong>!</p>
 <hr />
-<h1 id="-visualizing-slice-in-ram-for-arr-and-s"><a class="header" href="#-visualizing-slice-in-ram-for-arr-and-s">🧠 Visualizing Slice in RAM (for <code>arr</code> and <code>s</code>)</a></h1>
+<h1 id="-ram-এ-slice-এর-ভিজযুযালাইজেশন-arr-এবং-s-এর-জনয"><a class="header" href="#-ram-এ-slice-এর-ভিজযুযালাইজেশন-arr-এবং-s-এর-জনয">🧠 RAM এ Slice এর ভিজ্যুয়ালাইজেশন (arr এবং s এর জন্য)</a></h1>
 <pre><code>Array arr (indexes):
 [0] "This"
 [1] "is"  &lt;- s.ptr points here
@@ -2480,7 +2477,7 @@ Slice s:
 - len = 3 ("is", "a", "Go")
 - cap = 5 (from "is" to "Questions")
 </code></pre>
-<p>Memory Visualization:</p>
+<p>মেমরি ভিজ্যুয়ালাইজেশন:</p>
 <pre><code>+---+---+---+---+---+---+
 |This|is|a|Go|interview|Questions|
 +---+---+---+---+---+---+
@@ -2585,8 +2582,8 @@ func variadic(numbers ...int) {
 	fmt.Println(cap(numbers))
 }
 </code></pre>
-<p>[<strong>Author:</strong> @ifrunruhin12
-<strong>Date:</strong> 2025-05-01
+<p>[<strong>Author:</strong> @ifrunruhin12, @nazma98
+<strong>Date:</strong> 2025-05-01 - 2025-05-18
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-cpu-structure-and-stack-frame-execution-notes"><a class="header" href="#-cpu-structure-and-stack-frame-execution-notes">🧠 CPU Structure and Stack Frame Execution Notes</a></h1>
@@ -2694,7 +2691,7 @@ func variadic(numbers ...int) {
 Stack grows downward ↓
 </code></pre>
 <hr />
-<h2 id="-summary-2"><a class="header" href="#-summary-2">✅ Summary</a></h2>
+<h2 id="-summary"><a class="header" href="#-summary">✅ Summary</a></h2>
 <ul>
 <li>CPU is divided into <strong>Processing Unit</strong> and <strong>Register Set</strong></li>
 <li>The <strong>Stack Frame</strong> is key to function call handling</li>
@@ -2976,7 +2973,7 @@ func init() {
 <pre><code class="language-bash">./main
 </code></pre>
 <h2 id="-closures-in-go"><a class="header" href="#-closures-in-go">🔒 Closures in Go</a></h2>
-<h3 id="-what-is-a-closure-1"><a class="header" href="#-what-is-a-closure-1">✅ What is a Closure?</a></h3>
+<h3 id="-what-is-a-closure"><a class="header" href="#-what-is-a-closure">✅ What is a Closure?</a></h3>
 <p>A closure is a function <strong>defined within another function</strong> and <strong>has access to the outer function's variables</strong> even after the outer function has finished executing.</p>
 <pre><code class="language-go">func Outer() func() {
     money := 100
@@ -5058,7 +5055,7 @@ go func() {
 <li><strong>C++</strong>: Threads use ~100GB; coroutines are lightweight but lack standard scheduling, requiring custom libraries.</li>
 <li><strong>Node.js</strong>: Event loop handles I/O well but bottlenecks on CPU tasks, needing worker threads (~100GB).</li>
 </ul>
-<h3 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h3>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
 <p>Goroutines are praised for their <strong>lightweight nature</strong>, <strong>fast performance</strong>, and <strong>simple programming model</strong>, making them more efficient and scalable than Java/C++ threads, Python’s threading/multiprocessing, and Node.js’s event loop for most workloads. Channels and the Go scheduler eliminate much of the complexity of traditional concurrency, enabling developers to write robust, high-performance concurrent programs with ease. While Java and C++ offer powerful concurrency tools, they require more boilerplate and tuning, and Python’s GIL and Node.js’s single-threaded model limit their versatility. Go strikes a unique balance, making it a preferred choice for concurrent systems like servers, microservices, and distributed applications.</p>
 <div style="break-before: page; page-break-before: always;"></div><p>[<strong>Author:</strong> @mdimamhosen
 <strong>Date:</strong> 2025-04-22
@@ -5435,7 +5432,7 @@ func main() {
 <p>In Go, internal memory management is a crucial concept that helps developers understand how the Go runtime handles memory allocation and execution. This includes understanding the code segment, data segment, stack, and heap.</p>
 <h2 id="code-segment"><a class="header" href="#code-segment">Code Segment</a></h2>
 <p>The code segment contains all the functions and executable instructions of a program. It is a read-only section of memory where the compiled code resides. This segment is loaded into memory when the program starts.</p>
-<h3 id="example-2"><a class="header" href="#example-2">Example:</a></h3>
+<h3 id="example"><a class="header" href="#example">Example:</a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -5447,7 +5444,7 @@ func main() {
 <p>In this example, the <code>main</code> function and the <code>fmt.Println</code> function are part of the code segment.</p>
 <h2 id="data-segment"><a class="header" href="#data-segment">Data Segment</a></h2>
 <p>The data segment contains all the global and static variables. These variables are initialized before the program starts executing and remain in memory throughout the program's lifecycle.</p>
-<h3 id="example-3"><a class="header" href="#example-3">Example:</a></h3>
+<h3 id="example-1"><a class="header" href="#example-1">Example:</a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -5461,7 +5458,7 @@ func main() {
 <p>Here, <code>globalVar</code> resides in the data segment.</p>
 <h2 id="stack-segment"><a class="header" href="#stack-segment">Stack Segment</a></h2>
 <p>The stack segment is used for function calls, local variables, and control flow. When a function is called, a stack frame is created in the stack segment. This stack frame contains the function's local variables and return address. The stack is managed in a Last In, First Out (LIFO) manner.</p>
-<h3 id="example-4"><a class="header" href="#example-4">Example:</a></h3>
+<h3 id="example-2"><a class="header" href="#example-2">Example:</a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -5478,7 +5475,7 @@ func main() {
 <p>In this example, when <code>add</code> is called, a stack frame is created for its local variables <code>a</code> and <code>b</code>.</p>
 <h2 id="heap-segment"><a class="header" href="#heap-segment">Heap Segment</a></h2>
 <p>The heap segment is used for dynamic memory allocation. Memory allocated on the heap is managed by the garbage collector in Go. Variables in the heap have a longer lifetime compared to stack variables.</p>
-<h3 id="example-5"><a class="header" href="#example-5">Example:</a></h3>
+<h3 id="example-3"><a class="header" href="#example-3">Example:</a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
@@ -5492,7 +5489,7 @@ func main() {
 <p>Here, <code>ptr</code> points to a memory location on the heap where the value <code>42</code> is stored.</p>
 <h2 id="initialization-and-execution"><a class="header" href="#initialization-and-execution">Initialization and Execution</a></h2>
 <p>When a Go program starts, it first looks for <code>init</code> functions. If any <code>init</code> functions are present, they are executed before the <code>main</code> function. The <code>init</code> functions are used for initializing global variables or performing setup tasks.</p>
-<h3 id="example-6"><a class="header" href="#example-6">Example:</a></h3>
+<h3 id="example-4"><a class="header" href="#example-4">Example:</a></h3>
 <pre><code class="language-go">package main
 
 import "fmt"
