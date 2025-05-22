@@ -300,12 +300,12 @@ s = append(s, 4)
 fmt.Println(len(s), cap(s)) // len: 4, cap: 6
 
 s = append(s, 5)
-fmt.Println(len(s), cap(s)) // len: 5, cap: 12
+fmt.Println(len(s), cap(s)) // len: 5, cap: 6
 </code></pre>
 <ul>
 <li>প্রথমে, slice এর <code>len</code> ৩ এবং <code>cap</code> ৩ থাকে।</li>
 <li>চতুর্থ এলিমেন্ট যোগ করার সময়, slice এর capacity ৩ থেকে দ্বিগুণ হয়ে ৬ হয়ে যায়।</li>
-<li>পরবর্তী অ্যাপেন্ডে, slice-এর capacity ৬ থেকে দ্বিগুণ হয়ে ১২ হয়।</li>
+<li>পরবর্তী অ্যাপেন্ডে, slice-এর capacity ৬ ই থাকবে কারণ <code>len</code> &lt; <code>cap</code>।</li>
 </ul>
 <h3 id="১২২-বড-সলাইসের-কষেতরে-২৫-বৃদধি-lencap--1024"><a class="header" href="#১২২-বড-সলাইসের-কষেতরে-২৫-বৃদধি-lencap--1024">১২.২. বড় স্লাইসের ক্ষেত্রে ২৫% বৃদ্ধি (<code>len(cap) &gt;= 1024</code>)</a></h3>
 <p>যখন slice-এর <code>len</code> এবং <code>cap</code> 1024 বা তার বেশি হয়, তখন Go দ্বিগুণের পরিবর্তে বর্তমান capacity এর <strong>২৫%</strong> বৃদ্ধি করে। এই কৌশলটি ঘন ঘন মেমরি পুনর্বণ্টন (reallocation) এড়াতে এবং অপ্রয়োজনীয় মেমরি অপচয় কমাতে সহায়তা করে।</p>
