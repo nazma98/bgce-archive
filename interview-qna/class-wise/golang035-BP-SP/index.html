@@ -41,6 +41,17 @@
         <script src="../../../toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -118,7 +129,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -164,18 +175,18 @@
 <li>
 <p><strong>Processing Unit</strong></p>
 <ul>
-<li><strong>Arithmetic Logic Unit (ALU)</strong>: Performs all arithmetic and logical operations.</li>
-<li><strong>Control Unit (CU)</strong>: Directs operations within the CPU; controls input/output and instruction decoding.</li>
+<li><strong>Arithmetic Logic Unit (ALU)</strong>: সব ধরনের গাণিতিক (arithmetic) এবং যৌক্তিক (logical) operations করে থাকে।</li>
+<li><strong>Control Unit (CU)</strong>: CPU এর মধ্যে গাণিতিক (arithmetic) এবং যৌক্তিক (logical) operations পরিচালনা করে, input/output এবং instruction decoding কীভাবে হবে তা কন্ট্রোল করে।</li>
 </ul>
 </li>
 <li>
 <p><strong>Register Set</strong></p>
 <ul>
-<li><strong>Program Counter (PC)</strong>: Holds the address of the next instruction to be executed.</li>
-<li><strong>Stack Pointer (SP)</strong>: Points to the top of the current stack in memory.</li>
-<li><strong>Base Pointer (BP)</strong>: Points to the base of the current function stack frame.</li>
-<li><strong>Instruction Register (IR)</strong>: Holds the currently executing instruction.</li>
-<li><strong>General Purpose Registers</strong>: For temporary data manipulation.</li>
+<li><strong>Program Counter (PC)</strong>: পরবর্তীতে যেই Instruction টি execute হবে তার address ধারণ করে ।</li>
+<li><strong>Stack Pointer (SP)</strong>: মেমরিতে বর্তমানে যে stack আছে তার Top কে point করে।</li>
+<li><strong>Base Pointer (BP)</strong>: বর্তমান stack frame এর base কে point করে।</li>
+<li><strong>Instruction Register (IR)</strong>: এই মুহূর্তে যে instruction টি execute হচ্ছে সেটি রাখে।</li>
+<li><strong>General Purpose Registers</strong>: Data manipulation যেমন arithmetic ও logical operation এবং data movement এর জন্য অস্থায়ীভাবে data রাখে।</li>
 </ul>
 </li>
 </ol>
@@ -183,35 +194,35 @@
 <h2 id="-bits-and-bytes"><a class="header" href="#-bits-and-bytes">🔹 Bits and Bytes</a></h2>
 <ul>
 <li><strong>8-bit = 1 byte</strong></li>
+<li><strong>16-bit = 2 bytes</strong></li>
 <li><strong>32-bit = 4 bytes</strong></li>
 <li><strong>64-bit = 8 bytes</strong></li>
 </ul>
 <p>Memory addressing = ( 2^n )</p>
 <hr />
 <h2 id="-ram-addressing-on-32-bit-system"><a class="header" href="#-ram-addressing-on-32-bit-system">🔹 RAM Addressing on 32-bit System</a></h2>
-<p>Memory cells increase by 4 bytes (since 32-bit = 4 bytes):</p>
+<p>Memory cell 4 bytes করে বাড়তে থাকে। (since 32-bit = 4 bytes):</p>
 <pre><code>Address:  0   4   8  12  16  20  24  ...
          [ ] [ ] [ ] [ ] [ ] [ ] [ ]
 </code></pre>
 <hr />
 <h2 id="-os-ram-and-process-execution"><a class="header" href="#-os-ram-and-process-execution">🔹 OS, RAM, and Process Execution</a></h2>
 <ol>
-<li><strong>OS pulls executable code</strong> from HDD → loads into <strong>RAM</strong></li>
-<li><strong>OS creates a process</strong></li>
-<li><strong>RAM segments the process memory into:</strong>
-<ul>
-<li>Code Segment (for constants and instructions)</li>
-<li>Data Segment (for global/static variables)</li>
-<li>Stack (for function calls and local variables)</li>
-<li>Heap (for dynamically allocated memory)</li>
-</ul>
-</li>
+<li><strong>OS executable code আনে</strong> HDD থেকে → <strong>RAM</strong> এ লোড করে</li>
+<li><strong>OS একটি process create করে</strong></li>
+<li><strong>RAM process memory কে কয়েকটি ভাগে ভাগ করে:</strong></li>
 </ol>
+<ul>
+<li>Code Segment (constants এবং instructions এর জন্য)</li>
+<li>Data Segment (global/static variables এর জন্য)</li>
+<li>Stack (function calls এবং local variables এর জন্য)</li>
+<li>Heap (dynamically memory allocate করার জন্য)</li>
+</ul>
 <hr />
 <h2 id="-stack-frame-in-function-call"><a class="header" href="#-stack-frame-in-function-call">🔹 Stack Frame in Function Call</a></h2>
 <ul>
-<li>The OS sets up <strong>SP</strong> and <strong>BP</strong>.</li>
-<li><strong>SP &lt; BP</strong> (SP points lower in memory).</li>
+<li>OS, <strong>SP</strong> এবং <strong>BP</strong> set করে দেয়।</li>
+<li><strong>SP</strong> &lt; <strong>BP</strong> ( SP memory তে lower address কে point করে)।</li>
 </ul>
 <h3 id="stack-frame-layout"><a class="header" href="#stack-frame-layout">Stack Frame Layout:</a></h3>
 <pre><code>[ Local Variables        ]   &lt;-- SP (grows downward)
@@ -220,8 +231,8 @@
 [ Parameters (right→left)]   &lt;-- BP
 </code></pre>
 <ul>
-<li><strong>Return Address</strong> is typically at <code>BP + 4</code>, <code>+8</code>, <code>+16</code>, etc.</li>
-<li>Using <strong>BP</strong>, the CPU can easily access:
+<li><strong>Return Address</strong> সাধারণত রাখা হয় <code>BP + 4</code> (32 bit computer), <code>BP + 8</code> (64 bit computer) etc. ( Base pointer এর ঠিক উপরে )</li>
+<li><strong>BP</strong> ব্যবহার করে CPU সহজেই যা access করতে পারে:
 <ul>
 <li>Function parameters</li>
 <li>Return address</li>
@@ -232,17 +243,17 @@
 <hr />
 <h2 id="-stack-frame-exit"><a class="header" href="#-stack-frame-exit">🔹 Stack Frame Exit</a></h2>
 <ul>
-<li>Stack frame pops:
+<li>Stack frame যা pop করে (সরিয়ে ফেলে):
 <ul>
 <li>Local variables</li>
-<li>Old BP is restored</li>
-<li>SP is reset</li>
-<li>Execution jumps to Return Address</li>
+<li>Old BP value register set এর BP তে restore হয়</li>
+<li>SP reset হয়</li>
+<li>Execution, Return Address কে follow করে সেখানে jump করে</li>
 </ul>
 </li>
 </ul>
 <h3 id="final-condition"><a class="header" href="#final-condition">Final Condition:</a></h3>
-<pre><code>BP == SP  =&gt; Stack Frame Closed
+<pre><code>BP == SP  =&gt; Stack Frame Close হয়ে যায়
 </code></pre>
 <hr />
 <h2 id="-diagram-stack-frame-example-32-bit"><a class="header" href="#-diagram-stack-frame-example-32-bit">🧭 Diagram: Stack Frame Example (32-bit)</a></h2>
@@ -265,15 +276,15 @@ Stack grows downward ↓
 <hr />
 <h2 id="-summary"><a class="header" href="#-summary">✅ Summary</a></h2>
 <ul>
-<li>CPU is divided into <strong>Processing Unit</strong> and <strong>Register Set</strong></li>
-<li>The <strong>Stack Frame</strong> is key to function call handling</li>
-<li><strong>Base Pointer (BP)</strong> acts as a fixed reference point</li>
-<li><strong>Stack Pointer (SP)</strong> moves during function execution</li>
-<li><strong>Returning</strong> from a function resets <strong>BP</strong> and <strong>SP</strong></li>
+<li>CPU mainly <strong>Processing Unit</strong> এবং <strong>Register Set</strong> এ বিভক্ত।</li>
+<li><strong>Stack Frame</strong> function call handling এর জন্য responsible থাকে।</li>
+<li><strong>Base Pointer (BP)</strong> একটি fixed reference point হিসেবে কাজ করে।</li>
+<li><strong>Stack Pointer (SP)</strong> function execution এর সময় move করতে থাকে।</li>
+<li>একটি function <strong>Return</strong> করলে <strong>BP</strong> এবং <strong>SP</strong> reset হয়ে যায়।</li>
 </ul>
 <hr />
 <blockquote>
-<p>Understanding stack frames is essential for debugging, compiler design, and low-level programming.</p>
+<p>debugging, compiler design, এবং low-level programming এর জন্য stack frames বুঝা অত্যন্ত প্রয়োজনীয়।</p>
 </blockquote>
 
                     </main>
