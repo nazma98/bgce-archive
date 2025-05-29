@@ -2740,6 +2740,193 @@ Stack grows downward ↓
 <blockquote>
 <p>debugging, compiler design, এবং low-level programming এর জন্য stack frames বুঝা অত্যন্ত প্রয়োজনীয়।</p>
 </blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব"><a class="header" href="#-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব">🌀 Golang এর <code>defer</code>: ভিতরের স্ট্যাক, রিটার্ন ফাঁদ, এবং বাস্তব উদাহরণে ডুব</a></h2>
+<blockquote>
+<p>"<code>defer</code> মানে হচ্ছে — তোমার কাজ হবে, কিন্তু পরে হবে।"</p>
+</blockquote>
+<p>Go-এর <code>defer</code> হলো এমন একটা ফিচার যেটা clean code লেখার জন্য অনবদ্য, কিন্তু ভুল বুঝলে subtle bug এর উৎস। চলুন আজ <code>defer</code>-কে সম্পূর্ণভাবে বোঝার চেষ্টা করি — তার পেছনের স্টোরি সহ।</p>
+<hr />
+<h3 id="-defer-কি"><a class="header" href="#-defer-কি">🔸 <code>defer</code> কি?</a></h3>
+<p><code>defer</code> একটি কিওয়ার্ড যেটি কোন ফাংশনের শেষ মুহূর্তে অন্য একটি ফাংশনকে চালাতে বলে। মূলতঃ এটি ব্যবহৃত হয় cleanup কাজের জন্য — যেমন:</p>
+<ul>
+<li><code>file.Close()</code></li>
+<li><code>unlock()</code></li>
+<li><code>recover()</code></li>
+<li>লগিং</li>
+</ul>
+<hr />
+<h3 id="-কীভাবে-কাজ-করে-defer"><a class="header" href="#-কীভাবে-কাজ-করে-defer">🎯 কীভাবে কাজ করে <code>defer</code>?</a></h3>
+<p>Go কম্পাইলার <code>defer</code> স্টেটমেন্টগুলোকে compile time এ detect করে এবং runtime এ একটি internal stack এ রেখে দেয়। যখন function return করে, তখন এই stack থেকে একে একে ফাংশনগুলো <strong>পিছন থেকে সামনে (LIFO)</strong> চালানো হয়।</p>
+<pre><code class="language-go">func main() {
+    defer fmt.Println("A")
+    defer fmt.Println("B")
+    fmt.Println("C")
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>C
+B
+A
+</code></pre>
+<p>📌 <code>defer</code> গুলো পিছনের দিকে যায় কারণ: Go stack এ <code>push</code> করে defer গুলোকে → পরে reverse করে <code>pop</code> করে।</p>
+<hr />
+<h3 id="-পিছনের-দিক-থেকে-বযাখযা-behind-the-scenes"><a class="header" href="#-পিছনের-দিক-থেকে-বযাখযা-behind-the-scenes">🔧 পিছনের দিক থেকে ব্যাখ্যা (Behind-the-scenes)</a></h3>
+<pre><code class="language-go">func sayHello() {
+    defer log("1")
+    defer log("2")
+    defer log("3")
+}
+</code></pre>
+<p>Go internally কিছুটা এরকম করে:</p>
+<pre><code class="language-go">deferStack := []func(){}
+deferStack = append(deferStack, log("1"))
+deferStack = append(deferStack, log("2"))
+deferStack = append(deferStack, log("3"))
+
+for i := len(deferStack)-1; i &gt;= 0; i-- {
+    deferStack[i]()
+}
+</code></pre>
+<p>Go runtime defer গুলিকে একটি linked list structure-এ সংরক্ষণ করে, কিন্তু সেটা <strong>Stack behavior</strong> অনুযায়ী কাজ করে।</p>
+<hr />
+<h3 id="-named-return-vs-unnamed-return--defer-এর-দুইরকম-বযবহার"><a class="header" href="#-named-return-vs-unnamed-return--defer-এর-দুইরকম-বযবহার">🎭 Named Return vs Unnamed Return — <code>defer</code> এর দুইরকম ব্যবহার</a></h3>
+<p>এই হলো <code>defer</code> এর “দুই মুখো” চরিত্র। 🤹‍♂️</p>
+<h4 id="-named-return-value-বযবহার-করলে"><a class="header" href="#-named-return-value-বযবহার-করলে">✅ Named Return Value ব্যবহার করলে:</a></h4>
+<pre><code class="language-go">func example1() (result int) {
+    defer func() {
+        result = 99
+    }()
+    return 10
+}
+</code></pre>
+<p>📌 এখানে <code>result</code> হল named return variable, তাই <code>defer</code> যখন চলে, তখন <code>result</code> এখনও accessible, এবং সেটাকে modify করা যায়।</p>
+<p>🖨️ Output:</p>
+<pre><code>99
+</code></pre>
+<hr />
+<h4 id="-unnamed-return-value-বযবহার-করলে"><a class="header" href="#-unnamed-return-value-বযবহার-করলে">❌ Unnamed Return Value ব্যবহার করলে:</a></h4>
+<pre><code class="language-go">func example2() int {
+    result := 10
+    defer func() {
+        result = 99
+    }()
+    return result
+}
+</code></pre>
+<p>📌 এখানে <code>return result</code> বলার সাথে সাথে result এর ভ্যালু রিটার্ন buffer-এ কপি হয়ে যায় — তারপরে <code>defer</code> চালানো হয়, তাই এর কোনো প্রভাব পড়ে না।</p>
+<p>🖨️ Output:</p>
+<pre><code>10
+</code></pre>
+<hr />
+<h3 id="-আরও-কিছু-মন-ভোলানো-example"><a class="header" href="#-আরও-কিছু-মন-ভোলানো-example">🧠 আরও কিছু মন ভোলানো Example</a></h3>
+<h4 id="-defer-with-loop"><a class="header" href="#-defer-with-loop">🔄 <code>defer</code> with loop</a></h4>
+<pre><code class="language-go">func loopDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        defer fmt.Println("Deferred:", i)
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 3
+Deferred: 2
+Deferred: 1
+</code></pre>
+<p>📌 প্রতিবার loop এ <code>defer</code> নতুন করে register হয়। তাই stack অনুযায়ী উল্টোভাবে execute হয়।</p>
+<hr />
+<h4 id="-variable-capture-trap-closure"><a class="header" href="#-variable-capture-trap-closure">📛 Variable Capture Trap (Closure)</a></h4>
+<pre><code class="language-go">func closureDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        defer func() {
+            fmt.Println("Deferred:", i)
+        }()
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 4
+Deferred: 4
+Deferred: 4
+</code></pre>
+<p>😵‍💫 কেন?</p>
+<p>কারণ closure-এ <code>i</code> capture হচ্ছে by reference — প্রতিবার একই i এর address!</p>
+<p>👉 Fix:</p>
+<pre><code class="language-go">func fixedClosureDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        val := i
+        defer func() {
+            fmt.Println("Deferred:", val)
+        }()
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 3
+Deferred: 2
+Deferred: 1
+</code></pre>
+<hr />
+<h3 id="-practical-use-cases"><a class="header" href="#-practical-use-cases">🛠️ Practical Use Cases</a></h3>
+<ol>
+<li><strong>File Handling</strong>:</li>
+</ol>
+<pre><code class="language-go">func readFile(path string) error {
+    f, err := os.Open(path)
+    if err != nil {
+        return err
+    }
+    defer f.Close()
+
+    // read file...
+    return nil
+}
+</code></pre>
+<ol start="2">
+<li><strong>Mutex Unlock</strong>:</li>
+</ol>
+<pre><code class="language-go">mu.Lock()
+defer mu.Unlock()
+// critical section
+</code></pre>
+<ol start="3">
+<li><strong>Recover from panic</strong>:</li>
+</ol>
+<pre><code class="language-go">func safe() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered:", r)
+        }
+    }()
+    panic("something went wrong")
+}
+</code></pre>
+<hr />
+<h3 id="-key-takeaways-সংকষেপে"><a class="header" href="#-key-takeaways-সংকষেপে">🧾 Key Takeaways (সংক্ষেপে)</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>বৈশিষ্ট্য</th><th>ব্যাখ্যা</th></tr></thead><tbody>
+<tr><td>Execution order</td><td>LIFO (Last In, First Out)</td></tr>
+<tr><td>Internal structure</td><td>Linked List with Stack behavior</td></tr>
+<tr><td>Named return</td><td><code>defer</code> can modify it</td></tr>
+<tr><td>Unnamed return</td><td><code>defer</code> can’t modify it</td></tr>
+<tr><td>Variable capture</td><td>Closure captures by reference — careful!</td></tr>
+<tr><td>Use cases</td><td>File close, Mutex unlock, Panic recovery</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="-bonus-debug-suggestion"><a class="header" href="#-bonus-debug-suggestion">🎁 Bonus: Debug Suggestion</a></h3>
+<p>✅ If you're debugging <code>defer</code> issues:</p>
+<ul>
+<li>Use <code>go run -gcflags=all="-m"</code> to see escape analysis.</li>
+<li>Print log inside defer to see the order.</li>
+<li>Add named returns if defer needs to modify output.</li>
+</ul>
+<hr />
+<h3 id="-শেষ-কথা"><a class="header" href="#-শেষ-কথা">🧠 শেষ কথা</a></h3>
+<p>Go-এর <code>defer</code> যত ছোট দেখতে, তত গভীর তার আচরণ। একে সঠিকভাবে বোঝা মানে হচ্ছে —</p>
+<ul>
+<li>Cleaner code</li>
+<li>Resource leak রোধ</li>
+<li>কম Bug</li>
+</ul>
+<p>শুধু syntax জানলেই হবে না — এর ভিতরের Stack-মাথা, Return-trap, এবং Variable-capture খেলাও বোঝা জরুরি।</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="topic-wise"><a class="header" href="#topic-wise">Topic wise</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><p>[<strong>Author:</strong> @mdimamhosen
 <strong>Date:</strong> 2025-04-19
