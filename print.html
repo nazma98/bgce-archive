@@ -2840,6 +2840,203 @@ Stack grows downward ↓
 <strong>Date:</strong> 2025-06-02
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-39---vogus-data-types"><a class="header" href="#-class-39---vogus-data-types">💐 Class 39 - Vogus Data Types</a></h1>
+<h2 id="-signed-integer-type"><a class="header" href="#-signed-integer-type">🔢 Signed Integer Type</a></h2>
+<p>Golang এ <code>int8</code>, <code>int16</code>, <code>int32</code>, এবং <code>int64</code> হল signed integer types যাদের specific bit size থাকে। নিচে এ সম্পর্কে বিস্তারিত দেওয়া হল:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Size</th><th>Range</th></tr></thead><tbody>
+<tr><td><code>int8</code></td><td><code>8 bit</code> / <code>1 byte</code></td><td><code>-128</code> to <code>127</code></td></tr>
+<tr><td><code>int16</code></td><td><code>16 bit</code> / <code>2 bytes</code></td><td><code>-32,768</code> to <code>32,767</code></td></tr>
+<tr><td><code>int32</code></td><td><code>32 bit</code> / <code>4 bytes</code></td><td><code>-2,147,483,648</code> to <code>2,147,483,647</code></td></tr>
+<tr><td><code>int64</code></td><td><code>64 bit</code> / <code>8 bytes</code></td><td><code>-9,223,372,036,854,775,808</code> to <code>9,223,372,036,854,775,807</code></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>Go Runtime</strong> handles how to store each type of variable</p>
+</blockquote>
+<h3 id="-int-type-কী"><a class="header" href="#-int-type-কী"><strong>🧠 int type কী?</strong></a></h3>
+<p>Golang এ <code>int</code> টাইপের কোন নির্দিষ্ট সাইজ নেই। এটি Computer architecture এর উপর নির্ভর করে:</p>
+<p>32-bit computer → int = 32 bit</p>
+<p>64-bit computer → int = 64 bit</p>
+<h3 id="-example"><a class="header" href="#-example">🌷 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    var a int8 = 5
+
+    fmt.Println(a)
+}
+</code></pre>
+<h3 id="-visualization-of-storing-int8-in-32-bit-computer"><a class="header" href="#-visualization-of-storing-int8-in-32-bit-computer">🖼️ Visualization of storing <code>int8</code> in 32-bit computer</a></h3>
+<p><strong>Decimal to Binary (8-bit signed)</strong>:</p>
+<p>5 in binary = <code>00000101</code> (as <code>int8</code>)</p>
+<h4 id="-32-bit-memory-cell-visualization-for-int8-a--5"><a class="header" href="#-32-bit-memory-cell-visualization-for-int8-a--5">🧮 32-bit Memory Cell Visualization for <code>int8 a = 5</code></a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>31 ... 8 (Unused/Padding)</th><th>7</th><th>6</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead><tbody>
+<tr><td>Bit Values</td><td>00000000 00000000 00000000</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+</tbody></table>
+</div>
+<h3 id="-tips"><a class="header" href="#-tips">📌 Tips:</a></h3>
+<ul>
+<li>Memory save → <code>int8</code>, <code>int16</code></li>
+<li>Performance / Process easy → <code>int</code> বা <code>int32</code></li>
+<li>সব সময় Range এর মধ্যে data থাকবে কিনা তা আগে ভাবুন।</li>
+</ul>
+<hr />
+<h2 id="-unsigned-integer-type"><a class="header" href="#-unsigned-integer-type">📦 Unsigned Integer Type</a></h2>
+<p>Golang এ unsigned int - <code>uint</code> টাইপ হলো এমন সংখ্যা যা কখনোই ঋণাত্মক (negative) হতে পারে না।</p>
+<ul>
+<li>👉 শুধুমাত্র ধনাত্মক সংখ্যা (positive) বা শূন্য (0) নিতে পারে।</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Size</th><th>Range</th></tr></thead><tbody>
+<tr><td><code>uint8</code></td><td><code>8 bit</code> / <code>1 byte</code></td><td><code>0</code> to <code>255</code></td></tr>
+<tr><td><code>uint16</code></td><td><code>16 bit</code> / <code>2 bytes</code></td><td><code>0</code> to <code>65,535</code></td></tr>
+<tr><td><code>uint32</code></td><td><code>32 bit</code> / <code>4 bytes</code></td><td><code>0</code> to <code>4,294,967,295</code></td></tr>
+<tr><td><code>uint64</code></td><td><code>64 bit</code> / <code>8 bytes</code></td><td><code>0</code> to <code>18,446,744,073,709,551,615</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="-example-1"><a class="header" href="#-example-1">🧪 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    var age uint8 = 25
+    fmt.Println(age)
+}
+</code></pre>
+<h3 id="-uint-type"><a class="header" href="#-uint-type"><strong>🧠 uint type</strong></a></h3>
+<p>Golang এ <code>uint</code> টাইপের কোন নির্দিষ্ট সাইজ নেই। এটি Computer architecture এর উপর নির্ভর করে:</p>
+<p>32-bit computer → uint = 32 bit</p>
+<p>64-bit computer → uint = 64 bit</p>
+<h2 id="-float-type"><a class="header" href="#-float-type">🔢 Float Type</a></h2>
+<p>দশমিক সংখ্যা (fractional numbers) রাখার জন্য <code>float</code> টাইপ ব্যবহার করা হয়। যেমনঃ <code>3.14</code>, <code>-2.75</code>, <code>0.001</code>।</p>
+<h3 id="-golang-এ-float-দুই-types"><a class="header" href="#-golang-এ-float-দুই-types">🧪 Golang এ Float দুই types:</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>type</th><th>size</th><th>Precision</th></tr></thead><tbody>
+<tr><td><code>float32</code></td><td>32-bit</td><td>প্রায় ৭ দশমিক ঘর পর্যন্ত সঠিক</td></tr>
+<tr><td><code>float64</code></td><td>64-bit</td><td>প্রায় ১৫-১৭ দশমিক ঘর পর্যন্ত সঠিক</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>শুধু float নামে কোনো type নেই।</p>
+</blockquote>
+<h3 id="-example-2"><a class="header" href="#-example-2">🧪 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    var x float32 = 3.1415
+    var y float64 = 2.7182818284
+
+    fmt.Println("x =", x)
+    fmt.Println("y =", y)
+}
+
+</code></pre>
+<blockquote>
+<p>📌 Note: Golang এ দশমিক সংখ্যা লিখলে সেটা default <code>float64</code> হয়।</p>
+</blockquote>
+<pre><code class="language-go">f := 1.5 // float64
+</code></pre>
+<h2 id="-boolean-type"><a class="header" href="#-boolean-type">🔢 Boolean Type</a></h2>
+<p>Boolean টাইপ <code>bool</code> শুধু দুইটি value রাখতে পারে:</p>
+<ul>
+<li><code>true</code></li>
+<li><code>false</code></li>
+</ul>
+<h3 id="-example-3"><a class="header" href="#-example-3">🌸 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    var isActive bool = true
+
+    fmt.Println("isActive:", isActive)
+}
+</code></pre>
+<blockquote>
+<p><code>bool</code> type memory তে সঠিকভাবে 1 bit নয়, বরং 1 byte (8 bits) জায়গা নেয়।</p>
+</blockquote>
+<h2 id="-byte-type"><a class="header" href="#-byte-type">✳️ Byte Type</a></h2>
+<ul>
+<li>alias for <code>uint8</code></li>
+<li>8 bits per character</li>
+</ul>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    var a byte = 65
+    fmt.Println(a)           // Output: 65
+    fmt.Println(string(a))   // Output: A
+}
+</code></pre>
+<h4 id="-note"><a class="header" href="#-note">🔎 Note:</a></h4>
+<ul>
+<li><code>byte</code> শুধু <code>0</code> থেকে <code>255</code> পর্যন্ত value রাখতে পারে।</li>
+<li>character encoding এর সাথে কাজ করতে গেলে byte খুবই দরকারি।</li>
+</ul>
+<h2 id="-rune"><a class="header" href="#-rune">🧮 Rune</a></h2>
+<ul>
+<li>alias for <code>int32</code> (unicode point) - <code>32 bits</code> / <code>4 bytes</code></li>
+<li>Unicode character রাখে</li>
+</ul>
+<h3 id="-example-4"><a class="header" href="#-example-4">🌻 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+    r := '❤'
+    fmt.Printf("%c\n", r) // Output: ❤
+}
+</code></pre>
+<h2 id="-format-specifiers-table"><a class="header" href="#-format-specifiers-table">🔢 Format Specifiers Table</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Format</th><th>Type</th><th>Description</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>%d</code></td><td>int</td><td>Decimal integer</td><td><code>42</code></td></tr>
+<tr><td><code>%f</code></td><td>float</td><td>Decimal float (default precision)</td><td><code>3.14</code></td></tr>
+<tr><td><code>%.2f</code></td><td>float</td><td>Float with 2 decimal points</td><td><code>3.14</code></td></tr>
+<tr><td><code>%s</code></td><td>string</td><td>String</td><td><code>"Hello"</code></td></tr>
+<tr><td><code>%t</code></td><td>bool</td><td>true/false</td><td><code>true</code></td></tr>
+<tr><td><code>%c</code></td><td>rune</td><td>Character (Unicode)</td><td><code>🙂</code></td></tr>
+<tr><td><code>%U</code></td><td>rune</td><td>Unicode format</td><td><code>U+1F642</code></td></tr>
+<tr><td><code>%v</code></td><td>any</td><td>Default value (auto detect)</td><td><code>true</code>, <code>42</code>, etc.</td></tr>
+<tr><td><code>%T</code></td><td>any</td><td>Type of the variable</td><td><code>int</code>, <code>string</code>, etc.</td></tr>
+</tbody></table>
+</div>
+<h3 id="-example-5"><a class="header" href="#-example-5">🌻 Example</a></h3>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+	var a int8 = -128
+
+	var x uint8 = 255
+
+	var j float32 = 10.23343
+	var k float64 = 10.4455235
+
+	var flag bool = true
+
+	var s string = "The sky is beautiful"
+
+	r := '❤'
+
+	fmt.Printf("%c\n", r) // Output: ❤
+	fmt.Printf("%d\n", a) // Output: -128
+    fmt.Printf("%d\n", x) // Output: 255
+	fmt.Printf("%.2f\n", j) // Output: 10.23
+    fmt.Printf("%.5f\n", k) // Output: 10.44552
+	fmt.Printf("%v\n", flag) // Output: true
+	fmt.Printf("%s\n", s) // Output: The sky is beautiful
+
+	fmt.Printf("** Type of variable s = %T", s) // Output: string
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব"><a class="header" href="#-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব">🌀 Golang এর <code>defer</code>: ভিতরের স্ট্যাক, রিটার্ন ফাঁদ, এবং বাস্তব উদাহরণে ডুব</a></h2>
 <blockquote>
 <p>"<code>defer</code> মানে হচ্ছে — তোমার কাজ হবে, কিন্তু পরে হবে।"</p>
