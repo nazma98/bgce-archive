@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Golang016 Package Scope - BGCE ARCHIVE</title>
+        <title>Golang037 Concurrency Vs Parallelism - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -169,119 +169,73 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
+                        <h1 id="-parallelism-vs-concurrency"><a class="header" href="#-parallelism-vs-concurrency">🧠 Parallelism vs Concurrency</a></h1>
 <hr />
-<h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>
-<p><strong>Package</strong> হলো GoLang কোড গুছিয়ে রাখার একটি পদ্ধতি। একটি Package অনেকগুলো ফাইল থাকতে পারে, এবং সবগুলোর <code>package</code> নাম একই হলে তারা একে অপরের কোড ব্যবহার করতে পারে।</p>
-<h3 id="-নিয়ম"><a class="header" href="#-নিয়ম">✅ নিয়ম:</a></h3>
+<h2 id="১-concurrency"><a class="header" href="#১-concurrency">১. Concurrency</a></h2>
+<blockquote>
+<p><strong>Concurrency</strong> এমন একটি প্রক্রিয়া যেখানে CPU একসাথে অনেকগুলো কাজ একইসাথে run  করছে এমন একটি illusion তৈরি  করা, এটি  এমনভাবে কাজ করে যেন সবগুলো কাজ একইসাথে চলছে অর্থাৎ ব্যবহারকারীর চোখে এটি যেন একসাথে অনেক কাজ হচ্ছে এমন একটি illusion তৈরি করে।</p>
+</blockquote>
+<h3 id="-উদাহরণ--"><a class="header" href="#-উদাহরণ--">🛠 উদাহরণ  :</a></h3>
+<p><strong>YouTube অ্যাপ</strong> চালানোর সময় তুমি দেখতে পারো:</p>
 <ul>
-<li>একই ফোল্ডারে সব <code>.go</code> ফাইলের <code>package</code> নাম এক হওয়া উচিত।</li>
-<li><code>package main</code> হলে সেটি রানযোগ্য প্রোগ্রাম।</li>
-<li>অন্য প্যাকেজ যেমন <code>package mathlib</code> → লাইব্রেরি বা ইউটিলিটি হিসেবে ব্যবহৃত হয়।</li>
+<li>ভিডিও প্লে হচ্ছে</li>
+<li>কমেন্ট লোড হচ্ছে</li>
+<li>বিজ্ঞাপন আসছে</li>
+<li>স্ক্রল করলে নতুন ভিডিও সাজেশন আসছে</li>
+</ul>
+<p>সবকিছুই একসাথে ঘটছে বলে মনে হয়, কিন্তু মূলত এই কাজগুলো context switching এর মাধ্যমে একে একে execute হচ্ছে।</p>
+<h3 id="-মূল-বৈশিষটয"><a class="header" href="#-মূল-বৈশিষটয">✅ মূল বৈশিষ্ট্য:</a></h3>
+<ul>
+<li>একসাথে অনেক কাজ handle করা হয়</li>
+<li>CPU এক সময়ে একটিই কাজ করে, কিন্তু দ্রুত context switch করে</li>
+<li>Single-core CPU-তেও কাজ করে</li>
 </ul>
 <hr />
-<h2 id="২-scope-এবং-export-কী"><a class="header" href="#২-scope-এবং-export-কী">২. Scope এবং Export কী?</a></h2>
-<h3 id="-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে"><a class="header" href="#-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে">📌 কোন জায়গা থেকে কোন ফাংশন বা ভেরিয়েবল অ্যাক্সেস করা যাবে।</a></h3>
+<h2 id="২-parallelism"><a class="header" href="#২-parallelism">২. Parallelism</a></h2>
+<blockquote>
+<p><strong>Parallelism</strong> বোঝায় একাধিক কাজ একই সময়ে, একাধিক CPU বা processor/core ব্যবহার করে execute হওয়া। প্রতিটি কাজ আলাদা processor/core দ্বারা একসাথে চালানো হয়।</p>
+</blockquote>
+<h3 id="-উদাহরণ-"><a class="header" href="#-উদাহরণ-">🛠 উদাহরণ :</a></h3>
+<p>ধরো, তুমি Adobe Premiere Pro তে ভিডিও এক্সপোর্ট দিচ্ছো  একি সময়ে</p>
 <ul>
-<li>যদি function নাম <strong>ছোট হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>add</code>), তাহলে এটি <strong>শুধুমাত্র সেই Packageর ভিতরেই ব্যবহার করা যাবে</strong>।</li>
-<li>যদি <strong>বড় হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>Add</code>), তাহলে সেটি <strong>এক্সপোর্টেড</strong> হয় এবং অন্য প্যাকেজ থেকেও ব্যবহার করা যায়।</li>
+<li>একটি core ভিডিও প্রসেস করছে</li>
+<li>অন্য core অডিও রেন্ডার করছে</li>
+<li>আরেকটি core এফেক্ট প্রসেস করছে</li>
+</ul>
+<p>এই কাজগুলো processor/CPU multiple core দ্বারা একসাথে চলায় যাতে রেন্ডারিং দ্রুত সম্পন্ন হয়। এটি Parallelism।</p>
+<h3 id="-মূল-বৈশিষটয-1"><a class="header" href="#-মূল-বৈশিষটয-1">✅ মূল বৈশিষ্ট্য:</a></h3>
+<ul>
+<li>একাধিক কাজ একই সময়ে সত্যিকারের parallel চলে</li>
+<li>Multi-core processor দরকার</li>
+<li>সময় বাঁচে এবং efficiency বাড়ে</li>
 </ul>
 <hr />
-<h2 id="৩-কোড-উদাহরণ"><a class="header" href="#৩-কোড-উদাহরণ">৩. কোড উদাহরণ</a></h2>
-<h3 id="-addgo"><a class="header" href="#-addgo">📁 <code>add.go</code></a></h3>
-<pre><code class="language-go">package main
-
-import "fmt"
-
-func add(n1, n2 int) {
-    res := n1 + n2
-    fmt.Println(res)
-}
-</code></pre>
-<p>📌 <code>add()</code> function নাম ছোট হাতের অক্ষরে, তাই এটা শুধু <code>main</code> Packageর ভিতরেই কাজ করবে।</p>
-<hr />
-<h3 id="-maingo"><a class="header" href="#-maingo">📁 <code>main.go</code></a></h3>
-<pre><code class="language-go">package main
-
-var (
-    a = 20
-    b = 30
-)
-
-func main() {
-    add(4,7)
-}
-</code></pre>
-<p>📌 এখানে <code>add()</code> কল করা হয়েছে কারণ <code>add.go</code> ফাইল একই Package আছে (package main)।<br />
-👉 রান করতে হবে:</p>
-<pre><code class="language-bash">go run main.go add.go
-</code></pre>
-<hr />
-<h3 id="-কাসটম-পযাকেজ-mathlibmathgo"><a class="header" href="#-কাসটম-পযাকেজ-mathlibmathgo">📁 কাস্টম প্যাকেজ <code>mathlib/math.go</code></a></h3>
-<pre><code class="language-go">package mathlib
-
-import "fmt"
-
-func Add(x int, y int) {
-    z := x + y
-    fmt.Println(z)
-}
-</code></pre>
-<p>📌 এবার <code>Add()</code> function বড় হাতের অক্ষরে শুরু → <strong>Exported</strong><br />
-📌 <code>mathlib</code> নামে প্যাকেজ → একে অন্য ফোল্ডারে রাখতে হবে (যেমন: <code>mathlib/</code>)</p>
-<hr />
-<h3 id="-maingo-পরিবরতিত-ভারসন"><a class="header" href="#-maingo-পরিবরতিত-ভারসন">📁 <code>main.go</code> (পরিবর্তিত ভার্সন)</a></h3>
-<pre><code class="language-go">package main
-
-import (
-    "fmt"
-    "example.com/mathlib"
-)
-
-var (
-    a = 20
-    b = 30
-)
-
-func main() {
-    fmt.Println("Showing Custom Package")
-    mathlib.Add(4,7)
-}
-</code></pre>
-<p>📌 এখানে <code>mathlib.Add()</code> ব্যবহার করা হয়েছে কারণ <code>Add()</code> এক্সপোর্টেড এবং আমরা <code>import</code> করেছি।</p>
-<hr />
-<h2 id="৪-মডিউল-বযবসথাপনা"><a class="header" href="#৪-মডিউল-বযবসথাপনা">৪. মডিউল ব্যবস্থাপনা</a></h2>
-<h3 id="-মডিউল-শুরু-করতে"><a class="header" href="#-মডিউল-শুরু-করতে">✅ মডিউল শুরু করতে:</a></h3>
-<pre><code class="language-bash">go mod init example.com/mathlib
-</code></pre>
-<hr />
-<h2 id="৫-key-concepts"><a class="header" href="#৫-key-concepts">৫. Key Concepts</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>ব্যাখ্যা</th></tr></thead><tbody>
-<tr><td>একই ফোল্ডার = একই প্যাকেজ</td><td><code>main.go</code>, <code>add.go</code> → <code>package main</code></td></tr>
-<tr><td>কাস্টম Package আলাদা ফোল্ডার</td><td>যেমন <code>mathlib/math.go</code></td></tr>
-<tr><td>রান করতে হলে সব ফাইল দিতে হবে</td><td><code>go run main.go add.go</code></td></tr>
-<tr><td>বড় হাতের ফাংশন নাম = এক্সপোর্টেড</td><td>অন্য প্যাকেজ থেকে ব্যবহারযোগ্য</td></tr>
-<tr><td><code>go mod init</code> দিয়ে মডিউল শুরু হয়</td><td>কাস্টম প্যাকেজ ব্যবহারে দরকার</td></tr>
+<h2 id="৩-তুলনামূলক-পারথকয"><a class="header" href="#৩-তুলনামূলক-পারথকয">৩. তুলনামূলক পার্থক্য</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>Concurrency</th><th>Parallelism</th></tr></thead><tbody>
+<tr><td>কাজের ধরন</td><td>একাধিক কাজ context switch করে execute হয়</td><td>একাধিক কাজ একসাথে চলতে থাকে</td></tr>
+<tr><td>প্রয়োজনীয়তা</td><td>Single-core CPU-তেও সম্ভব</td><td>Multi-core CPU প্রয়োজন</td></tr>
+<tr><td>বাস্তব উদাহরণ</td><td>YouTube অ্যাপের বিভিন্ন ফিচার একসাথে চলা</td><td>Video rendering-এ একাধিক core কাজ করে</td></tr>
+<tr><td>উদ্দেশ্য</td><td>অনেক কাজকে একসাথে handle করা</td><td>কাজগুলো দ্রুত এবং একযোগে শেষ  করা</td></tr>
+<tr><td>Task Execution Style</td><td>Interleaved (ক্রমাগত পালাক্রমে)</td><td>Simultaneous (একসাথে একযোগে)</td></tr>
 </tbody></table>
 </div>
 <hr />
-<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">🧠 সারাংশ:</a></h2>
+<h2 id="৪-সংকষেপে"><a class="header" href="#৪-সংকষেপে">৪. সংক্ষেপে:</a></h2>
 <ul>
-<li>প্যাকেজ ব্যবহারে কোড পরিষ্কার ও পুনঃব্যবহারযোগ্য হয়।</li>
-<li>স্কোপ বুঝে কোড গঠন করলে সমস্যা হয় না।</li>
-<li>এক্সপোর্টেড ফাংশন ও মডিউল ব্যবস্থাপনা জানলে বড় প্রজেক্টেও কাজ সহজ হয়।</li>
+<li><strong>Concurrency</strong> হলো কাজগুলোকে একসাথে handle করার কৌশল, যেখানে একসাথে অনেক কিছু ঘটলেও, CPU এক সময়ে একটিই কাজ করে।</li>
+<li><strong>Parallelism</strong> হলো সত্যিকারের একসাথে অনেক কাজ করা, যেখানে প্রতিটি কাজ ভিন্ন ভিন্ন processor/core দ্বারা চলে।</li>
 </ul>
-<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<p>[Author : @shahriar-em0n  Date: 2025-06-09 Category: interview-qa/class-wise ]</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/class-wise/golang008-Variables-and-Data-Types/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang036-Context-Switching-PCB-Concurrency/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang038-thread/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -291,11 +245,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/class-wise/golang008-Variables-and-Data-Types/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang036-Context-Switching-PCB-Concurrency/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang038-thread/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
