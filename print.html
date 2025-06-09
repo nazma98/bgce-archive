@@ -2977,6 +2977,150 @@ MS-DOS এবং Windows-এর মাধ্যমে Microsoft সফটওয়�
 Apple এবং Microsoft ছিল সেই দুই কোম্পানি যারা সাধারণ মানুষের হাতে কম্পিউটার এনে দেয় - Apple হার্ডওয়্যার দিয়ে আর Microsoft সফটওয়্যার দিয়ে।</p>
 <p>তাদের তৈরি কম্পিউটার ও OS গুলোর bit size শুরুতে 8-bit, পরে 16-bit → 32-bit → 64-bit পর্যন্ত উন্নত হয়, যার ফলে গতি, ক্ষমতা ও ব্যবহারযোগ্যতা অনেক বাড়ে।</p>
 <p>[Author:@shahriar-em0n  Date: 2025-06-05 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-33---into-the-operating-system"><a class="header" href="#-class-33---into-the-operating-system">✨ CLass 33 - Into The Operating System</a></h1>
+<h2 id="-eniac-ও-punch-card"><a class="header" href="#-eniac-ও-punch-card">🖥️ ENIAC ও Punch Card</a></h2>
+<p><strong>ENIAC (Electronic Numerical Integrator and Computer)</strong> ছিল একেবারে প্রথম দিকের একটি general purpose computer যা Punch card ব্যবহার করত:</p>
+<ul>
+<li>Input (Data এবং Instruction)</li>
+<li>Output (Result)</li>
+<li>Storage (Storing temporary data)</li>
+</ul>
+<p>ENIAC সাধারণত IBM এর <strong>৮০ কলামের Punch card</strong> ব্যবহার করত।</p>
+<h3 id="-punch-card-80x12"><a class="header" href="#-punch-card-80x12">🧠 Punch Card (80x12)</a></h3>
+<ul>
+<li>শক্ত কাগজ, যাতে ৮০টি কলাম ও ১২টি সারি থাকে।</li>
+<li>ছিদ্র দিয়ে তথ্য encode করা হয়</li>
+<li>ছিদ্র = <code>1</code></li>
+<li>ছিদ্র না থাকলে = <code>0</code></li>
+</ul>
+<hr />
+<h3 id="-punch-card-ram-এ-লোড-এবং-program-execute"><a class="header" href="#-punch-card-ram-এ-লোড-এবং-program-execute">🧾 Punch card RAM এ লোড এবং Program execute</a></h3>
+<ul>
+<li><strong>Punch Card তৈরি</strong>
+<ul>
+<li>প্রোগ্রামের কোড বা ডেটা আগে কাগজে Punch card এ লেখা হতো (প্রতিটি কার্ড = ১ লাইন কোড বা তথ্য)।</li>
+<li><strong>keypunch machine</strong> দিয়ে ছিদ্র করা হতো।</li>
+</ul>
+</li>
+<li><strong>Computer এ Feed</strong>
+<ul>
+<li>Punch card গুলো card reader এ ঢোকানো হতো।</li>
+<li>Reader ছিদ্রগুলো পড়ে Binary signal এ (1 বা 0) রূপান্তর করত।</li>
+</ul>
+</li>
+<li><strong>RAM এ Load</strong>
+<ul>
+<li>Binary signal গুলো কম্পিউটারের Memory ইউনিটে পাঠানো হতো।</li>
+<li>সেই সময়কার RAM ছিল টিউব বা flip-flop ধরনের মেমোরি।</li>
+<li>প্রতিটি instruction বা data নির্দিষ্ট location এ সংরক্ষিত হতো।</li>
+</ul>
+</li>
+<li><strong>Execution</strong>
+<ul>
+<li>কম্পিউটারের control unit(CU), memory থেকে একে একে instruction নিত।</li>
+<li>Pointing Register (Program Counter) প্রথমে প্রথম instruction address কে point করে।</li>
+<li>CPU সেই instruction -&gt; fetch -&gt; decode -&gt; execute করে।</li>
+<li>Instruction শেষ হলে, Pointing register এক ধাপ বাড়ে, অর্থাৎ পরবর্তী instruction address এ চলে যায়।</li>
+<li>Loop বা condition থাকলে সেটা plugboards বা বিশেষ কার্ডে আগে থেকেই সেট করে দিতে হতো।</li>
+</ul>
+</li>
+</ul>
+<h3 id="-note"><a class="header" href="#-note">🛠️ Note:</a></h3>
+<ul>
+<li>তখন কোনো operating system ছিল না। সব কিছু manually করতে হতো।</li>
+<li>RAM আজকের মতো উন্নত ছিল না; বরং ছিল একটি সীমিত মেমোরি ইউনিট।</li>
+<li>পুরো কাজটি ছিল ধীর ও খুবই টেকনিক্যাল।</li>
+</ul>
+<blockquote>
+<p>CPU = Register Set (ডেটা রাখে) + Processing Unit (ডেটা প্রসেস করে) এবং Processing Unit = ALU + Control Unit</p>
+</blockquote>
+<h2 id="-the-idea-of-operating-system"><a class="header" href="#-the-idea-of-operating-system">💡 The Idea of Operating System</a></h2>
+<p><strong>🕰️ ১৯৪০ - ৫০ দশকে</strong>, কম্পিউটারে প্রতিটি প্রোগ্রাম manually চালাতে হতো - punch card, আলাদা কোড, অনেক সময়।</p>
+<p><strong>🎯 সমাধান :</strong></p>
+<p>"একটা সফটওয়্যার থাকুক, যা প্রোগ্রাম চালানোসহ সব কাজ নিজে করবে" - এটাই Operating System।</p>
+<p>প্রথম দিকে OS শুধু প্রোগ্রাম চালাত, পরে I/O, memory, file, security management যুক্ত হয়।</p>
+<hr />
+<h2 id="-os-এর-pointing-register-program-counter-বযবহার-করে-program-execution"><a class="header" href="#-os-এর-pointing-register-program-counter-বযবহার-করে-program-execution">⚙️ OS এর Pointing Register (Program Counter) ব্যবহার করে Program Execution</a></h2>
+<p>💡 Pointing Register (Program Counter aka PC)</p>
+<ul>
+<li>CPU-র একটি register।</li>
+<li>পরবর্তী যেই instruction execute হবে, তার address রাখে।</li>
+</ul>
+<h3 id="-program-execution-steps"><a class="header" href="#-program-execution-steps">👣 Program Execution Steps:</a></h3>
+<ul>
+<li>Computer On -&gt; OS প্রথমে HDD থেকে RAM এ Load হয়</li>
+<li>OS sets up -&gt; Hardware, memory, File System ইত্যাদি</li>
+<li>একটি Program execute -&gt; Click app icon</li>
+<li>OS সেই Program টি HDD থেকে খুঁজে বের করে এবং RAM এ লোড করে</li>
+<li>OS এরপর Pointing Register কে program এর first instruction address সেট করে দেয়</li>
+<li>CPU সেই address থেকে instruction -&gt; fetch -&gt; decode -&gt; execute করতে শুরু করে</li>
+</ul>
+<blockquote>
+<p>➡️ প্রতিটি Instruction শেষ হওয়ার পর, Pointing Register নিজে থেকেই পরবর্তী address update হয়। যদি কোনো loop, function call বা condition থাকে, তাহলে Pointing Register সেই অনুযায়ী নতুন address এ jump করে।</p>
+</blockquote>
+<hr />
+<h2 id="-evolution-of-operating-system"><a class="header" href="#-evolution-of-operating-system">🧬 Evolution of Operating System</a></h2>
+<h3 id="-early-stages-1940s-1960s"><a class="header" href="#-early-stages-1940s-1960s">🕰️ <strong><em>Early Stages (1940s-1960s):</em></strong></a></h3>
+<p><strong>🔹 1st Generation: Batch Processing Systems:</strong></p>
+<ul>
+<li>প্রথমদিকে কম্পিউটার OS ছাড়াই কাজ করত, প্রোগ্রাম manually load করতে হতো।</li>
+<li><em>GM-NAA I/O</em> (1956) ছিল <strong>First Operating System</strong>, যা <code>IBM 704</code> এর জন্য input/output ম্যানেজ করত।</li>
+</ul>
+<p><strong>🔹 2nd Generation: Multiprogramming &amp; Timesharing:</strong></p>
+<ul>
+<li>Multiprogramming: CPU একাধিক প্রোগ্রামের মাঝে কাজ ভাগ করে efficiency বাড়ায়।</li>
+<li>Time-sharing systems (যেমন: <em>CTSS</em>, <em>Multics</em>): একাধিক ব্যবহারকারী একসাথে কম্পিউটারের সাথে কাজ করতে পারে।</li>
+</ul>
+<h3 id="-the-rise-of-user-friendly-interfaces-1970s-1990s"><a class="header" href="#-the-rise-of-user-friendly-interfaces-1970s-1990s">🖥️ <strong><em>The Rise of User-Friendly Interfaces (1970s-1990s)</em></strong>:</a></h3>
+<p><strong>🔹 3rd Generation: Graphical User Interfaces (GUIs)</strong>
+Apple Macintosh ও Microsoft Windows. Graphical User Interface (GUI) চালু করে, যা কম্পিউটারকে সহজ করে তোলে।</p>
+<p><strong>🔹 Unix ও Personal Computers</strong></p>
+<ul>
+<li>Unix: সহজ, বহনযোগ্য ও multitasking সাপোর্টের জন্য জনপ্রিয়।
+<ul>
+<li>🏛️ History:
+<ul>
+<li>📅 1970 সালে <em>AT&amp;T Bell Labs</em> এ <em>Ken Thompson</em> ও <em>Dennis Ritchie</em> Unix তৈরি করেন।</li>
+<li>🧪 এটি <strong>C programming language</strong> ব্যবহার করে লেখা হয়, যা একে আরও বহনযোগ্য করে তোলে।</li>
+</ul>
+</li>
+<li>📚 Unix থেকে জন্ম নেওয়া জনপ্রিয় OS:
+<ul>
+<li>Linux 🐧</li>
+<li>Mac OS 🍎</li>
+<li>BSD, Solaris ইত্যাদি</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>CP/M</em>, <em>PC-DOS</em>: ব্যক্তিগত কম্পিউটারের জন্য সহজ Operating System।</li>
+</ul>
+<p><strong>🔹 Linux ও উন্নত GUI</strong></p>
+<ul>
+<li>Linux: Open source OS হিসেবে জনপ্রিয় হয়।</li>
+</ul>
+<p><strong>🔹 Windows ও Mac OS</strong></p>
+<ul>
+<li>GUI আরও উন্নত করে।</li>
+</ul>
+<h3 id="-modern-era-2000s-present"><a class="header" href="#-modern-era-2000s-present"><strong><em>📱 Modern Era (2000s-Present)</em></strong>:</a></h3>
+<p><strong>🔹 Mobile &amp; Cloud Computing</strong>
+iOS, Android: মোবাইল OS বাজারে আধিপত্য বিস্তার করে।</p>
+<p>Cloud ও Virtualization প্রযুক্তি কম্পিউটিংকে নতুন রূপ দেয়।</p>
+<p><strong>🔹 AI Integration</strong>
+AI, Machine Learning, Quantum Computing OS কে আরও বুদ্ধিমান ও অভিযোজিত করে তুলছে।</p>
+<h3 id="-key-milestones"><a class="header" href="#-key-milestones">📌 Key Milestones:</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Year</th><th>Events</th></tr></thead><tbody>
+<tr><td>1990</td><td><strong>Windows 3.0</strong> – GUI, computing experience এ ব্যাপক পরিবর্তন আনে</td></tr>
+<tr><td>1995</td><td><strong>Windows 95</strong> – Taskbar, Start Menu ও Plug-and-Play</td></tr>
+<tr><td>2009</td><td><strong>Windows 7</strong> – Enhanced features, speed, and resource usage</td></tr>
+<tr><td>2012</td><td><strong>Windows 8</strong> – Metro Interface, significant revamp</td></tr>
+</tbody></table>
+</div>
+<p>[<strong>Author:</strong> @nazma98
+<strong>Date:</strong> 2025-06-09
+<strong>Category:</strong> interview-qa/class-wise
+]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-cpu-structure-and-stack-frame-execution-notes"><a class="header" href="#-cpu-structure-and-stack-frame-execution-notes">🧠 CPU Structure and Stack Frame Execution Notes</a></h1>
 <h2 id="-cpu-two-core-components"><a class="header" href="#-cpu-two-core-components">🔹 CPU: Two Core Components</a></h2>
 <ol>
@@ -3511,7 +3655,7 @@ func main() {
     fmt.Println(string(a))   // Output: A
 }
 </code></pre>
-<h4 id="-note"><a class="header" href="#-note">🔎 Note:</a></h4>
+<h4 id="-note-1"><a class="header" href="#-note-1">🔎 Note:</a></h4>
 <ul>
 <li><code>byte</code> শুধু <code>0</code> থেকে <code>255</code> পর্যন্ত value রাখতে পারে।</li>
 <li>character encoding এর সাথে কাজ করতে গেলে byte খুবই দরকারি।</li>
@@ -3574,6 +3718,10 @@ func main() {
 	fmt.Printf("** Type of variable s = %T", s) // Output: string
 }
 </code></pre>
+<p>[<strong>Author:</strong> @nazma98
+<strong>Date:</strong> 2025-06-05
+<strong>Category:</strong> interview-qa/class-wise
+]</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব"><a class="header" href="#-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব">🌀 Golang এর <code>defer</code>: ভিতরের স্ট্যাক, রিটার্ন ফাঁদ, এবং বাস্তব উদাহরণে ডুব</a></h2>
 <blockquote>
 <p>"<code>defer</code> মানে হচ্ছে — তোমার কাজ হবে, কিন্তু পরে হবে।"</p>
