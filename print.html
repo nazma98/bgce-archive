@@ -3121,6 +3121,149 @@ AI, Machine Learning, Quantum Computing OS কে আরও বুদ্ধি�
 <strong>Date:</strong> 2025-06-09
 <strong>Category:</strong> interview-qa/class-wise
 ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="class-34---breaking-the-cpu-and-process"><a class="header" href="#class-34---breaking-the-cpu-and-process">Class-34 : 🧩 Breaking The CPU and Process</a></h1>
+<h2 id="-central-processing-unit-cpu"><a class="header" href="#-central-processing-unit-cpu">🧠 Central Processing Unit (CPU)</a></h2>
+<ul>
+<li><strong>The brain of the computer</strong></li>
+<li>Process instructions</li>
+</ul>
+<p>CPU এর ২টি প্রধান অংশ হলো:</p>
+<p><strong>1. Processing Unit (PU)</strong></p>
+<ul>
+<li>Arithmetic Logic Unit(ALU) + Control Unit(CU) থাকে।</li>
+</ul>
+<p><strong>2. Register Set</strong></p>
+<ul>
+<li>Data ও Instructions সাময়িক রাখা হয়।</li>
+<li>Processing Unit এর কাজ সহজ করতে সাহায্য করে।</li>
+</ul>
+<h2 id="-register-set"><a class="header" href="#-register-set">🔹 Register Set</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>রেজিস্টার নাম</th><th>পূর্ণরূপ / বর্ণনা</th><th>কাজের ধরন</th></tr></thead><tbody>
+<tr><td><strong>SP</strong></td><td>Stack Pointer</td><td>stack এর Top কে point করে</td></tr>
+<tr><td><strong>BP</strong></td><td>Base Pointer</td><td>Stack frame এর base কে point করে</td></tr>
+<tr><td><strong>IR</strong></td><td>Instruction Register</td><td>বর্তমানে execute হওয়া instruction রাখে</td></tr>
+<tr><td><strong>PC</strong></td><td>Program Counter</td><td>পরবর্তী instruction address ধরে রাখে</td></tr>
+<tr><td><strong>General Purpose Registers</strong></td><td>(যেমন AX, BX, CX, DX)</td><td>Data transfer, calculation ইত্যাদিতে ব্যবহৃত</td></tr>
+</tbody></table>
+</div>
+<h3 id="-general-purpose-registers"><a class="header" href="#-general-purpose-registers">🗄️ General Purpose Registers</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Register</th><th>Size</th><th>Description</th><th>Typical Use</th></tr></thead><tbody>
+<tr><td>AL</td><td>8-bit</td><td>Lower 8 bits of AX</td><td>store data during arithmetic, logic, or data transfer operations</td></tr>
+<tr><td>BL</td><td>8-bit</td><td>Lower 8 bits of BX</td><td>General-purpose data storage</td></tr>
+<tr><td>CL</td><td>8-bit</td><td>Lower 8 bits of CX</td><td>Loop counters, shift/rotate counts</td></tr>
+<tr><td>DL</td><td>8-bit</td><td>Lower 8 bits of DX</td><td>I/O operations, data storage</td></tr>
+</tbody></table>
+</div>
+<h3 id="-registers-al-bl-cl-dl-in-x86-architecture"><a class="header" href="#-registers-al-bl-cl-dl-in-x86-architecture">🧮 Registers AL, BL, CL, DL in x86 Architecture</a></h3>
+<p>AL, BL, CL, এবং DL respective general-purpose register এর lower 8 bits কে represent করে। CPU architecture এর ওপর ভিত্তি করে এগুলো 16-bit, 32-bit, এবং 64-bit হয়।</p>
+<div class="table-wrapper"><table><thead><tr><th>8-bit</th><th>16-bit</th><th>32-bit</th><th>64-bit</th><th>Description</th></tr></thead><tbody>
+<tr><td>AL</td><td>AX</td><td>EAX</td><td>RAX</td><td><strong>Accumulator register family</strong></td></tr>
+<tr><td>BL</td><td>BX</td><td>EBX</td><td>RBX</td><td><strong>Base register family</strong></td></tr>
+<tr><td>CL</td><td>CX</td><td>ECX</td><td>RCX</td><td><strong>Count register family</strong> <em>(used for loops, shifts)</em></td></tr>
+<tr><td>DL</td><td>DX</td><td>EDX</td><td>RDX</td><td><strong>Data register family</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="-register-hierarchy"><a class="header" href="#-register-hierarchy">🏛️ Register Hierarchy</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Register</th><th>64-bit part</th><th>32-bit part</th><th>16-bit part</th><th>8-bit high</th><th>8-bit low</th></tr></thead><tbody>
+<tr><td>RAX</td><td>RAX</td><td>EAX</td><td>AX</td><td>AH</td><td>AL</td></tr>
+<tr><td>RBX</td><td>RBX</td><td>EBX</td><td>BX</td><td>BH</td><td>BL</td></tr>
+<tr><td>RCX</td><td>RCX</td><td>ECX</td><td>CX</td><td>CH</td><td>CL</td></tr>
+<tr><td>RDX</td><td>RDX</td><td>EDX</td><td>DX</td><td>DH</td><td>DL</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="-control-unit-cu-executes-a-program-stored-on-a-hdd"><a class="header" href="#-control-unit-cu-executes-a-program-stored-on-a-hdd">⚙️ Control Unit (CU) executes a program stored on a HDD</a></h2>
+<h3 id="-program-যখন-hdd-এ-থাকে"><a class="header" href="#-program-যখন-hdd-এ-থাকে">💾 Program যখন HDD এ থাকে</a></h3>
+<ul>
+<li>Program file → HDD এ থাকে</li>
+<li>Direct access → Slow</li>
+</ul>
+<h3 id="-ram-এ-load"><a class="header" href="#-ram-এ-load">⚡ RAM এ Load</a></h3>
+<ul>
+<li>Operating System → Program, HDD থেকে RAM এ নিয়ে আসে → <em>Program Load</em> / <em>Fetch</em></li>
+</ul>
+<h3 id="-execution-শুরু"><a class="header" href="#-execution-শুরু">🚀 Execution শুরু</a></h3>
+<ul>
+<li>Control Unit (CU) → RAM থেকে Program এর First memory address নেয়</li>
+<li>memory address → Program Counter (PC) এ set করা হয়</li>
+</ul>
+<h3 id="-cu-ram-থেকে-instruction-fetch"><a class="header" href="#-cu-ram-থেকে-instruction-fetch">📥 CU RAM থেকে Instruction Fetch</a></h3>
+<ul>
+<li>CU → PC থেকে memeory address নিয়ে RAM থেকে Instruction fetch করে</li>
+<li>Instruction → Instruction Register (IR) এ store হয়</li>
+</ul>
+<h3 id="-decode--execute"><a class="header" href="#-decode--execute">⚙️ Decode &amp; Execute</a></h3>
+<ul>
+<li>CU → IR এর Instruction কে Decode করে</li>
+<li>CU → ALU/অন্যান্য ইউনিটকে কাজ করতে নির্দেশ দেয়</li>
+<li>PC → পরের Instruction memory address update হয়</li>
+</ul>
+<hr />
+<h2 id="-go-program-execution-flow-by-cpu"><a class="header" href="#-go-program-execution-flow-by-cpu">⚙️ Go Program Execution Flow by CPU</a></h2>
+<h3 id="-go-পরোগরাম-রান"><a class="header" href="#-go-পরোগরাম-রান">🧠 Go প্রোগ্রাম রান</a></h3>
+<ul>
+<li><code>go run main.go</code> → Go compiler → binary executable file</li>
+<li>CPU, load এবং execute করে → binary executable file</li>
+</ul>
+<h3 id="-memory-division"><a class="header" href="#-memory-division">📦 Memory Division</a></h3>
+<ul>
+<li><code>Code Segment</code> → <code>const</code>, <code>func</code> / instructions (যা পরিবর্তন হবে না / Read only)</li>
+<li><code>Data Segment</code> → global variable</li>
+<li><code>Stack</code> → function calls &amp; local variable</li>
+<li><code>Heap</code> → dynamic memory</li>
+</ul>
+<h3 id="-stack-frame"><a class="header" href="#-stack-frame">🧱 Stack Frame</a></h3>
+<p><code>main()</code> (বা অন্য কোনো function) call হলে Stack Frame create হয়। Stack Frame এ থাকে:</p>
+<ul>
+<li>Local variables (<code>a := 10</code>)</li>
+<li>Return address (function শেষে কোথায় return)</li>
+<li>Function parameters (যদি থাকে)</li>
+<li>Saved registers (CPU registers)</li>
+</ul>
+<h3 id="-stack-frame-structure"><a class="header" href="#-stack-frame-structure">📊 Stack Frame Structure</a></h3>
+<pre><code class="language-plaintext">↑ Higher memory address
+---------------------
+| Return Address    | ← main() call
+--------------------
+| Old Base Pointer  | ← BP
+--------------------
+| Local variable y  |
+| Local variable x  | ← SP (grows downwards)
+--------------------
+↓ Lower memory address
+
+</code></pre>
+<p>Stack pointer (SP) এবং Base pointer (BP) হল CPU registers, যা stack frame manage করতে ব্যবহৃত হয়।</p>
+<h2 id="-process"><a class="header" href="#-process">💡 Process</a></h2>
+<ul>
+<li>
+<p>Program execution শুরু হলে → process create হয়</p>
+</li>
+<li>
+<p>Process → Program execution সাহায্য করে</p>
+</li>
+<li>
+<p>এর ভেতরে থাকে → Code Segment, Data Segment, Stack, Heap, এবং CPU রেজিস্টার</p>
+</li>
+<li>
+<p>Process <strong>Dead</strong> বা <strong>Terminated</strong> → OS সমস্ত memory ও resources (RAM, file, etc.) free করে</p>
+<pre><code>  | অংশ                  |
+  | -------------------- |
+  | Code Segment         |
+  | Data Segment         |
+  | Heap                 |
+  | Stack                |
+  | Registers            |
+  | Program Counter (PC) |
+  | File Descriptors     |
+</code></pre>
+</li>
+</ul>
+<p>[<strong>Author:</strong> @nazma98
+<strong>Date:</strong> 2025-06-11
+<strong>Category:</strong> interview-qa/class-wise
+]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-cpu-structure-and-stack-frame-execution-notes"><a class="header" href="#-cpu-structure-and-stack-frame-execution-notes">🧠 CPU Structure and Stack Frame Execution Notes</a></h1>
 <h2 id="-cpu-two-core-components"><a class="header" href="#-cpu-two-core-components">🔹 CPU: Two Core Components</a></h2>
 <ol>
