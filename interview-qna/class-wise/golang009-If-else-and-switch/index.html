@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Golang016 Package Scope - BGCE ARCHIVE</title>
+        <title>Golang009 If Else And Switch - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -169,119 +169,108 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
+                        <h1 id="class-09--if-else-and-switch"><a class="header" href="#class-09--if-else-and-switch">Class 09 : If else and switch</a></h1>
+<p>Go তে কন্ডিশনাল স্টেটমেন্ট ব্যবহৃত হয় সিদ্ধান্ত নেওয়ার জন্য। নিচে <code>if</code>, <code>else if</code>, <code>else</code>, এবং <code>switch</code> এর বিস্তারিত ব্যাখ্যা এবং উদাহরণ দেওয়া হলো।</p>
 <hr />
-<h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>
-<p><strong>Package</strong> হলো GoLang কোড গুছিয়ে রাখার একটি পদ্ধতি। একটি Package অনেকগুলো ফাইল থাকতে পারে, এবং সবগুলোর <code>package</code> নাম একই হলে তারা একে অপরের কোড ব্যবহার করতে পারে।</p>
-<h3 id="-নিয়ম"><a class="header" href="#-নিয়ম">✅ নিয়ম:</a></h3>
-<ul>
-<li>একই ফোল্ডারে সব <code>.go</code> ফাইলের <code>package</code> নাম এক হওয়া উচিত।</li>
-<li><code>package main</code> হলে সেটি রানযোগ্য প্রোগ্রাম।</li>
-<li>অন্য প্যাকেজ যেমন <code>package mathlib</code> → লাইব্রেরি বা ইউটিলিটি হিসেবে ব্যবহৃত হয়।</li>
-</ul>
-<hr />
-<h2 id="২-scope-এবং-export-কী"><a class="header" href="#২-scope-এবং-export-কী">২. Scope এবং Export কী?</a></h2>
-<h3 id="-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে"><a class="header" href="#-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে">📌 কোন জায়গা থেকে কোন ফাংশন বা ভেরিয়েবল অ্যাক্সেস করা যাবে।</a></h3>
-<ul>
-<li>যদি function নাম <strong>ছোট হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>add</code>), তাহলে এটি <strong>শুধুমাত্র সেই Packageর ভিতরেই ব্যবহার করা যাবে</strong>।</li>
-<li>যদি <strong>বড় হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>Add</code>), তাহলে সেটি <strong>এক্সপোর্টেড</strong> হয় এবং অন্য প্যাকেজ থেকেও ব্যবহার করা যায়।</li>
-</ul>
-<hr />
-<h2 id="৩-কোড-উদাহরণ"><a class="header" href="#৩-কোড-উদাহরণ">৩. কোড উদাহরণ</a></h2>
-<h3 id="-addgo"><a class="header" href="#-addgo">📁 <code>add.go</code></a></h3>
+<h2 id="-if-statement"><a class="header" href="#-if-statement">✅ if Statement</a></h2>
 <pre><code class="language-go">package main
-
 import "fmt"
 
-func add(n1, n2 int) {
-    res := n1 + n2
-    fmt.Println(res)
-}
-</code></pre>
-<p>📌 <code>add()</code> function নাম ছোট হাতের অক্ষরে, তাই এটা শুধু <code>main</code> Packageর ভিতরেই কাজ করবে।</p>
-<hr />
-<h3 id="-maingo"><a class="header" href="#-maingo">📁 <code>main.go</code></a></h3>
-<pre><code class="language-go">package main
-
-var (
-    a = 20
-    b = 30
-)
-
 func main() {
-    add(4,7)
+    number := 10
+    if number &gt; 5 {
+        fmt.Println("Number is greater than 5")
+    }
 }
 </code></pre>
-<p>📌 এখানে <code>add()</code> কল করা হয়েছে কারণ <code>add.go</code> ফাইল একই Package আছে (package main)।<br />
-👉 রান করতে হবে:</p>
-<pre><code class="language-bash">go run main.go add.go
-</code></pre>
+<blockquote>
+<p>যদি <code>if</code> এর স্টেটমেন্ট সত্য হয়, তবে ব্লকের ভিতরের কোড এক্সিকিউট হবে।</p>
+</blockquote>
 <hr />
-<h3 id="-কাসটম-পযাকেজ-mathlibmathgo"><a class="header" href="#-কাসটম-পযাকেজ-mathlibmathgo">📁 কাস্টম প্যাকেজ <code>mathlib/math.go</code></a></h3>
-<pre><code class="language-go">package mathlib
-
+<h2 id="-if-else-statement"><a class="header" href="#-if-else-statement">✅ if-else Statement</a></h2>
+<pre><code class="language-go">package main
 import "fmt"
 
-func Add(x int, y int) {
-    z := x + y
-    fmt.Println(z)
+func main() {
+    number1 := 3
+    if number1 &gt; 5 {
+        fmt.Println("Greater than 5")
+    } else {
+        fmt.Println("5 or less")
+    }
 }
 </code></pre>
-<p>📌 এবার <code>Add()</code> function বড় হাতের অক্ষরে শুরু → <strong>Exported</strong><br />
-📌 <code>mathlib</code> নামে প্যাকেজ → একে অন্য ফোল্ডারে রাখতে হবে (যেমন: <code>mathlib/</code>)</p>
+<blockquote>
+<p>যদি <code>if</code> এর স্টেটমেন্ট মিথ্যা হয়, তাহলে <code>else</code> ব্লকের কোড এক্সিকিউট হবে |</p>
+</blockquote>
 <hr />
-<h3 id="-maingo-পরিবরতিত-ভারসন"><a class="header" href="#-maingo-পরিবরতিত-ভারসন">📁 <code>main.go</code> (পরিবর্তিত ভার্সন)</a></h3>
+<h2 id="-ifelse-if-else-statement"><a class="header" href="#-ifelse-if-else-statement">✅ if,else if, else Statement</a></h2>
 <pre><code class="language-go">package main
-
-import (
-    "fmt"
-    "example.com/mathlib"
-)
-
-var (
-    a = 20
-    b = 30
-)
+import "fmt"
 
 func main() {
-    fmt.Println("Showing Custom Package")
-    mathlib.Add(4,7)
+    package main
+import "fmt"
+
+func main() {
+    age := 18 // বয়স ১৮ সেট করা হয়েছে
+
+    if age &gt; 18 {
+        // যদি বয়স ১৮ এর বেশি হয়, তাহলে নিচের মেসেজ দেখা যাবে
+        fmt.Println("You are eligible to be married") // প্রাপ্তবয়স্ক, বিয়ের জন্য উপযুক্ত
+    } else if age &lt; 18 {
+        // যদি বয়স ১৮ এর কম হয়, তাহলে এই অংশ এক্সিকিউট হবে 
+        fmt.Println("You are not eligible to be married, but you can love someone") // নাবালক, প্রেম করা যেতে পারে
+    } else if age == 18 {
+        // যদি বয়স একদম ১৮ হয়, তাহলে এই অংশ এক্সিকিউট হবে
+        fmt.Println("You are just a teenager, not eligible to be married") // টিনএজার, বিয়ের জন্য ঠিক উপযুক্ত না
+    }
+}
+
 }
 </code></pre>
-<p>📌 এখানে <code>mathlib.Add()</code> ব্যবহার করা হয়েছে কারণ <code>Add()</code> এক্সপোর্টেড এবং আমরা <code>import</code> করেছি।</p>
+<blockquote>
+<p>একাধিক স্টেটমেন্ট চেক করার জন্য <code>else if</code> ব্যবহার করা হয় | উপরের কোডে বয়স অনুসারে তিনটি ভিন্ন রেসপন্স দেখানো হয়েছে।</p>
+</blockquote>
 <hr />
-<h2 id="৪-মডিউল-বযবসথাপনা"><a class="header" href="#৪-মডিউল-বযবসথাপনা">৪. মডিউল ব্যবস্থাপনা</a></h2>
-<h3 id="-মডিউল-শুরু-করতে"><a class="header" href="#-মডিউল-শুরু-করতে">✅ মডিউল শুরু করতে:</a></h3>
-<pre><code class="language-bash">go mod init example.com/mathlib
+<h2 id="-switch-statement"><a class="header" href="#-switch-statement">🔁 switch Statement</a></h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    day := 3 // day ভ্যারিয়েবলটি ৩ দেওয়া হয়েছে
+
+    switch day {
+    case 1:
+        fmt.Println("Sunday") // যদি day == 1 হয়, তাহলে Sunday প্রিন্ট হবে
+    case 2:
+        fmt.Println("Monday") // যদি day == 2 হয়, তাহলে Monday প্রিন্ট হবে
+    case 3:
+        fmt.Println("Tuesday") // যদি day == 3 হয়, তাহলে Tuesday প্রিন্ট হবে
+    default:
+        fmt.Println("Another day") // যদি কোন case না মিলে , তাহলে default অংশে চলে যাবে 
+    }
+}
 </code></pre>
+<blockquote>
+<p><code>switch</code> স্টেটমেন্ট অনেকগুলো <code>if-else if</code> কে রিপ্লেস করতে পারে এবং কোডকে cleaner করে তোলে। এটি একটি নির্দিষ্ট ভ্যালুর উপর ভিত্তি করে বিভিন্ন আউটপুট দেয়।</p>
+</blockquote>
 <hr />
-<h2 id="৫-key-concepts"><a class="header" href="#৫-key-concepts">৫. Key Concepts</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>ব্যাখ্যা</th></tr></thead><tbody>
-<tr><td>একই ফোল্ডার = একই প্যাকেজ</td><td><code>main.go</code>, <code>add.go</code> → <code>package main</code></td></tr>
-<tr><td>কাস্টম Package আলাদা ফোল্ডার</td><td>যেমন <code>mathlib/math.go</code></td></tr>
-<tr><td>রান করতে হলে সব ফাইল দিতে হবে</td><td><code>go run main.go add.go</code></td></tr>
-<tr><td>বড় হাতের ফাংশন নাম = এক্সপোর্টেড</td><td>অন্য প্যাকেজ থেকে ব্যবহারযোগ্য</td></tr>
-<tr><td><code>go mod init</code> দিয়ে মডিউল শুরু হয়</td><td>কাস্টম প্যাকেজ ব্যবহারে দরকার</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">🧠 সারাংশ:</a></h2>
+<h2 id="-note"><a class="header" href="#-note">⚠️ Note:</a></h2>
 <ul>
-<li>প্যাকেজ ব্যবহারে কোড পরিষ্কার ও পুনঃব্যবহারযোগ্য হয়।</li>
-<li>স্কোপ বুঝে কোড গঠন করলে সমস্যা হয় না।</li>
-<li>এক্সপোর্টেড ফাংশন ও মডিউল ব্যবস্থাপনা জানলে বড় প্রজেক্টেও কাজ সহজ হয়।</li>
+<li>Go তে <code>if</code> এবং <code>switch</code> ব্লকে ব্র্যাকেট <code>{}</code> আবশ্যক।</li>
+<li><code>switch</code> ব্লকে প্রতিটি case এর পরে <code>break</code> লিখতে হয় না, কারণ Go নিজেই implicity break করে দেয়, যদি না <code>fallthrough</code> ব্যবহার করা হবে |</li>
 </ul>
-<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/class-wise/golang009-If-else-and-switch/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang008-Variables-and-Data-Types/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -291,11 +280,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/class-wise/golang009-If-else-and-switch/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang008-Variables-and-Data-Types/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

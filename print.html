@@ -872,6 +872,98 @@ a = false         // bool (reassigned)
 <p><code>const</code> দিয়ে declare করা ভেরিয়েবল পরিবর্তন করা যাবে না।</p>
 </blockquote>
 <p>[Author : @shahriar-em0n  Date: 2025-06-09 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="class-09--if-else-and-switch"><a class="header" href="#class-09--if-else-and-switch">Class 09 : If else and switch</a></h1>
+<p>Go তে কন্ডিশনাল স্টেটমেন্ট ব্যবহৃত হয় সিদ্ধান্ত নেওয়ার জন্য। নিচে <code>if</code>, <code>else if</code>, <code>else</code>, এবং <code>switch</code> এর বিস্তারিত ব্যাখ্যা এবং উদাহরণ দেওয়া হলো।</p>
+<hr />
+<h2 id="-if-statement"><a class="header" href="#-if-statement">✅ if Statement</a></h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    number := 10
+    if number &gt; 5 {
+        fmt.Println("Number is greater than 5")
+    }
+}
+</code></pre>
+<blockquote>
+<p>যদি <code>if</code> এর স্টেটমেন্ট সত্য হয়, তবে ব্লকের ভিতরের কোড এক্সিকিউট হবে।</p>
+</blockquote>
+<hr />
+<h2 id="-if-else-statement"><a class="header" href="#-if-else-statement">✅ if-else Statement</a></h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    number1 := 3
+    if number1 &gt; 5 {
+        fmt.Println("Greater than 5")
+    } else {
+        fmt.Println("5 or less")
+    }
+}
+</code></pre>
+<blockquote>
+<p>যদি <code>if</code> এর স্টেটমেন্ট মিথ্যা হয়, তাহলে <code>else</code> ব্লকের কোড এক্সিকিউট হবে |</p>
+</blockquote>
+<hr />
+<h2 id="-ifelse-if-else-statement"><a class="header" href="#-ifelse-if-else-statement">✅ if,else if, else Statement</a></h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    package main
+import "fmt"
+
+func main() {
+    age := 18 // বয়স ১৮ সেট করা হয়েছে
+
+    if age &gt; 18 {
+        // যদি বয়স ১৮ এর বেশি হয়, তাহলে নিচের মেসেজ দেখা যাবে
+        fmt.Println("You are eligible to be married") // প্রাপ্তবয়স্ক, বিয়ের জন্য উপযুক্ত
+    } else if age &lt; 18 {
+        // যদি বয়স ১৮ এর কম হয়, তাহলে এই অংশ এক্সিকিউট হবে 
+        fmt.Println("You are not eligible to be married, but you can love someone") // নাবালক, প্রেম করা যেতে পারে
+    } else if age == 18 {
+        // যদি বয়স একদম ১৮ হয়, তাহলে এই অংশ এক্সিকিউট হবে
+        fmt.Println("You are just a teenager, not eligible to be married") // টিনএজার, বিয়ের জন্য ঠিক উপযুক্ত না
+    }
+}
+
+}
+</code></pre>
+<blockquote>
+<p>একাধিক স্টেটমেন্ট চেক করার জন্য <code>else if</code> ব্যবহার করা হয় | উপরের কোডে বয়স অনুসারে তিনটি ভিন্ন রেসপন্স দেখানো হয়েছে।</p>
+</blockquote>
+<hr />
+<h2 id="-switch-statement"><a class="header" href="#-switch-statement">🔁 switch Statement</a></h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    day := 3 // day ভ্যারিয়েবলটি ৩ দেওয়া হয়েছে
+
+    switch day {
+    case 1:
+        fmt.Println("Sunday") // যদি day == 1 হয়, তাহলে Sunday প্রিন্ট হবে
+    case 2:
+        fmt.Println("Monday") // যদি day == 2 হয়, তাহলে Monday প্রিন্ট হবে
+    case 3:
+        fmt.Println("Tuesday") // যদি day == 3 হয়, তাহলে Tuesday প্রিন্ট হবে
+    default:
+        fmt.Println("Another day") // যদি কোন case না মিলে , তাহলে default অংশে চলে যাবে 
+    }
+}
+</code></pre>
+<blockquote>
+<p><code>switch</code> স্টেটমেন্ট অনেকগুলো <code>if-else if</code> কে রিপ্লেস করতে পারে এবং কোডকে cleaner করে তোলে। এটি একটি নির্দিষ্ট ভ্যালুর উপর ভিত্তি করে বিভিন্ন আউটপুট দেয়।</p>
+</blockquote>
+<hr />
+<h2 id="-note"><a class="header" href="#-note">⚠️ Note:</a></h2>
+<ul>
+<li>Go তে <code>if</code> এবং <code>switch</code> ব্লকে ব্র্যাকেট <code>{}</code> আবশ্যক।</li>
+<li><code>switch</code> ব্লকে প্রতিটি case এর পরে <code>break</code> লিখতে হয় না, কারণ Go নিজেই implicity break করে দেয়, যদি না <code>fallthrough</code> ব্যবহার করা হবে |</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
 <hr />
 <h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>
@@ -3025,7 +3117,7 @@ Apple এবং Microsoft ছিল সেই দুই কোম্পানি
 </ul>
 </li>
 </ul>
-<h3 id="-note"><a class="header" href="#-note">🛠️ Note:</a></h3>
+<h3 id="-note-1"><a class="header" href="#-note-1">🛠️ Note:</a></h3>
 <ul>
 <li>তখন কোনো operating system ছিল না। সব কিছু manually করতে হতো।</li>
 <li>RAM আজকের মতো উন্নত ছিল না; বরং ছিল একটি সীমিত মেমোরি ইউনিট।</li>
@@ -3798,7 +3890,7 @@ func main() {
     fmt.Println(string(a))   // Output: A
 }
 </code></pre>
-<h4 id="-note-1"><a class="header" href="#-note-1">🔎 Note:</a></h4>
+<h4 id="-note-2"><a class="header" href="#-note-2">🔎 Note:</a></h4>
 <ul>
 <li><code>byte</code> শুধু <code>0</code> থেকে <code>255</code> পর্যন্ত value রাখতে পারে।</li>
 <li>character encoding এর সাথে কাজ করতে গেলে byte খুবই দরকারি।</li>
