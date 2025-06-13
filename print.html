@@ -1007,6 +1007,135 @@ func main() {
 <li><code>main()</code> ফাংশনের মধ্যে <code>add(a, b)</code> ব্যবহার করে আমরা ফাংশনটি কল করেছি।</li>
 </ul>
 <p>[Author : @shahriar-em0n  Date: 2025-06-11 Category: interview-qa/class-wise ]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-class-14-what-is-scope"><a class="header" href="#-class-14-what-is-scope">🧱 Class 14: What is Scope</a></h1>
+<p>Scope বলতে code এর part বুঝায় যেখানে একটি নির্দিষ্ট variable কে access করা যাবে।</p>
+<h2 id="-কলাসে-বযবহৃত-কোড"><a class="header" href="#-কলাসে-বযবহৃত-কোড">📘 ক্লাসে ব্যবহৃত কোড</a></h2>
+<pre><code class="language-go">package main
+
+import "fmt"
+
+var (
+	a = 20
+	b = 30
+)
+
+func add(x int, y int) {
+	z := x + y
+	fmt.Println(z)
+}
+
+func main() {
+	p := 30
+	q := 40
+
+	add(p, q)
+
+	add(a, b)
+
+	add(a, p)
+
+	add(b, z) // ❌ error!
+}
+
+</code></pre>
+<h2 id="-code-explain"><a class="header" href="#-code-explain">✨ Code Explain</a></h2>
+<pre><code class="language-go">var (
+	a = 20
+	b = 30
+)
+</code></pre>
+<p>🔸 RAM এ একটা জায়গায় এ variable গুলো রাখা হয় যেটাকে <strong>global memory</strong> বলা হয়।</p>
+<p>🔸 <code>a</code> এবং <code>b</code> এই দুইটা RAM এর global scope এ declare করা হয়েছে।</p>
+<p>🔸 যেকোন ফাংশনের ভেতর থেকে এগুলোকে ব্যবহার করা যাবে।</p>
+<blockquote>
+<p>🧠 যেসব ভ্যারিয়েবল <code>main()</code> বা অন্য কোনো ফাংশনের বাইরে delare করা হয় - সেগুলো global.</p>
+</blockquote>
+<p>👉 <code>main()</code> এবং <code>add()</code> function ও RAM এর global scope এ থাকে (বুঝার সুবিধার্থে)।</p>
+<h3 id="-শুরুতে-ram-এ-যা-থাকে"><a class="header" href="#-শুরুতে-ram-এ-যা-থাকে">💡 শুরুতে RAM এ যা থাকে</a></h3>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 20 | 30 | ---- |---- |   |   |   |   |   |
++------------------------------------------+
+   a    b   add()  main()
+
+				 global
+</code></pre>
+<blockquote>
+<p>Go প্রোগ্রামে <code>main()</code> ফাংশন না থাকলে, প্রোগ্রাম চলবে না।
+<code>main()</code> হচ্ছে execution শুরু করার জায়গা; ওটা ছাড়া Go বুঝতে পারে না কোথা থেকে শুরু করবে।</p>
+</blockquote>
+<h3 id="main-execution"><a class="header" href="#main-execution"><code>main()</code> Execution</a></h3>
+<pre><code class="language-go">
+func main() {
+	p := 30
+	q := 40
+
+	add(p, q)
+
+	add(a, b)
+
+	add(a, p)
+
+	add(b, z)
+}
+</code></pre>
+<p>🔸RAM এ <code>main()</code> এর জন্য আলাদা জায়গা দখল করে</p>
+<p>🔸p ও q হলো <code>main()</code> এর local variable</p>
+<p>🔸এগুলো <code>main()</code> এর বাইরে থেকে ব্যবহার করা যাবে না</p>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 30 | 40 |  |  |  |  |  |  |  |  |  |  |  |
++------------------------------------------+
+  p    q
+
+  				main()
+</code></pre>
+<ul>
+<li><code>main()</code> এ <code>add()</code> function না থাকায় <code>add()</code> কে global এ খুঁজে</li>
+</ul>
+<h3 id="add-execution"><a class="header" href="#add-execution"><code>add()</code> Execution</a></h3>
+<pre><code class="language-go">func add(x int, y int) {
+	z := x + y
+	fmt.Println(z)
+}
+</code></pre>
+<p>🔸 RAM এ <code>add()</code> এর জন্য আলাদা জায়গা নেয়</p>
+<p>🔸 <code>x</code>, <code>y</code> &amp; <code>z</code> হল <code>add()</code> এর local variable</p>
+<p>🔸 <code>x</code> এবং <code>y</code> হল <code>add()</code> function এর parameter</p>
+<p>🔸<code>add()</code> function শেষ হলে RAM থেকে এদের মুছে ফেলা হয়।</p>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 30 | 40 | 70 |  |  |  |  |  |  |  |  |  |
++------------------------------------------+
+  x    y    z
+
+  				add()
+</code></pre>
+<h3 id="-যদি-সকোপ-ভুলে-যাও"><a class="header" href="#-যদি-সকোপ-ভুলে-যাও">❌ যদি স্কোপ ভুলে যাও</a></h3>
+<pre><code class="language-go">func add(x int, y int) {
+	z := x + q
+	fmt.Println(z)
+}
+</code></pre>
+<p>🔸<code>q</code> variable <code>add()</code> এর local scope এ নেই</p>
+<p>🔸<code>q</code> -&gt; <code>main()</code> এর local variable হওয়ায় global scope এ পাওয়া যাবে না</p>
+<blockquote>
+<p>Scope এর বাইরের variable use করলে <code>undefined</code> compilation error দিবে।</p>
+</blockquote>
+<p><strong>Output:</strong></p>
+<pre><code class="language-go"># command-line-arguments
+./main.go:11:11: undefined: q
+</code></pre>
+<h2 id="-scope-rule"><a class="header" href="#-scope-rule">🧠 Scope Rule</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>কোথায় declare হয়েছে</th><th>কোথা থেকে accessible</th></tr></thead><tbody>
+<tr><td>ফাংশনের বাইরে (global)</td><td>সব ফাংশন থেকে access করা যায় ✅</td></tr>
+<tr><td>ফাংশনের ভিতরে (local)</td><td>শুধু সেই ফাংশনের ভিতরেই accessible ✅</td></tr>
+<tr><td>অন্য ফাংশনের ভিতর</td><td>বাইরে থেকে access করা যায় না ❌</td></tr>
+</tbody></table>
+</div>
+<p>[<strong>Author :</strong> @nazma98
+<strong>Date:</strong> 2025-06-13
+<strong>Category:</strong> interview-qa/class-wise ]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
 <hr />
 <h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Golang016 Package Scope - BGCE ARCHIVE</title>
+        <title>Golang014 What Is Scope - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -169,119 +169,145 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="-class-16-golang-package-scope"><a class="header" href="#-class-16-golang-package-scope">🧠 Class 16: GoLang package scope</a></h1>
-<hr />
-<h2 id="১--package-কী"><a class="header" href="#১--package-কী">১.  Package কী?</a></h2>
-<p><strong>Package</strong> হলো GoLang কোড গুছিয়ে রাখার একটি পদ্ধতি। একটি Package অনেকগুলো ফাইল থাকতে পারে, এবং সবগুলোর <code>package</code> নাম একই হলে তারা একে অপরের কোড ব্যবহার করতে পারে।</p>
-<h3 id="-নিয়ম"><a class="header" href="#-নিয়ম">✅ নিয়ম:</a></h3>
-<ul>
-<li>একই ফোল্ডারে সব <code>.go</code> ফাইলের <code>package</code> নাম এক হওয়া উচিত।</li>
-<li><code>package main</code> হলে সেটি রানযোগ্য প্রোগ্রাম।</li>
-<li>অন্য প্যাকেজ যেমন <code>package mathlib</code> → লাইব্রেরি বা ইউটিলিটি হিসেবে ব্যবহৃত হয়।</li>
-</ul>
-<hr />
-<h2 id="২-scope-এবং-export-কী"><a class="header" href="#২-scope-এবং-export-কী">২. Scope এবং Export কী?</a></h2>
-<h3 id="-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে"><a class="header" href="#-কোন-জায়গা-থেকে-কোন-ফাংশন-বা-ভেরিয়েবল-অযাকসেস-করা-যাবে">📌 কোন জায়গা থেকে কোন ফাংশন বা ভেরিয়েবল অ্যাক্সেস করা যাবে।</a></h3>
-<ul>
-<li>যদি function নাম <strong>ছোট হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>add</code>), তাহলে এটি <strong>শুধুমাত্র সেই Packageর ভিতরেই ব্যবহার করা যাবে</strong>।</li>
-<li>যদি <strong>বড় হাতের অক্ষরে</strong> শুরু হয় (যেমন <code>Add</code>), তাহলে সেটি <strong>এক্সপোর্টেড</strong> হয় এবং অন্য প্যাকেজ থেকেও ব্যবহার করা যায়।</li>
-</ul>
-<hr />
-<h2 id="৩-কোড-উদাহরণ"><a class="header" href="#৩-কোড-উদাহরণ">৩. কোড উদাহরণ</a></h2>
-<h3 id="-addgo"><a class="header" href="#-addgo">📁 <code>add.go</code></a></h3>
+                        <h1 id="-class-14-what-is-scope"><a class="header" href="#-class-14-what-is-scope">🧱 Class 14: What is Scope</a></h1>
+<p>Scope বলতে code এর part বুঝায় যেখানে একটি নির্দিষ্ট variable কে access করা যাবে।</p>
+<h2 id="-কলাসে-বযবহৃত-কোড"><a class="header" href="#-কলাসে-বযবহৃত-কোড">📘 ক্লাসে ব্যবহৃত কোড</a></h2>
 <pre><code class="language-go">package main
 
 import "fmt"
 
-func add(n1, n2 int) {
-    res := n1 + n2
-    fmt.Println(res)
-}
-</code></pre>
-<p>📌 <code>add()</code> function নাম ছোট হাতের অক্ষরে, তাই এটা শুধু <code>main</code> Packageর ভিতরেই কাজ করবে।</p>
-<hr />
-<h3 id="-maingo"><a class="header" href="#-maingo">📁 <code>main.go</code></a></h3>
-<pre><code class="language-go">package main
-
 var (
-    a = 20
-    b = 30
+	a = 20
+	b = 30
 )
+
+func add(x int, y int) {
+	z := x + y
+	fmt.Println(z)
+}
 
 func main() {
-    add(4,7)
+	p := 30
+	q := 40
+
+	add(p, q)
+
+	add(a, b)
+
+	add(a, p)
+
+	add(b, z) // ❌ error!
 }
-</code></pre>
-<p>📌 এখানে <code>add()</code> কল করা হয়েছে কারণ <code>add.go</code> ফাইল একই Package আছে (package main)।<br />
-👉 রান করতে হবে:</p>
-<pre><code class="language-bash">go run main.go add.go
-</code></pre>
-<hr />
-<h3 id="-কাসটম-পযাকেজ-mathlibmathgo"><a class="header" href="#-কাসটম-পযাকেজ-mathlibmathgo">📁 কাস্টম প্যাকেজ <code>mathlib/math.go</code></a></h3>
-<pre><code class="language-go">package mathlib
 
-import "fmt"
-
-func Add(x int, y int) {
-    z := x + y
-    fmt.Println(z)
-}
 </code></pre>
-<p>📌 এবার <code>Add()</code> function বড় হাতের অক্ষরে শুরু → <strong>Exported</strong><br />
-📌 <code>mathlib</code> নামে প্যাকেজ → একে অন্য ফোল্ডারে রাখতে হবে (যেমন: <code>mathlib/</code>)</p>
-<hr />
-<h3 id="-maingo-পরিবরতিত-ভারসন"><a class="header" href="#-maingo-পরিবরতিত-ভারসন">📁 <code>main.go</code> (পরিবর্তিত ভার্সন)</a></h3>
-<pre><code class="language-go">package main
-
-import (
-    "fmt"
-    "example.com/mathlib"
+<h2 id="-code-explain"><a class="header" href="#-code-explain">✨ Code Explain</a></h2>
+<pre><code class="language-go">var (
+	a = 20
+	b = 30
 )
+</code></pre>
+<p>🔸 RAM এ একটা জায়গায় এ variable গুলো রাখা হয় যেটাকে <strong>global memory</strong> বলা হয়।</p>
+<p>🔸 <code>a</code> এবং <code>b</code> এই দুইটা RAM এর global scope এ declare করা হয়েছে।</p>
+<p>🔸 যেকোন ফাংশনের ভেতর থেকে এগুলোকে ব্যবহার করা যাবে।</p>
+<blockquote>
+<p>🧠 যেসব ভ্যারিয়েবল <code>main()</code> বা অন্য কোনো ফাংশনের বাইরে delare করা হয় - সেগুলো global.</p>
+</blockquote>
+<p>👉 <code>main()</code> এবং <code>add()</code> function ও RAM এর global scope এ থাকে (বুঝার সুবিধার্থে)।</p>
+<h3 id="-শুরুতে-ram-এ-যা-থাকে"><a class="header" href="#-শুরুতে-ram-এ-যা-থাকে">💡 শুরুতে RAM এ যা থাকে</a></h3>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 20 | 30 | ---- |---- |   |   |   |   |   |
++------------------------------------------+
+   a    b   add()  main()
 
-var (
-    a = 20
-    b = 30
-)
-
+				 global
+</code></pre>
+<blockquote>
+<p>Go প্রোগ্রামে <code>main()</code> ফাংশন না থাকলে, প্রোগ্রাম চলবে না।
+<code>main()</code> হচ্ছে execution শুরু করার জায়গা; ওটা ছাড়া Go বুঝতে পারে না কোথা থেকে শুরু করবে।</p>
+</blockquote>
+<h3 id="main-execution"><a class="header" href="#main-execution"><code>main()</code> Execution</a></h3>
+<pre><code class="language-go">
 func main() {
-    fmt.Println("Showing Custom Package")
-    mathlib.Add(4,7)
+	p := 30
+	q := 40
+
+	add(p, q)
+
+	add(a, b)
+
+	add(a, p)
+
+	add(b, z)
 }
 </code></pre>
-<p>📌 এখানে <code>mathlib.Add()</code> ব্যবহার করা হয়েছে কারণ <code>Add()</code> এক্সপোর্টেড এবং আমরা <code>import</code> করেছি।</p>
-<hr />
-<h2 id="৪-মডিউল-বযবসথাপনা"><a class="header" href="#৪-মডিউল-বযবসথাপনা">৪. মডিউল ব্যবস্থাপনা</a></h2>
-<h3 id="-মডিউল-শুরু-করতে"><a class="header" href="#-মডিউল-শুরু-করতে">✅ মডিউল শুরু করতে:</a></h3>
-<pre><code class="language-bash">go mod init example.com/mathlib
+<p>🔸RAM এ <code>main()</code> এর জন্য আলাদা জায়গা দখল করে</p>
+<p>🔸p ও q হলো <code>main()</code> এর local variable</p>
+<p>🔸এগুলো <code>main()</code> এর বাইরে থেকে ব্যবহার করা যাবে না</p>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 30 | 40 |  |  |  |  |  |  |  |  |  |  |  |
++------------------------------------------+
+  p    q
+
+  				main()
 </code></pre>
-<hr />
-<h2 id="৫-key-concepts"><a class="header" href="#৫-key-concepts">৫. Key Concepts</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>ব্যাখ্যা</th></tr></thead><tbody>
-<tr><td>একই ফোল্ডার = একই প্যাকেজ</td><td><code>main.go</code>, <code>add.go</code> → <code>package main</code></td></tr>
-<tr><td>কাস্টম Package আলাদা ফোল্ডার</td><td>যেমন <code>mathlib/math.go</code></td></tr>
-<tr><td>রান করতে হলে সব ফাইল দিতে হবে</td><td><code>go run main.go add.go</code></td></tr>
-<tr><td>বড় হাতের ফাংশন নাম = এক্সপোর্টেড</td><td>অন্য প্যাকেজ থেকে ব্যবহারযোগ্য</td></tr>
-<tr><td><code>go mod init</code> দিয়ে মডিউল শুরু হয়</td><td>কাস্টম প্যাকেজ ব্যবহারে দরকার</td></tr>
+<ul>
+<li><code>main()</code> এ <code>add()</code> function না থাকায় <code>add()</code> কে global এ খুঁজে</li>
+</ul>
+<h3 id="add-execution"><a class="header" href="#add-execution"><code>add()</code> Execution</a></h3>
+<pre><code class="language-go">func add(x int, y int) {
+	z := x + y
+	fmt.Println(z)
+}
+</code></pre>
+<p>🔸 RAM এ <code>add()</code> এর জন্য আলাদা জায়গা নেয়</p>
+<p>🔸 <code>x</code>, <code>y</code> &amp; <code>z</code> হল <code>add()</code> এর local variable</p>
+<p>🔸 <code>x</code> এবং <code>y</code> হল <code>add()</code> function এর parameter</p>
+<p>🔸<code>add()</code> function শেষ হলে RAM থেকে এদের মুছে ফেলা হয়।</p>
+<pre><code class="language-plaintext">				    RAM
++------------------------------------------+
+| 30 | 40 | 70 |  |  |  |  |  |  |  |  |  |
++------------------------------------------+
+  x    y    z
+
+  				add()
+</code></pre>
+<h3 id="-যদি-সকোপ-ভুলে-যাও"><a class="header" href="#-যদি-সকোপ-ভুলে-যাও">❌ যদি স্কোপ ভুলে যাও</a></h3>
+<pre><code class="language-go">func add(x int, y int) {
+	z := x + q
+	fmt.Println(z)
+}
+</code></pre>
+<p>🔸<code>q</code> variable <code>add()</code> এর local scope এ নেই</p>
+<p>🔸<code>q</code> -&gt; <code>main()</code> এর local variable হওয়ায় global scope এ পাওয়া যাবে না</p>
+<blockquote>
+<p>Scope এর বাইরের variable use করলে <code>undefined</code> compilation error দিবে।</p>
+</blockquote>
+<p><strong>Output:</strong></p>
+<pre><code class="language-go"># command-line-arguments
+./main.go:11:11: undefined: q
+</code></pre>
+<h2 id="-scope-rule"><a class="header" href="#-scope-rule">🧠 Scope Rule</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>কোথায় declare হয়েছে</th><th>কোথা থেকে accessible</th></tr></thead><tbody>
+<tr><td>ফাংশনের বাইরে (global)</td><td>সব ফাংশন থেকে access করা যায় ✅</td></tr>
+<tr><td>ফাংশনের ভিতরে (local)</td><td>শুধু সেই ফাংশনের ভিতরেই accessible ✅</td></tr>
+<tr><td>অন্য ফাংশনের ভিতর</td><td>বাইরে থেকে access করা যায় না ❌</td></tr>
 </tbody></table>
 </div>
-<hr />
-<h2 id="-সারাংশ"><a class="header" href="#-সারাংশ">🧠 সারাংশ:</a></h2>
-<ul>
-<li>প্যাকেজ ব্যবহারে কোড পরিষ্কার ও পুনঃব্যবহারযোগ্য হয়।</li>
-<li>স্কোপ বুঝে কোড গঠন করলে সমস্যা হয় না।</li>
-<li>এক্সপোর্টেড ফাংশন ও মডিউল ব্যবস্থাপনা জানলে বড় প্রজেক্টেও কাজ সহজ হয়।</li>
-</ul>
-<p>[Author: @ifrunruhin12 @shahriar-em0n  Date: 2025-05-01 Category: interview-qa/class-wise ]</p>
+<p>[<strong>Author :</strong> @nazma98
+<strong>Date:</strong> 2025-06-13
+<strong>Category:</strong> interview-qa/class-wise ]</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/class-wise/golang014-what-is-scope/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang010-Introduction-to-Functions/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -291,11 +317,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/class-wise/golang014-what-is-scope/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang010-Introduction-to-Functions/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang017-scope-example/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
