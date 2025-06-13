@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Golang037 Concurrency Vs Parallelism - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="-parallelism-vs-concurrency"><a class="header" href="#-parallelism-vs-concurrency">🧠 Parallelism vs Concurrency</a></h1>
+<hr />
+<h2 id="১-concurrency"><a class="header" href="#১-concurrency">১. Concurrency</a></h2>
+<blockquote>
+<p><strong>Concurrency</strong> এমন একটি প্রক্রিয়া যেখানে CPU একসাথে অনেকগুলো কাজ একইসাথে run  করছে এমন একটি illusion তৈরি  করা, এটি  এমনভাবে কাজ করে যেন সবগুলো কাজ একইসাথে চলছে অর্থাৎ ব্যবহারকারীর চোখে এটি যেন একসাথে অনেক কাজ হচ্ছে এমন একটি illusion তৈরি করে।</p>
+</blockquote>
+<h3 id="-উদাহরণ--"><a class="header" href="#-উদাহরণ--">🛠 উদাহরণ  :</a></h3>
+<p><strong>YouTube অ্যাপ</strong> চালানোর সময় তুমি দেখতে পারো:</p>
+<ul>
+<li>ভিডিও প্লে হচ্ছে</li>
+<li>কমেন্ট লোড হচ্ছে</li>
+<li>বিজ্ঞাপন আসছে</li>
+<li>স্ক্রল করলে নতুন ভিডিও সাজেশন আসছে</li>
+</ul>
+<p>সবকিছুই একসাথে ঘটছে বলে মনে হয়, কিন্তু মূলত এই কাজগুলো context switching এর মাধ্যমে একে একে execute হচ্ছে।</p>
+<h3 id="-মূল-বৈশিষটয"><a class="header" href="#-মূল-বৈশিষটয">✅ মূল বৈশিষ্ট্য:</a></h3>
+<ul>
+<li>একসাথে অনেক কাজ handle করা হয়</li>
+<li>CPU এক সময়ে একটিই কাজ করে, কিন্তু দ্রুত context switch করে</li>
+<li>Single-core CPU-তেও কাজ করে</li>
+</ul>
+<hr />
+<h2 id="২-parallelism"><a class="header" href="#২-parallelism">২. Parallelism</a></h2>
+<blockquote>
+<p><strong>Parallelism</strong> বোঝায় একাধিক কাজ একই সময়ে, একাধিক CPU বা processor/core ব্যবহার করে execute হওয়া। প্রতিটি কাজ আলাদা processor/core দ্বারা একসাথে চালানো হয়।</p>
+</blockquote>
+<h3 id="-উদাহরণ-"><a class="header" href="#-উদাহরণ-">🛠 উদাহরণ :</a></h3>
+<p>ধরো, তুমি Adobe Premiere Pro তে ভিডিও এক্সপোর্ট দিচ্ছো  একি সময়ে</p>
+<ul>
+<li>একটি core ভিডিও প্রসেস করছে</li>
+<li>অন্য core অডিও রেন্ডার করছে</li>
+<li>আরেকটি core এফেক্ট প্রসেস করছে</li>
+</ul>
+<p>এই কাজগুলো processor/CPU multiple core দ্বারা একসাথে চলায় যাতে রেন্ডারিং দ্রুত সম্পন্ন হয়। এটি Parallelism।</p>
+<h3 id="-মূল-বৈশিষটয-1"><a class="header" href="#-মূল-বৈশিষটয-1">✅ মূল বৈশিষ্ট্য:</a></h3>
+<ul>
+<li>একাধিক কাজ একই সময়ে সত্যিকারের parallel চলে</li>
+<li>Multi-core processor দরকার</li>
+<li>সময় বাঁচে এবং efficiency বাড়ে</li>
+</ul>
+<hr />
+<h2 id="৩-তুলনামূলক-পারথকয"><a class="header" href="#৩-তুলনামূলক-পারথকয">৩. তুলনামূলক পার্থক্য</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>বিষয়</th><th>Concurrency</th><th>Parallelism</th></tr></thead><tbody>
+<tr><td>কাজের ধরন</td><td>একাধিক কাজ context switch করে execute হয়</td><td>একাধিক কাজ একসাথে চলতে থাকে</td></tr>
+<tr><td>প্রয়োজনীয়তা</td><td>Single-core CPU-তেও সম্ভব</td><td>Multi-core CPU প্রয়োজন</td></tr>
+<tr><td>বাস্তব উদাহরণ</td><td>YouTube অ্যাপের বিভিন্ন ফিচার একসাথে চলা</td><td>Video rendering-এ একাধিক core কাজ করে</td></tr>
+<tr><td>উদ্দেশ্য</td><td>অনেক কাজকে একসাথে handle করা</td><td>কাজগুলো দ্রুত এবং একযোগে শেষ  করা</td></tr>
+<tr><td>Task Execution Style</td><td>Interleaved (ক্রমাগত পালাক্রমে)</td><td>Simultaneous (একসাথে একযোগে)</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="৪-সংকষেপে"><a class="header" href="#৪-সংকষেপে">৪. সংক্ষেপে:</a></h2>
+<ul>
+<li><strong>Concurrency</strong> হলো কাজগুলোকে একসাথে handle করার কৌশল, যেখানে একসাথে অনেক কিছু ঘটলেও, CPU এক সময়ে একটিই কাজ করে।</li>
+<li><strong>Parallelism</strong> হলো সত্যিকারের একসাথে অনেক কাজ করা, যেখানে প্রতিটি কাজ ভিন্ন ভিন্ন processor/core দ্বারা চলে।</li>
+</ul>
+<p>[Author : @shahriar-em0n  Date: 2025-06-09 Category: interview-qa/class-wise ]</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang036-Context-Switching-PCB-Concurrency/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang038-thread/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang036-Context-Switching-PCB-Concurrency/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang038-thread/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

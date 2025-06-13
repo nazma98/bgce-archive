@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Global Vars Memory - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="-a-journey-through-memory-the-tale-of-global-variables"><a class="header" href="#-a-journey-through-memory-the-tale-of-global-variables">🚀 A Journey Through Memory: The Tale of Global Variables</a></h1>
+<p>আজ আমরা একটা fascinating journey এ যাব - আপনার C program এর global variable গুলো কিভাবে memory তে তাদের ঘর খুঁজে নেয়। এটা একটা adventure story যেখানে আমাদের heroes হলো different types of global variables।</p>
+<h2 id="-meet-our-characters"><a class="header" href="#-meet-our-characters">🎭 Meet Our Characters</a></h2>
+<p>আমাদের story তে তিনজন main character আছে:</p>
+<pre><code class="language-c">const int MAX_USERS = 1000;    // 👑 Raja: Read-only hero
+int current_users = 0;         // 🏠 Homeowner: Initialized hero  
+int user_buffer[500];          // 👻 Ghost: Uninitialized hero
+</code></pre>
+<p>প্রত্যেকের আলাদা personality, আলাদা needs, আর আলাদা destination!</p>
+<h2 id="-the-memory-kingdom-four-districts"><a class="header" href="#-the-memory-kingdom-four-districts">🏰 The Memory Kingdom: Four Districts</a></h2>
+<p>Memory kingdom এ চারটা distinct district আছে, প্রত্যেকটার নিজস্ব rules এবং residents:</p>
+<pre><code>Memory Kingdom Map:
+┌─────────────────────────────────────┐
+│  👑  .rodata District (Royal Court) │  ← Read-only constants
+├─────────────────────────────────────┤  
+│  🏠  .data District (Residential)   │  ← Initialized globals
+├─────────────────────────────────────┤
+│  👻  .bss District (Ghost Town)     │  ← Uninitialized globals
+└─────────────────────────────────────┘
+</code></pre>
+<h2 id="-chapter-1-rajas-journey-to-rodata-district"><a class="header" href="#-chapter-1-rajas-journey-to-rodata-district">👑 Chapter 1: Raja's Journey to .rodata District</a></h2>
+<p>আমাদের প্রথম hero <strong>Raja</strong> (<code>const int MAX_USERS = 1000</code>) একজন nobleman। তার একটা fixed value আছে যা কখনো change হবে না।</p>
+<h3 id="rajas-story"><a class="header" href="#rajas-story">Raja's Story:</a></h3>
+<ul>
+<li><strong>Personality</strong>: "আমি কখনো change হবো না! আমার value permanent!"</li>
+<li><strong>Destination</strong>: <strong>.rodata section</strong> (Read-Only Data)</li>
+<li><strong>Journey</strong>: Compile time এ ROM এ store হয়, runtime এ RAM এ copy হয় কিন্তু <strong>read-only</strong> থাকে</li>
+</ul>
+<pre><code class="language-c">const char company_name[] = "TechCorp";  // Another royal resident
+const float PI = 3.14159;               // Mathematical royalty
+</code></pre>
+<p><strong>কেন .rodata আলাদা section?</strong></p>
+<ul>
+<li>Security: কেউ accidentally change করতে পারবে না</li>
+<li>Memory protection: Hardware level এ write-protected</li>
+<li>Optimization: Compiler জানে এগুলো কখনো change হবে না</li>
+</ul>
+<h3 id="rajas-house-rules"><a class="header" href="#rajas-house-rules">Raja's House Rules:</a></h3>
+<pre><code class="language-c">// ✅ Legal - Reading is allowed
+printf("Max users: %d\n", MAX_USERS);
+
+// ❌ Illegal - Trying to modify const
+// MAX_USERS = 2000;  // Compiler error!
+</code></pre>
+<h2 id="-chapter-2-homeowners-journey-to-data-district"><a class="header" href="#-chapter-2-homeowners-journey-to-data-district">🏠 Chapter 2: Homeowner's Journey to .data District</a></h2>
+<p>আমাদের দ্বিতীয় hero <strong>Homeowner</strong> (<code>int current_users = 0</code>) একজন responsible resident। তার একটা initial value আছে কিন্তু পরে change করতে পারে।</p>
+<h3 id="homeowners-story"><a class="header" href="#homeowners-story">Homeowner's Story:</a></h3>
+<ul>
+<li><strong>Personality</strong>: "আমার একটা starting value আছে, কিন্তু আমি grow করতে পারি!"</li>
+<li><strong>Destination</strong>: <strong>.data section</strong></li>
+<li><strong>Journey</strong>: একটা interesting dual-phase adventure</li>
+</ul>
+<h4 id="phase-1-the-packing-compile-time"><a class="header" href="#phase-1-the-packing-compile-time">Phase 1: The Packing (Compile Time)</a></h4>
+<pre><code>Executable File Suitcase:
+┌──────────────────┐
+│ current_users=0  │ ← Packed with initial value
+│ pi=3.14159       │
+│ name="Default"   │
+└──────────────────┘
+</code></pre>
+<h4 id="phase-2-the-moving-runtime"><a class="header" href="#phase-2-the-moving-runtime">Phase 2: The Moving (Runtime)</a></h4>
+<p>যখন program start হয়:</p>
+<ol>
+<li>Loader সব .data contents ROM থেকে RAM এ <strong>copy</strong> করে</li>
+<li>এখন RAM এ modification করা যায়</li>
+<li>Original ROM copy unchanged থাকে (backup এর মতো)</li>
+</ol>
+<pre><code class="language-c">// Runtime এ এই changes শুধু RAM এ হয়
+current_users = 50;        // RAM copy modified
+strcpy(name, "TechCorp");  // RAM copy modified
+// কিন্তু ROM এ এখনো 0 আর "Default" আছে!
+</code></pre>
+<h2 id="-chapter-3-ghosts-journey-to-bss-district"><a class="header" href="#-chapter-3-ghosts-journey-to-bss-district">👻 Chapter 3: Ghost's Journey to .bss District</a></h2>
+<p>আমাদের তৃতীয় hero <strong>Ghost</strong> (<code>int user_buffer[500]</code>) একজন mysterious character। তার কোনো initial value নেই, কিন্তু runtime এ জীবিত হয়ে ওঠে।</p>
+<h3 id="ghosts-story"><a class="header" href="#ghosts-story">Ghost's Story:</a></h3>
+<ul>
+<li><strong>Personality</strong>: "আমি শুরুতে invisible, কিন্তু runtime এ powerful হয়ে উঠি!"</li>
+<li><strong>Destination</strong>: <strong>.bss section</strong> (Block Started by Symbol)</li>
+<li><strong>Journey</strong>: The most efficient adventure</li>
+</ul>
+<h4 id="the-invisible-phase-compile-time"><a class="header" href="#the-invisible-phase-compile-time">The Invisible Phase (Compile Time):</a></h4>
+<pre><code>Executable File:
+┌──────────────────┐
+│ .bss metadata:   │
+│ "Need 2KB space" │ ← শুধু size info, actual data নেই!
+│ "Zero everything"│
+└──────────────────┘
+</code></pre>
+<h4 id="the-materialization-runtime"><a class="header" href="#the-materialization-runtime">The Materialization (Runtime):</a></h4>
+<pre><code class="language-c">// Startup sequence:
+// 1. Loader: "আমার 2KB RAM দরকার"
+// 2. System: "নিয়ে যাও, সব zero করে দিলাম"
+// 3. Ghost: "এখন আমি 500টা zero দিয়ে ready!"
+
+user_buffer[0] = 100;  // এখন Ghost জীবিত এবং কাজ করছে!
+</code></pre>
+<h3 id="ghosts-superpower-space-efficiency"><a class="header" href="#ghosts-superpower-space-efficiency">Ghost's Superpower: Space Efficiency</a></h3>
+<pre><code>File Size Comparison:
+int initialized_array[100000] = {1,2,3...};  // 🏠 400KB in file
+int uninitialized_array[100000];             // 👻 0 bytes in file!
+</code></pre>
+<h2 id="-the-complete-journey-map"><a class="header" href="#-the-complete-journey-map">🗺️ The Complete Journey Map</a></h2>
+<pre><code>Program Lifecycle Journey:
+
+Compile Time:                    Runtime Memory:
+┌─────────────────┐             ┌─────────────────┐
+│ Executable File │             │   Active RAM    │
+├─────────────────┤             ├─────────────────┤
+│ 👑 .rodata      │ ─────────►  │ 👑 .rodata      │ (Read-only)
+│ MAX_USERS=1000  │             │ MAX_USERS=1000  │
+├─────────────────┤             ├─────────────────┤
+│ 🏠 .data        │ ─────────►  │ 🏠 .data        │ (Modifiable)
+│ current_users=0 │             │ current_users=0 │
+├─────────────────┤             ├─────────────────┤
+│ 👻 .bss         │ ─────────►  │ 👻 .bss         │ (Auto-zeroed)
+│ (size only)     │             │ user_buffer=0   │
+└─────────────────┘             └─────────────────┘
+</code></pre>
+<h2 id="-the-moral-of-our-story"><a class="header" href="#-the-moral-of-our-story">🎯 The Moral of Our Story</a></h2>
+<h3 id="each-hero-has-their-purpose"><a class="header" href="#each-hero-has-their-purpose">Each Hero Has Their Purpose:</a></h3>
+<ul>
+<li><strong>👑 Raja (.rodata)</strong>: Security guard - protects important constants</li>
+<li><strong>🏠 Homeowner (.data)</strong>: Flexible resident - can change but starts with values</li>
+<li><strong>👻 Ghost (.bss)</strong>: Efficient minimalist - appears when needed, saves space</li>
+</ul>
+<h3 id="the-three-laws-of-memory-kingdom"><a class="header" href="#the-three-laws-of-memory-kingdom">The Three Laws of Memory Kingdom:</a></h3>
+<ol>
+<li><strong>Law of Separation</strong>: "প্রত্যেক type এর variable এর আলাদা district আছে"</li>
+<li><strong>Law of Efficiency</strong>: "Ghost district file এ কোনো space নেয় না"</li>
+<li><strong>Law of Protection</strong>: "Royal court read-only, residential district modifiable"</li>
+</ol>
+<h2 id="-practical-magic-spells-commands"><a class="header" href="#-practical-magic-spells-commands">🛠️ Practical Magic Spells (Commands)</a></h2>
+<p>আপনার program এর memory journey দেখতে চান?</p>
+<pre><code class="language-bash"># See the districts and their sizes
+size your_program
+#    text   data    bss    dec    hex filename
+#    1024     64   2000   3088   c10 your_program
+
+# Detailed district information  
+objdump -h your_program | grep -E "\.(text|rodata|data|bss)"
+</code></pre>
+<h2 id="-journeys-end-key-wisdom"><a class="header" href="#-journeys-end-key-wisdom">🚀 Journey's End: Key Wisdom</a></h2>
+<p>এই journey থেকে আমরা শিখলাম:</p>
+<ul>
+<li><strong>Memory kingdom এ চারটা আলাদা district আছে</strong>, প্রত্যেকের নিজস্ব purpose</li>
+<li><strong>.rodata, .data, .bss are separate sections</strong> - একে অপরের মধ্যে included নয়</li>
+<li><strong>Compiler intelligently decides</strong> কোন variable কোন district এ যাবে</li>
+<li><strong>Runtime efficiency</strong> depends on understanding এই journey</li>
+</ul>
+<p>এখন যখনই আপনি global variable declare করবেন, মনে রাখবেন - আপনি একটা character এর journey শুরু করে দিচ্ছেন memory kingdom এ!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../link-resources/Problems/LeetCode/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../mini-projects/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../link-resources/Problems/LeetCode/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../mini-projects/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

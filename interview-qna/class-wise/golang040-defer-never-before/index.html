@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Golang040 Defer Never Before - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব"><a class="header" href="#-golang-এর-defer-ভিতরের-সটযাক-রিটারন-ফাঁদ-এবং-বাসতব-উদাহরণে-ডুব">🌀 Golang এর <code>defer</code>: ভিতরের স্ট্যাক, রিটার্ন ফাঁদ, এবং বাস্তব উদাহরণে ডুব</a></h2>
+<blockquote>
+<p>"<code>defer</code> মানে হচ্ছে — তোমার কাজ হবে, কিন্তু পরে হবে।"</p>
+</blockquote>
+<p>Go-এর <code>defer</code> হলো এমন একটা ফিচার যেটা clean code লেখার জন্য অনবদ্য, কিন্তু ভুল বুঝলে subtle bug এর উৎস। চলুন আজ <code>defer</code>-কে সম্পূর্ণভাবে বোঝার চেষ্টা করি — তার পেছনের স্টোরি সহ।</p>
+<hr />
+<h3 id="-defer-কি"><a class="header" href="#-defer-কি">🔸 <code>defer</code> কি?</a></h3>
+<p><code>defer</code> একটি কিওয়ার্ড যেটি কোন ফাংশনের শেষ মুহূর্তে অন্য একটি ফাংশনকে চালাতে বলে। মূলতঃ এটি ব্যবহৃত হয় cleanup কাজের জন্য — যেমন:</p>
+<ul>
+<li><code>file.Close()</code></li>
+<li><code>unlock()</code></li>
+<li><code>recover()</code></li>
+<li>লগিং</li>
+</ul>
+<hr />
+<h3 id="-কীভাবে-কাজ-করে-defer"><a class="header" href="#-কীভাবে-কাজ-করে-defer">🎯 কীভাবে কাজ করে <code>defer</code>?</a></h3>
+<p>Go কম্পাইলার <code>defer</code> স্টেটমেন্টগুলোকে compile time এ detect করে এবং runtime এ একটি internal stack এ রেখে দেয়। যখন function return করে, তখন এই stack থেকে একে একে ফাংশনগুলো <strong>পিছন থেকে সামনে (LIFO)</strong> চালানো হয়।</p>
+<pre><code class="language-go">func main() {
+    defer fmt.Println("A")
+    defer fmt.Println("B")
+    fmt.Println("C")
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>C
+B
+A
+</code></pre>
+<p>📌 <code>defer</code> গুলো পিছনের দিকে যায় কারণ: Go stack এ <code>push</code> করে defer গুলোকে → পরে reverse করে <code>pop</code> করে।</p>
+<hr />
+<h3 id="-পিছনের-দিক-থেকে-বযাখযা-behind-the-scenes"><a class="header" href="#-পিছনের-দিক-থেকে-বযাখযা-behind-the-scenes">🔧 পিছনের দিক থেকে ব্যাখ্যা (Behind-the-scenes)</a></h3>
+<pre><code class="language-go">func sayHello() {
+    defer log("1")
+    defer log("2")
+    defer log("3")
+}
+</code></pre>
+<p>Go internally কিছুটা এরকম করে:</p>
+<pre><code class="language-go">deferStack := []func(){}
+deferStack = append(deferStack, log("1"))
+deferStack = append(deferStack, log("2"))
+deferStack = append(deferStack, log("3"))
+
+for i := len(deferStack)-1; i &gt;= 0; i-- {
+    deferStack[i]()
+}
+</code></pre>
+<p>Go runtime defer গুলিকে একটি linked list structure-এ সংরক্ষণ করে, কিন্তু সেটা <strong>Stack behavior</strong> অনুযায়ী কাজ করে।</p>
+<hr />
+<h3 id="-named-return-vs-unnamed-return--defer-এর-দুইরকম-বযবহার"><a class="header" href="#-named-return-vs-unnamed-return--defer-এর-দুইরকম-বযবহার">🎭 Named Return vs Unnamed Return — <code>defer</code> এর দুইরকম ব্যবহার</a></h3>
+<p>এই হলো <code>defer</code> এর “দুই মুখো” চরিত্র। 🤹‍♂️</p>
+<h4 id="-named-return-value-বযবহার-করলে"><a class="header" href="#-named-return-value-বযবহার-করলে">✅ Named Return Value ব্যবহার করলে:</a></h4>
+<pre><code class="language-go">func example1() (result int) {
+    defer func() {
+        result = 99
+    }()
+    return 10
+}
+</code></pre>
+<p>📌 এখানে <code>result</code> হল named return variable, তাই <code>defer</code> যখন চলে, তখন <code>result</code> এখনও accessible, এবং সেটাকে modify করা যায়।</p>
+<p>🖨️ Output:</p>
+<pre><code>99
+</code></pre>
+<hr />
+<h4 id="-unnamed-return-value-বযবহার-করলে"><a class="header" href="#-unnamed-return-value-বযবহার-করলে">❌ Unnamed Return Value ব্যবহার করলে:</a></h4>
+<pre><code class="language-go">func example2() int {
+    result := 10
+    defer func() {
+        result = 99
+    }()
+    return result
+}
+</code></pre>
+<p>📌 এখানে <code>return result</code> বলার সাথে সাথে result এর ভ্যালু রিটার্ন buffer-এ কপি হয়ে যায় — তারপরে <code>defer</code> চালানো হয়, তাই এর কোনো প্রভাব পড়ে না।</p>
+<p>🖨️ Output:</p>
+<pre><code>10
+</code></pre>
+<hr />
+<h3 id="-আরও-কিছু-মন-ভোলানো-example"><a class="header" href="#-আরও-কিছু-মন-ভোলানো-example">🧠 আরও কিছু মন ভোলানো Example</a></h3>
+<h4 id="-defer-with-loop"><a class="header" href="#-defer-with-loop">🔄 <code>defer</code> with loop</a></h4>
+<pre><code class="language-go">func loopDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        defer fmt.Println("Deferred:", i)
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 3
+Deferred: 2
+Deferred: 1
+</code></pre>
+<p>📌 প্রতিবার loop এ <code>defer</code> নতুন করে register হয়। তাই stack অনুযায়ী উল্টোভাবে execute হয়।</p>
+<hr />
+<h4 id="-variable-capture-trap-closure"><a class="header" href="#-variable-capture-trap-closure">📛 Variable Capture Trap (Closure)</a></h4>
+<pre><code class="language-go">func closureDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        defer func() {
+            fmt.Println("Deferred:", i)
+        }()
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 4
+Deferred: 4
+Deferred: 4
+</code></pre>
+<p>😵‍💫 কেন?</p>
+<p>কারণ closure-এ <code>i</code> capture হচ্ছে by reference — প্রতিবার একই i এর address!</p>
+<p>👉 Fix:</p>
+<pre><code class="language-go">func fixedClosureDefer() {
+    for i := 1; i &lt;= 3; i++ {
+        val := i
+        defer func() {
+            fmt.Println("Deferred:", val)
+        }()
+    }
+}
+</code></pre>
+<p>🖨️ Output:</p>
+<pre><code>Deferred: 3
+Deferred: 2
+Deferred: 1
+</code></pre>
+<hr />
+<h3 id="-practical-use-cases"><a class="header" href="#-practical-use-cases">🛠️ Practical Use Cases</a></h3>
+<ol>
+<li><strong>File Handling</strong>:</li>
+</ol>
+<pre><code class="language-go">func readFile(path string) error {
+    f, err := os.Open(path)
+    if err != nil {
+        return err
+    }
+    defer f.Close()
+
+    // read file...
+    return nil
+}
+</code></pre>
+<ol start="2">
+<li><strong>Mutex Unlock</strong>:</li>
+</ol>
+<pre><code class="language-go">mu.Lock()
+defer mu.Unlock()
+// critical section
+</code></pre>
+<ol start="3">
+<li><strong>Recover from panic</strong>:</li>
+</ol>
+<pre><code class="language-go">func safe() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered:", r)
+        }
+    }()
+    panic("something went wrong")
+}
+</code></pre>
+<hr />
+<h3 id="-key-takeaways-সংকষেপে"><a class="header" href="#-key-takeaways-সংকষেপে">🧾 Key Takeaways (সংক্ষেপে)</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>বৈশিষ্ট্য</th><th>ব্যাখ্যা</th></tr></thead><tbody>
+<tr><td>Execution order</td><td>LIFO (Last In, First Out)</td></tr>
+<tr><td>Internal structure</td><td>Linked List with Stack behavior</td></tr>
+<tr><td>Named return</td><td><code>defer</code> can modify it</td></tr>
+<tr><td>Unnamed return</td><td><code>defer</code> can’t modify it</td></tr>
+<tr><td>Variable capture</td><td>Closure captures by reference — careful!</td></tr>
+<tr><td>Use cases</td><td>File close, Mutex unlock, Panic recovery</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h3 id="-bonus-debug-suggestion"><a class="header" href="#-bonus-debug-suggestion">🎁 Bonus: Debug Suggestion</a></h3>
+<p>✅ If you're debugging <code>defer</code> issues:</p>
+<ul>
+<li>Use <code>go run -gcflags=all="-m"</code> to see escape analysis.</li>
+<li>Print log inside defer to see the order.</li>
+<li>Add named returns if defer needs to modify output.</li>
+</ul>
+<hr />
+<h3 id="-শেষ-কথা"><a class="header" href="#-শেষ-কথা">🧠 শেষ কথা</a></h3>
+<p>Go-এর <code>defer</code> যত ছোট দেখতে, তত গভীর তার আচরণ। একে সঠিকভাবে বোঝা মানে হচ্ছে —</p>
+<ul>
+<li>Cleaner code</li>
+<li>Resource leak রোধ</li>
+<li>কম Bug</li>
+</ul>
+<p>শুধু syntax জানলেই হবে না — এর ভিতরের Stack-মাথা, Return-trap, এবং Variable-capture খেলাও বোঝা জরুরি।</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang039-vogus-data-types/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../interview-qna/topic-wise/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang039-vogus-data-types/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../interview-qna/topic-wise/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

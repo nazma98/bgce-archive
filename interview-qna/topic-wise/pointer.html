@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Pointer - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>[<strong>Author:</strong> @jahidprog<br />
+<strong>Date:</strong> 2025-04-26<br />
+<strong>Category:</strong> interview-qa/pointers<br />
+<strong>Tags:</strong> [go, pointers, memory-management, performance]</p>
+<h1 id="pointers-in-golang"><a class="header" href="#pointers-in-golang">Pointers in Golang</a></h1>
+<p>A pointer is a variable that stores the <strong>memory address</strong> of another variable. Pointers are used to:</p>
+<ul>
+<li>Avoid copying large amounts of data</li>
+<li>Allow functions to modify the actual value of variables</li>
+<li>Improve program performance</li>
+</ul>
+<p>We use pointers when we want to work with the <strong>actual data</strong> instead of working on copies.</p>
+<h2 id="pointer-basics"><a class="header" href="#pointer-basics">Pointer Basics</a></h2>
+<h3 id="1-how-to-declare-a-pointer"><a class="header" href="#1-how-to-declare-a-pointer">1. How to Declare a Pointer</a></h3>
+<p>Use <code>*</code> before the type to declare a pointer.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    var num int = 42
+    var ptr *int = &amp;num  // ptr holds the memory address of num
+    fmt.Println("Address:", ptr)  // e.g., 0xc000018030
+    fmt.Println("Value:", *ptr)   // 42 (dereferencing)
+}
+</code></pre>
+<h3 id="2-zero-value-of-a-pointer"><a class="header" href="#2-zero-value-of-a-pointer">2. Zero Value of a Pointer</a></h3>
+<p>Uninitialized pointers have a <code>nil</code> value.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func main() {
+    var ptr *int
+    fmt.Println(ptr) // &lt;nil&gt;
+}
+</code></pre>
+<h3 id="3-pointer-vs-normal-variable"><a class="header" href="#3-pointer-vs-normal-variable">3. Pointer vs Normal Variable</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Feature</th><th>Normal Variable</th><th>Pointer</th></tr></thead><tbody>
+<tr><td>Storage</td><td>Holds value</td><td>Holds memory address</td></tr>
+<tr><td>Modification</td><td>Works on copy</td><td>Modifies original data</td></tr>
+</tbody></table>
+</div>
+<h2 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
+<h3 id="1-what-is-a-pointer-in-go"><a class="header" href="#1-what-is-a-pointer-in-go">1. What is a pointer in Go?</a></h3>
+<p><strong>Answer:</strong> A variable that stores the memory address of another variable.</p>
+<pre><code class="language-go">var x int = 10
+var ptr *int = &amp;x  // ptr points to x
+</code></pre>
+<h3 id="2-how-do-you-declare-a-pointer"><a class="header" href="#2-how-do-you-declare-a-pointer">2. How do you declare a pointer?</a></h3>
+<p><strong>Answer:</strong> Use <code>*datatype</code>.</p>
+<pre><code class="language-go">var ptr *string
+</code></pre>
+<h3 id="3-what-is-the-zero-value-of-a-pointer"><a class="header" href="#3-what-is-the-zero-value-of-a-pointer">3. What is the zero value of a pointer?</a></h3>
+<p><strong>Answer:</strong> <code>nil</code>.</p>
+<h3 id="4-how-is-a-pointer-different-from-a-normal-variable"><a class="header" href="#4-how-is-a-pointer-different-from-a-normal-variable">4. How is a pointer different from a normal variable?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Normal variable: Stores value directly</li>
+<li>Pointer: Stores memory address of another variable</li>
+</ul>
+<h3 id="5-does-go-support-pointer-arithmetic-like-c"><a class="header" href="#5-does-go-support-pointer-arithmetic-like-c">5. Does Go support pointer arithmetic like C?</a></h3>
+<p><strong>Answer:</strong> No, Go deliberately omits pointer arithmetic for safety.</p>
+<h3 id="6-how-to-pass-a-pointer-to-a-function"><a class="header" href="#6-how-to-pass-a-pointer-to-a-function">6. How to pass a pointer to a function?</a></h3>
+<p><strong>Answer:</strong> Use <code>*type</code> parameter.</p>
+<pre><code class="language-go">package main
+import "fmt"
+
+func modify(ptr *int) {
+    *ptr = 100
+}
+
+func main() {
+    x := 50
+    modify(&amp;x)
+    fmt.Println(x) // 100
+}
+</code></pre>
+<h3 id="7-why-use-pointers-for-large-structs"><a class="header" href="#7-why-use-pointers-for-large-structs">7. Why use pointers for large structs?</a></h3>
+<p><strong>Answer:</strong> Avoids expensive data copying.</p>
+<pre><code class="language-go">type BigStruct struct { /* many fields */ }
+
+func process(b *BigStruct) {
+    // Operates on original struct
+}
+</code></pre>
+<h3 id="8-how-to-create-a-pointer-to-a-struct"><a class="header" href="#8-how-to-create-a-pointer-to-a-struct">8. How to create a pointer to a struct?</a></h3>
+<p><strong>Answer:</strong> Use <code>&amp;</code> operator.</p>
+<pre><code class="language-go">user := User{Name: "Alice"}
+userPtr := &amp;user
+</code></pre>
+<h3 id="9-can-you-have-a-pointer-to-a-pointer"><a class="header" href="#9-can-you-have-a-pointer-to-a-pointer">9. Can you have a pointer to a pointer?</a></h3>
+<p><strong>Answer:</strong> Yes (double indirection).</p>
+<pre><code class="language-go">a := 10
+p1 := &amp;a
+p2 := &amp;p1
+fmt.Println(**p2) // 10
+</code></pre>
+<h3 id="10-how-to-check-if-a-pointer-is-nil"><a class="header" href="#10-how-to-check-if-a-pointer-is-nil">10. How to check if a pointer is nil?</a></h3>
+<p><strong>Answer:</strong> Compare with <code>nil</code>.</p>
+<pre><code class="language-go">if ptr == nil {
+    fmt.Println("Pointer is nil")
+}
+</code></pre>
+<h3 id="11-how-do-pointers-help-with-memory-efficiency"><a class="header" href="#11-how-do-pointers-help-with-memory-efficiency">11. How do pointers help with memory efficiency?</a></h3>
+<p><strong>Answer:</strong> They allow sharing data without duplication.</p>
+<pre><code class="language-go">largeData := make([]byte, 1e6) // 1MB data
+processData(&amp;largeData)        // Pass address (8 bytes) instead of copying 1MB
+</code></pre>
+<h3 id="12-whats-the-difference-between--and-"><a class="header" href="#12-whats-the-difference-between--and-">12. What's the difference between <code>*</code> and <code>&amp;</code>?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><code>&amp;</code> gets the address of a variable</li>
+<li><code>*</code> dereferences a pointer to access the value</li>
+</ul>
+<pre><code class="language-go">x := 5
+ptr := &amp;x  // ptr holds address of x
+val := *ptr // val gets 5
+</code></pre>
+<h3 id="13-when-should-you-avoid-pointers"><a class="header" href="#13-when-should-you-avoid-pointers">13. When should you avoid pointers?</a></h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>With small data types (int, bool etc.) where copying is cheap</li>
+<li>When immutability is desired</li>
+<li>In concurrency scenarios where shared access could cause races</li>
+</ul>
+<h3 id="14-how-do-pointers-relate-to-gos-garbage-collection"><a class="header" href="#14-how-do-pointers-relate-to-gos-garbage-collection">14. How do pointers relate to Go's garbage collection?</a></h3>
+<p><strong>Answer:</strong> The GC tracks pointers to determine object reachability. Unreachable objects (no pointers to them) get collected.</p>
+<h3 id="15-can-you-use-pointers-with-interfaces"><a class="header" href="#15-can-you-use-pointers-with-interfaces">15. Can you use pointers with interfaces?</a></h3>
+<p><strong>Answer:</strong> Yes, but the rules differ:</p>
+<pre><code class="language-go">var w io.Writer
+buf := new(bytes.Buffer)
+w = buf  // No explicit pointer needed
+</code></pre>
+<hr />
+<p><strong>Key Takeaways:</strong></p>
+<ol>
+<li>Pointers provide direct memory access</li>
+<li>Use <code>&amp;</code> to get addresses, <code>*</code> to dereference</li>
+<li>Essential for efficient large data handling</li>
+<li>Go pointers are safer than C (no arithmetic)</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../interview-qna/topic-wise/parameter-argument.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../interview-qna/topic-wise/receiver-function.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../interview-qna/topic-wise/parameter-argument.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../interview-qna/topic-wise/receiver-function.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

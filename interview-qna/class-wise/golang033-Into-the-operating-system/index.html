@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Golang033 Into The Operating System - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="-class-33---into-the-operating-system"><a class="header" href="#-class-33---into-the-operating-system">✨ CLass 33 - Into The Operating System</a></h1>
+<h2 id="-eniac-ও-punch-card"><a class="header" href="#-eniac-ও-punch-card">🖥️ ENIAC ও Punch Card</a></h2>
+<p><strong>ENIAC (Electronic Numerical Integrator and Computer)</strong> ছিল একেবারে প্রথম দিকের একটি general purpose computer যা Punch card ব্যবহার করত:</p>
+<ul>
+<li>Input (Data এবং Instruction)</li>
+<li>Output (Result)</li>
+<li>Storage (Storing temporary data)</li>
+</ul>
+<p>ENIAC সাধারণত IBM এর <strong>৮০ কলামের Punch card</strong> ব্যবহার করত।</p>
+<h3 id="-punch-card-80x12"><a class="header" href="#-punch-card-80x12">🧠 Punch Card (80x12)</a></h3>
+<ul>
+<li>শক্ত কাগজ, যাতে ৮০টি কলাম ও ১২টি সারি থাকে।</li>
+<li>ছিদ্র দিয়ে তথ্য encode করা হয়</li>
+<li>ছিদ্র = <code>1</code></li>
+<li>ছিদ্র না থাকলে = <code>0</code></li>
+</ul>
+<hr />
+<h3 id="-punch-card-ram-এ-লোড-এবং-program-execute"><a class="header" href="#-punch-card-ram-এ-লোড-এবং-program-execute">🧾 Punch card RAM এ লোড এবং Program execute</a></h3>
+<ul>
+<li><strong>Punch Card তৈরি</strong>
+<ul>
+<li>প্রোগ্রামের কোড বা ডেটা আগে কাগজে Punch card এ লেখা হতো (প্রতিটি কার্ড = ১ লাইন কোড বা তথ্য)।</li>
+<li><strong>keypunch machine</strong> দিয়ে ছিদ্র করা হতো।</li>
+</ul>
+</li>
+<li><strong>Computer এ Feed</strong>
+<ul>
+<li>Punch card গুলো card reader এ ঢোকানো হতো।</li>
+<li>Reader ছিদ্রগুলো পড়ে Binary signal এ (1 বা 0) রূপান্তর করত।</li>
+</ul>
+</li>
+<li><strong>RAM এ Load</strong>
+<ul>
+<li>Binary signal গুলো কম্পিউটারের Memory ইউনিটে পাঠানো হতো।</li>
+<li>সেই সময়কার RAM ছিল টিউব বা flip-flop ধরনের মেমোরি।</li>
+<li>প্রতিটি instruction বা data নির্দিষ্ট location এ সংরক্ষিত হতো।</li>
+</ul>
+</li>
+<li><strong>Execution</strong>
+<ul>
+<li>কম্পিউটারের control unit(CU), memory থেকে একে একে instruction নিত।</li>
+<li>Pointing Register (Program Counter) প্রথমে প্রথম instruction address কে point করে।</li>
+<li>CPU সেই instruction -&gt; fetch -&gt; decode -&gt; execute করে।</li>
+<li>Instruction শেষ হলে, Pointing register এক ধাপ বাড়ে, অর্থাৎ পরবর্তী instruction address এ চলে যায়।</li>
+<li>Loop বা condition থাকলে সেটা plugboards বা বিশেষ কার্ডে আগে থেকেই সেট করে দিতে হতো।</li>
+</ul>
+</li>
+</ul>
+<h3 id="-note"><a class="header" href="#-note">🛠️ Note:</a></h3>
+<ul>
+<li>তখন কোনো operating system ছিল না। সব কিছু manually করতে হতো।</li>
+<li>RAM আজকের মতো উন্নত ছিল না; বরং ছিল একটি সীমিত মেমোরি ইউনিট।</li>
+<li>পুরো কাজটি ছিল ধীর ও খুবই টেকনিক্যাল।</li>
+</ul>
+<blockquote>
+<p>CPU = Register Set (ডেটা রাখে) + Processing Unit (ডেটা প্রসেস করে) এবং Processing Unit = ALU + Control Unit</p>
+</blockquote>
+<h2 id="-the-idea-of-operating-system"><a class="header" href="#-the-idea-of-operating-system">💡 The Idea of Operating System</a></h2>
+<p><strong>🕰️ ১৯৪০ - ৫০ দশকে</strong>, কম্পিউটারে প্রতিটি প্রোগ্রাম manually চালাতে হতো - punch card, আলাদা কোড, অনেক সময়।</p>
+<p><strong>🎯 সমাধান :</strong></p>
+<p>"একটা সফটওয়্যার থাকুক, যা প্রোগ্রাম চালানোসহ সব কাজ নিজে করবে" - এটাই Operating System।</p>
+<p>প্রথম দিকে OS শুধু প্রোগ্রাম চালাত, পরে I/O, memory, file, security management যুক্ত হয়।</p>
+<hr />
+<h2 id="-os-এর-pointing-register-program-counter-বযবহার-করে-program-execution"><a class="header" href="#-os-এর-pointing-register-program-counter-বযবহার-করে-program-execution">⚙️ OS এর Pointing Register (Program Counter) ব্যবহার করে Program Execution</a></h2>
+<p>💡 Pointing Register (Program Counter aka PC)</p>
+<ul>
+<li>CPU-র একটি register।</li>
+<li>পরবর্তী যেই instruction execute হবে, তার address রাখে।</li>
+</ul>
+<h3 id="-program-execution-steps"><a class="header" href="#-program-execution-steps">👣 Program Execution Steps:</a></h3>
+<ul>
+<li>Computer On -&gt; OS প্রথমে HDD থেকে RAM এ Load হয়</li>
+<li>OS sets up -&gt; Hardware, memory, File System ইত্যাদি</li>
+<li>একটি Program execute -&gt; Click app icon</li>
+<li>OS সেই Program টি HDD থেকে খুঁজে বের করে এবং RAM এ লোড করে</li>
+<li>OS এরপর Pointing Register কে program এর first instruction address সেট করে দেয়</li>
+<li>CPU সেই address থেকে instruction -&gt; fetch -&gt; decode -&gt; execute করতে শুরু করে</li>
+</ul>
+<blockquote>
+<p>➡️ প্রতিটি Instruction শেষ হওয়ার পর, Pointing Register নিজে থেকেই পরবর্তী address update হয়। যদি কোনো loop, function call বা condition থাকে, তাহলে Pointing Register সেই অনুযায়ী নতুন address এ jump করে।</p>
+</blockquote>
+<hr />
+<h2 id="-evolution-of-operating-system"><a class="header" href="#-evolution-of-operating-system">🧬 Evolution of Operating System</a></h2>
+<h3 id="-early-stages-1940s-1960s"><a class="header" href="#-early-stages-1940s-1960s">🕰️ <strong><em>Early Stages (1940s-1960s):</em></strong></a></h3>
+<p><strong>🔹 1st Generation: Batch Processing Systems:</strong></p>
+<ul>
+<li>প্রথমদিকে কম্পিউটার OS ছাড়াই কাজ করত, প্রোগ্রাম manually load করতে হতো।</li>
+<li><em>GM-NAA I/O</em> (1956) ছিল <strong>First Operating System</strong>, যা <code>IBM 704</code> এর জন্য input/output ম্যানেজ করত।</li>
+</ul>
+<p><strong>🔹 2nd Generation: Multiprogramming &amp; Timesharing:</strong></p>
+<ul>
+<li>Multiprogramming: CPU একাধিক প্রোগ্রামের মাঝে কাজ ভাগ করে efficiency বাড়ায়।</li>
+<li>Time-sharing systems (যেমন: <em>CTSS</em>, <em>Multics</em>): একাধিক ব্যবহারকারী একসাথে কম্পিউটারের সাথে কাজ করতে পারে।</li>
+</ul>
+<h3 id="-the-rise-of-user-friendly-interfaces-1970s-1990s"><a class="header" href="#-the-rise-of-user-friendly-interfaces-1970s-1990s">🖥️ <strong><em>The Rise of User-Friendly Interfaces (1970s-1990s)</em></strong>:</a></h3>
+<p><strong>🔹 3rd Generation: Graphical User Interfaces (GUIs)</strong>
+Apple Macintosh ও Microsoft Windows. Graphical User Interface (GUI) চালু করে, যা কম্পিউটারকে সহজ করে তোলে।</p>
+<p><strong>🔹 Unix ও Personal Computers</strong></p>
+<ul>
+<li>Unix: সহজ, বহনযোগ্য ও multitasking সাপোর্টের জন্য জনপ্রিয়।
+<ul>
+<li>🏛️ History:
+<ul>
+<li>📅 1970 সালে <em>AT&amp;T Bell Labs</em> এ <em>Ken Thompson</em> ও <em>Dennis Ritchie</em> Unix তৈরি করেন।</li>
+<li>🧪 এটি <strong>C programming language</strong> ব্যবহার করে লেখা হয়, যা একে আরও বহনযোগ্য করে তোলে।</li>
+</ul>
+</li>
+<li>📚 Unix থেকে জন্ম নেওয়া জনপ্রিয় OS:
+<ul>
+<li>Linux 🐧</li>
+<li>Mac OS 🍎</li>
+<li>BSD, Solaris ইত্যাদি</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>CP/M</em>, <em>PC-DOS</em>: ব্যক্তিগত কম্পিউটারের জন্য সহজ Operating System।</li>
+</ul>
+<p><strong>🔹 Linux ও উন্নত GUI</strong></p>
+<ul>
+<li>Linux: Open source OS হিসেবে জনপ্রিয় হয়।</li>
+</ul>
+<p><strong>🔹 Windows ও Mac OS</strong></p>
+<ul>
+<li>GUI আরও উন্নত করে।</li>
+</ul>
+<h3 id="-modern-era-2000s-present"><a class="header" href="#-modern-era-2000s-present"><strong><em>📱 Modern Era (2000s-Present)</em></strong>:</a></h3>
+<p><strong>🔹 Mobile &amp; Cloud Computing</strong>
+iOS, Android: মোবাইল OS বাজারে আধিপত্য বিস্তার করে।</p>
+<p>Cloud ও Virtualization প্রযুক্তি কম্পিউটিংকে নতুন রূপ দেয়।</p>
+<p><strong>🔹 AI Integration</strong>
+AI, Machine Learning, Quantum Computing OS কে আরও বুদ্ধিমান ও অভিযোজিত করে তুলছে।</p>
+<h3 id="-key-milestones"><a class="header" href="#-key-milestones">📌 Key Milestones:</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Year</th><th>Events</th></tr></thead><tbody>
+<tr><td>1990</td><td><strong>Windows 3.0</strong> – GUI, computing experience এ ব্যাপক পরিবর্তন আনে</td></tr>
+<tr><td>1995</td><td><strong>Windows 95</strong> – Taskbar, Start Menu ও Plug-and-Play</td></tr>
+<tr><td>2009</td><td><strong>Windows 7</strong> – Enhanced features, speed, and resource usage</td></tr>
+<tr><td>2012</td><td><strong>Windows 8</strong> – Metro Interface, significant revamp</td></tr>
+</tbody></table>
+</div>
+<p>[<strong>Author:</strong> @nazma98
+<strong>Date:</strong> 2025-06-09
+<strong>Category:</strong> interview-qa/class-wise
+]</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang032-Computer-Architecture-and-History/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang034-breaking-the-cpu-and-process/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang032-Computer-Architecture-and-History/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang034-breaking-the-cpu-and-process/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

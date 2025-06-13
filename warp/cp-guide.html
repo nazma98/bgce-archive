@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cp Guide - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali"><a class="header" href="#-কমপিটিটিভ-পরোগরামিং-গাইড-cp-guide-in-bengali">🧠 কম্পিটিটিভ প্রোগ্রামিং গাইড (CP Guide in Bengali)</a></h1>
+<blockquote>
+<p>📘 <em>এই গাইডটি তৈরি করা হয়েছে বাংলায় CP শেখার সুবিধার্থে। টেকনিক্যাল টার্ম এবং কোড ইংরেজিতে রাখা হয়েছে যাতে ইন্টারন্যাশনাল স্ট্যান্ডার্ড ফলো করা যায়।</em></p>
+</blockquote>
+<h2 id="-discord-session-content"><a class="header" href="#-discord-session-content">📅 Discord session content</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>সেশন</th><th>তারিখ</th><th>আলোচনা করা টপিকস</th><th>Instructor (Discord name)</th></tr></thead><tbody>
+<tr><td>সেশন ১</td><td>২০২৫-০৫-০৫</td><td>1. প্রবলেম সলভিং আর CP-এর ফিলোসফি<br>2. কেন আমরা CP করবো?<br>3. The Right Problem Solving Mindset<br>4. Exercise vs Problem</td><td>popcycle</td></tr>
+<tr><td>সেশন ২</td><td>২০২৫-০৫-০৭</td><td>1. Problem Solving mindset ঠিক করার দারুন কিছু উপায়<br>2. Strategy, tactics আর pattern চিনে নেওয়ার কৌশল<br>3. Mindset আর knowledge—দুটোরই importance<br>4. Basic math ভিত্তিক problem<br>5. Census-taker problem ও তার solution<br>6. কীভাবে একটা solid math foundation তৈরি করবেন</td><td>popcycle</td></tr>
+<tr><td>সেশন ৩</td><td>২০২৫-০৫-১২</td><td>1. কিছু Golang conceptual exercise<br>2. Basic Math problems in CP → GCD, LCM, Prime check, Divisor, Modulo math, Factorial<br>3. Live coding এবং Q&amp;A session</td><td>popcycle</td></tr>
+<tr><td>সেশন ৪</td><td>২০২৫-০৫-১৫</td><td>1. Nebula Clash 001 contest এর প্রব্লেম নিয়ে বিস্তারিত আলোচনা এবং upsolving<br>2. Problem Solving এর পিছনের idea, fastIO, concept এবং কিভাবে একটি problem approach করতে হয়<br>3. Problem solving এর জন্য সাধারণ কিছু math এবং algorithm</td><td>nayemul_islam</td></tr>
+<tr><td>সেশন ৫</td><td>২০২৫-০৫-১৭</td><td>1. Complexity জিনিসটা আসলে কি?<br>2. দুই ধরণের complexity : time complexity এবং memory complexity<br>3. কেন complexity সম্পর্কে ধারণা থাকটা important<br>4. CP তে complexity কীভাবে কাজে লাগে<br>5. কীভাবে complexity সম্পর্কে জানার মাধ্যমে আমরা একটি algorithm কতটুকু efficient সে সম্পর্কে ধারণা পেতে পারি<br>6. complexity প্রকাশ করার বিভিন্ন Notation (যেমন Big O, Big omega, Big theta)<br>7. কীভাবে Notation গুলো কাজ করে এবং কীভাবে এই notation গুলোর মাধ্যমে complexity হিসেব করা যায়?<br>8. Big O calculate করার বিভিন্ন rules<br>9. বিভিন্ন ধরণের time complexity (O(1), O(logn), O(n), O(nlogn), O(n^2) ইত্যাদি)<br>10. বিভিন্ন ধরণের memory complexity<br>11. Recursive function, nested loop, array declaration এর complexity</td><td>MArhamAA</td></tr>
+<tr><td>সেশন ৬</td><td>২০২৫-০৫-১৯</td><td>1. Golang এ normal input এবং output method<br>2. <code>bufio</code> এবং <code>os</code> এর মাধ্যমে I/O handling<br>3. <code>.txt</code> file এবং অন্যান্য text file থেকে input এবং output handle করা<br>4. FastIO কি? buffered IO কেন fast?<br>5. buffer কি? buffered IO কীভাবে ভিতরে ভিতরে কাজ করে?<br>6. Buffered I/O vs unbuffered I/O<br>7. Buffered I/O inside Internal Memory<br>8. CP তে fastIO কেন necessary?</td><td>popcycle</td></tr>
+<tr><td>সেশন ৭</td><td>২০২৫-০৫-২১</td><td>1. BruteForce কি এবং কেন BruteForce দরকার?<br>2. প্রত্যেকটা problem কি BruteForce দিয়ে solve করা উচিত?<br>3. BruteForce নিয়ে কি প্রথমেই ভাবা উচিত? কেন?<br>4. বিভিন্ন ধরণের problem BruteForce দিয়ে solve করার উদাহরণ</td><td>MArhamAA</td></tr>
+<tr><td>সেশন ৮</td><td>২০২৫-০৫-২৪</td><td>1. FastIO in Golang part 2<br>2. FastIO template of Golang for CP<br>3. <code>defer</code> function এবং এটি কী করে?<br>4. Buffered I/O flush করার ক্ষেত্রে <code>defer</code> কীভাবে কাজ করে</td><td>popcycle</td></tr>
+<tr><td>সেশন ৯</td><td>২০২৫-০৫-২৬</td><td>1. Greedy technique আসলে কী?<br>2. আমাদের এটা কেন দরকার? brute force কি যথেষ্ট না?<br>3. বাস্তব problem-এ greedy technique দিয়ে কীভাবে approach করতে হয়<br>4. প্রথমে brute force চিন্তা করা → এরপর কীভাবে greedy দিয়ে optimize করা যায়</td><td>toji</td></tr>
+<tr><td>সেশন ১০</td><td>২০২৫-০৫-২৮</td><td>1. Post contest আলোচনা<br>2. NC002 Problems Uplsolving<br>3. Q&amp;A related to contest</td><td>MArhamAA, popcycle</td></tr>
+<tr><td>সেশন ১১</td><td>২০২৫-০৬-০১</td><td>1. Linear search কী এবং naming convention-এর ব্যাপারটা<br>2. Binary search: এর implementation, complexity, এবং বিভিন্ন use case<br>3. Binary search ভিত্তিক practice problems</td><td>toji</td></tr>
+<tr><td>সেশন ১২</td><td>২০২৫-০৬-০২</td><td>1. Binary search part 2<br>2. Lower bound এবং Upper bound concepts<br>3. Binary Search on Answer technique<br>4. Floating point number এর উপর binary search<br>5. Binary search ভিত্তিক আরও কিছু practice problems</td><td>MArhamAA</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 নতুন সেশন যুক্ত হতে থাকবে সময় অনুযায়ী।</p>
+</blockquote>
+<h4 id="exercises-to-practice-with-golang"><a class="header" href="#exercises-to-practice-with-golang">Exercises to Practice with Golang</a></h4>
+<ul>
+<li><input disabled="" type="checkbox"/>
+প্রিন্ট করুন: <code>"Hello World"</code></li>
+<li><input disabled="" type="checkbox"/>
+দুটি সংখ্যার যোগফল বের করুন</li>
+<li><input disabled="" type="checkbox"/>
+If-Else দিয়ে Even/Odd চেক</li>
+<li><input disabled="" type="checkbox"/>
+Loop দিয়ে ১ থেকে N পর্যন্ত প্রিন্ট করুন</li>
+<li><input disabled="" type="checkbox"/>
+Function ব্যবহার করে দুই সংখ্যার গড় বের করুন</li>
+<li><input disabled="" type="checkbox"/>
+<a href="https://atcoder.jp/contests/abc049/tasks/abc049_a?lang=en">Vowel or Consonant</a> (dncpc1)</li>
+<li><input disabled="" type="checkbox"/>
+<a href="https://atcoder.jp/contests/abc063/tasks/abc063_a?lang=en">Restricted</a> (dncpc2)</li>
+<li><input disabled="" type="checkbox"/>
+<a href="https://www.codechef.com/problems/FIT">Fitness</a> (dncpc2)</li>
+<li><input disabled="" type="checkbox"/>
+<a href="https://atcoder.jp/contests/abc112/tasks/abc112_a?lang=en">Programming Education</a> (dncpc5)</li>
+</ul>
+<blockquote>
+<p>পরবর্তীতে আরও <code>exercise</code> add করা হবে।</p>
+</blockquote>
+<hr />
+<h2 id="problem-list"><a class="header" href="#problem-list">Problem list</a></h2>
+<h4 id="basic-mathematical-problems"><a class="header" href="#basic-mathematical-problems">Basic Mathematical problems</a></h4>
+<ol>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1000">Timus 1000</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1409">Timus 1409</a></li>
+<li><a href="https://projecteuler.net/problem=1">Project Euler 1</a></li>
+<li><a href="https://atcoder.jp/contests/abc043/tasks/abc043_a?lang=en">Children and Candies</a> (dncpc1)</li>
+<li><a href="https://codeforces.com/problemset/problem/2086/A">Cloudberry Jams</a> (dncpc1)</li>
+<li><a href="https://atcoder.jp/contests/abc055/tasks/abc055_a?lang=en">Restuarant</a> (dncpc1)</li>
+<li><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=996">Hashmat the Brave warrior</a></li>
+<li><a href="https://atcoder.jp/contests/abc061/tasks/abc061_a?lang=en">Between two integers</a> (dncpc2)</li>
+<li><a href="https://codeforces.com/problemset/problem/50/A">Domino Piling</a> (dncpc2)</li>
+<li><a href="https://codeforces.com/problemset/problem/2044/A">Easy problem</a> (dncpc3)</li>
+<li><a href="https://atcoder.jp/contests/abc366/tasks/abc366_a?lang=en">Election go brrr</a> (dncpc3)</li>
+<li><a href="https://codeforces.com/problemset/problem/959/A">A game of choice</a> (dncpc3)</li>
+<li><a href="https://atcoder.jp/contests/abc072/tasks/abc072_a?lang=en">Sandglass</a> (dncpc3)</li>
+<li><a href="https://atcoder.jp/contests/abc102/tasks/abc102_a?lang=en">Multiple of 2 and N</a> (dncpc4)</li>
+<li><a href="https://atcoder.jp/contests/abc105/tasks/abc105_a?lang=en">Atocoder Crackers</a> (dncpc4)</li>
+<li><a href="https://codeforces.com/problemset/problem/546/A">Soldier and Bananas</a> (dncpc4)</li>
+<li><a href="https://codeforces.com/problemset/problem/460/A">Vasya and Socks</a> (dncpc4)</li>
+<li><a href="https://atcoder.jp/contests/abc106/tasks/abc106_a?lang=en">Garden</a> (dncpc5)</li>
+<li><a href="https://codeforces.com/problemset/problem/1950/C">Clock Conversion</a> (dncpc5)</li>
+<li><a href="https://atcoder.jp/contests/abc137/tasks/abc137_a?lang=en">Plus Minus X</a> (dncpc6)</li>
+</ol>
+<h4 id="beginner-friendly-cp-problems"><a class="header" href="#beginner-friendly-cp-problems">Beginner Friendly CP problems</a></h4>
+<ol start="21">
+<li><a href="https://cses.fi/problemset/task/1068">Weird Algorithm</a></li>
+<li><a href="https://leetcode.com/problems/concatenation-of-array/description/">Concatenation of Array</a></li>
+<li><a href="https://codeforces.com/problemset/problem/2008/A">Sakurako's Exam</a></li>
+<li><a href="https://atcoder.jp/contests/abc132/tasks/abc132_a?lang=en">Fifty-Fifty</a> (dncpc6)</li>
+<li><a href="https://codeforces.com/problemset/problem/1873/B">Good Kid</a> (dncpc6)</li>
+<li><a href="https://toph.co/p/make-it-big">Make it Big</a> (dncpc6)</li>
+<li><a href="https://codeforces.com/problemset/problem/1709/A">Three Doors</a> (dncpc6)</li>
+</ol>
+<h4 id="-problems-made-by-the-community"><a class="header" href="#-problems-made-by-the-community">🧩 Problems made by the community</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Problem Code</th><th>Problem Name &amp; Link</th><th>Author(Discord name)</th></tr></thead><tbody>
+<tr><td>2101</td><td><a href="https://www.hackerrank.com/contests/nebula-clash/challenges/challenge-5718">সমান ভাগের রহস্য</a></td><td>popcycle</td></tr>
+<tr><td>2102</td><td><a href="https://www.hackerrank.com/contests/nebula-clash/challenges/challenge-5719">চেস বোর্ডের সংকেত</a></td><td>popcycle</td></tr>
+<tr><td>2103</td><td><a href="https://www.hackerrank.com/contests/nebula-clash/challenges/challenge-5720">একই হিরে দু’বার!</a></td><td>popcycle</td></tr>
+<tr><td>2201</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/bgce-cp-sessions">BGCE CP sessions</a></td><td>popcycle</td></tr>
+<tr><td>2202</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/mad-tai-lung">Tai Lung’s Trial of Balance</a></td><td>popcycle</td></tr>
+<tr><td>2203</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/an-easy-problem-revisited-to-combination">An Easy Problem : Revisited to Combination</a></td><td>toji</td></tr>
+<tr><td>2204</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/challenge-to-kraken">Challenge to Kraken</a></td><td>toji</td></tr>
+<tr><td>2205</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/divisible-positive-subset">Divisible Positive Subset</a></td><td>MArhamAA</td></tr>
+<tr><td>2206</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002/challenges/yet-another-lcs-problem-1">Yet Another LCS Problem</a></td><td>MArhamAA</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>পরবর্তীতে আরও প্রব্লেম এবং ক্যাটাগরি যুক্ত করা হবে।</p>
+</blockquote>
+<hr />
+<h2 id="-tips--resources"><a class="header" href="#-tips--resources">📘 Tips &amp; Resources</a></h2>
+<blockquote>
+<p>Important লিংকস আর রিসোর্স:</p>
+</blockquote>
+<ul>
+<li>📚 <a href="https://cses.fi/book/book.pdf">Competitive Programming Handbook - CSES</a></li>
+<li>🌐 <a href="https://cp-algorithms.com/">CP Algorithms</a></li>
+<li>📊 <a href="https://www.bigocheatsheet.com/">Big-O Cheat Sheet</a></li>
+<li>🧪 <a href="https://cs50.harvard.edu/x/2024/">CS50x Problem Sets</a></li>
+<li>👀 <a href="https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/">Blind 75</a></li>
+<li><a href="https://github.com/ifrunruhin12/gopher-grind-cp/blob/main/templates/base.go">Fast I/O template for Golang</a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1mvlc8EYc3OVVU3X7NKoC0iZJr_45BL_pVxiJec0r94c/edit?gid=0#gid=0">DSA Series by Shradha Ma'am</a></li>
+</ul>
+<blockquote>
+<p><em>আস্তে আস্তে আরও resources যুক্ত করা হবে।</em></p>
+</blockquote>
+<hr />
+<h2 id="আমাদের-যত-previous-contest"><a class="header" href="#আমাদের-যত-previous-contest">আমাদের যত previous contest</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>No.</th><th>Contest type</th><th>Contest link</th></tr></thead><tbody>
+<tr><td>1.</td><td>Daily</td><td><a href="https://vjudge.net/contest/715404">dncpc1</a></td></tr>
+<tr><td>2.</td><td>Daily</td><td><a href="https://vjudge.net/contest/715654">dncpc2</a></td></tr>
+<tr><td>3.</td><td>Daily</td><td><a href="https://vjudge.net/contest/715880">dncpc3</a></td></tr>
+<tr><td>4.</td><td>Weekly</td><td><a href="https://www.hackerrank.com/nebula-clash">NC001</a></td></tr>
+<tr><td>5.</td><td>Daily</td><td><a href="https://vjudge.net/contest/717751">dncpc4</a></td></tr>
+<tr><td>6.</td><td>Daily</td><td><a href="https://vjudge.net/contest/718350">dncpc5</a></td></tr>
+<tr><td>7.</td><td>Daily</td><td><a href="https://vjudge.net/contest/718594">dncpc6</a></td></tr>
+<tr><td>8.</td><td>Weekly</td><td><a href="https://www.hackerrank.com/contests/nebula-clash-002">NC002</a></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="কিভাবে-এই-guide-বযাবহার-করবেন"><a class="header" href="#কিভাবে-এই-guide-বযাবহার-করবেন">কিভাবে এই guide ব্যাবহার করবেন</a></h2>
+<ol>
+<li>প্রতিদিন discord এ দেওয়া exercises/problems গুলো solve করবেন।</li>
+<li>নিয়মিত আমাদের session এবং contest গুলোতে participate করুন।</li>
+<li>সেশন লিস্ট নিয়মিত আপডেট করুন।</li>
+<li>বেশি problem solve করা উদ্দেশ্য নয়, বরং ভালোভাবে বুঝে problem solving করবেন।</li>
+<li>নিজের একটি github repo তৈরি করুন এবং এই guide এর problem solution গুলো সেখানে add করতে পারেন।</li>
+</ol>
+<hr />
+<blockquote>
+<p><em>এই গাইডের সাথে থাকুন, নিজের প্রগ্রেস ট্র্যাক করুন, আর শেখা চালিয়ে যান!</em></p>
+</blockquote>
+<h2 id="events-full-term"><a class="header" href="#events-full-term">Events (full term)</a></h2>
+<ol>
+<li>dncpc = Daily (Nebula-Clash) practice contest</li>
+<li>NC = Nebula Clash</li>
+</ol>
+<p>[<strong>Author:</strong> @ifrunruhin12
+<strong>Date:</strong> 2025-05-09
+<strong>Category:</strong> docs/warp
+]</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../mini-projects/todo-cli/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../warp/roadmap.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../mini-projects/todo-cli/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../warp/roadmap.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
