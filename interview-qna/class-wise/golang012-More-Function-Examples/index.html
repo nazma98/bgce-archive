@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Golang010 Introduction To Functions - BGCE ARCHIVE</title>
+        <title>Golang012 More Function Examples - BGCE ARCHIVE</title>
 
 
         <!-- Custom HTML head -->
@@ -169,58 +169,75 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="class-10--introduction-to-functions"><a class="header" href="#class-10--introduction-to-functions">Class 10 : Introduction to Functions</a></h1>
-<h2 id="-function-কী"><a class="header" href="#-function-কী">🔍 Function কী?</a></h2>
-<p><code>Function</code> (ফাংশন) হল কোডের একটি পুনঃব্যবহারযোগ্য ব্লক যা নির্দিষ্ট একটি কাজ করে।<br />
-যখন আমাদের একই কোড বারবার লেখা লাগে, তখন আমরা সেটাকে একটা ফাংশনের মধ্যে রেখে দিই।<br />
-এতে করে কোড clean হয়, readable হয় এবং বারবার ব্যবহার করা যায়।</p>
+                        <h1 id="-class-12--more-function-examples"><a class="header" href="#-class-12--more-function-examples">📘 Class 12 : More Function Examples</a></h1>
+<p>এখানে আরও কিছু ফাংশনের উদাহরণ দেওয়া হলো।</p>
 <hr />
-<h2 id="-function-কেন-বযবহার-করি"><a class="header" href="#-function-কেন-বযবহার-করি">🧠 Function কেন ব্যবহার করি?</a></h2>
-<ul>
-<li>✅ Reusability (একই কোড বারবার ব্যবহার করা যায়)</li>
-<li>✅ Readability (কোড আরও পরিষ্কার হয়)</li>
-<li>✅ Maintainability (বাগ ফিক্স করা বা পরিবর্তন সহজ হয়)</li>
-<li>✅ Logic কে ছোট ছোট অংশে ভাগ করে বুঝতে সুবিধা হয়</li>
-</ul>
-<hr />
-<h2 id="-উদাহরণ-দুটি-সংখযার-যোগফল-বের-করা"><a class="header" href="#-উদাহরণ-দুটি-সংখযার-যোগফল-বের-করা">🧪 উদাহরণ: দুটি সংখ্যার যোগফল বের করা</a></h2>
-<pre><code class="language-go">package main
-
-import "fmt"
-
-// এই ফাংশনটি দুটি সংখ্যা নেয় এবং তাদের যোগফল প্রিন্ট করে
-func add(num1 int, num2 int){ 
-    sum := num1 + num2
-    fmt.Println(sum)
-}
-
-func main() {
-    a := 10
-    b := 20
-
-    add(a, b)     // Output: 30
-    add(5, 7)     // Output: 12
+<h2 id="-function-1-printsomething"><a class="header" href="#-function-1-printsomething">✅ Function 1: <code>printSomething()</code></a></h2>
+<p>এই ফাংশনটি কোন আর্গুমেন্ট নেয় না এবং কোন রিটার্ন ভ্যালুও দেয় না। শুধুমাত্র একটি লাইন প্রিন্ট করে।</p>
+<h3 id="-code"><a class="header" href="#-code">📄 Code:</a></h3>
+<pre><code class="language-go">func printSomething(){
+    fmt.Println("Education must be free!")
 }
 </code></pre>
-<hr />
-<h2 id="বযাখযা"><a class="header" href="#বযাখযা">ব্যাখ্যা:</a></h2>
+<h3 id="-বযাখযা"><a class="header" href="#-বযাখযা">🧠 ব্যাখ্যা:</a></h3>
 <ul>
-<li><code>func add(num1 int, num2 int)</code> - এটি একটি function definition, যেখানে <code>num1</code> এবং <code>num2</code> হল parameters।</li>
-<li><code>sum := num1 + num2</code> - এখানে দুই সংখ্যার যোগফল বের করা হচ্ছে।</li>
-<li><code>fmt.Println(sum)</code> - যোগফল প্রিন্ট করা হচ্ছে।</li>
-<li><code>main()</code> ফাংশনের মধ্যে <code>add(a, b)</code> ব্যবহার করে আমরা ফাংশনটি কল করেছি।</li>
+<li><code>printSomething()</code> ফাংশনটি কোন ইনপুট নেয় না।</li>
+<li>এটি <code>fmt.Println()</code> ফাংশনের মাধ্যমে একটি মেসেজ প্রিন্ট করে দেয়।</li>
 </ul>
-<p>[Author : @shahriar-em0n  Date: 2025-06-11 Category: interview-qa/class-wise ]</p>
+<hr />
+<h2 id="-function-2-sayhelloname-string"><a class="header" href="#-function-2-sayhelloname-string">✅ Function 2: <code>sayHello(name string)</code></a></h2>
+<p>এই ফাংশনটি একটি প্যারামিটার (string টাইপের <code>name</code>) নেয় এবং একটি স্বাগত বার্তা প্রিন্ট করে।</p>
+<h3 id="-code-1"><a class="header" href="#-code-1">📄 Code:</a></h3>
+<pre><code class="language-go">func sayHello(name string){
+    fmt.Println("Welcome to the golang course, ", name)
+}
+</code></pre>
+<h3 id="-বযাখযা-1"><a class="header" href="#-বযাখযা-1">🧠 ব্যাখ্যা:</a></h3>
+<ul>
+<li><code>sayHello</code> ফাংশনটি একটি <code>name</code> ইনপুট নেয়, যা <code>string</code> টাইপের।</li>
+<li>এরপর <code>fmt.Println()</code> ব্যবহার করে সেই নামসহ একটি মেসেজ প্রিন্ট করে।</li>
+</ul>
+<hr />
+<h2 id="-main-function"><a class="header" href="#-main-function">🔁 Main Function</a></h2>
+<h3 id="-code-2"><a class="header" href="#-code-2">📄 Code:</a></h3>
+<pre><code class="language-go">func main() {
+    printSomething()
+    sayHello("Shahriar")
+}
+</code></pre>
+<h3 id="-বযাখযা-2"><a class="header" href="#-বযাখযা-2">🧠 ব্যাখ্যা:</a></h3>
+<ul>
+<li>
+<p><code>main()</code> ফাংশন হচ্ছে Go প্রোগ্রামের এন্ট্রি পয়েন্ট।</p>
+</li>
+<li>
+<p>এখানে প্রথমে <code>printSomething()</code> কল করা হয়েছে, তাই এটি <code>"Education must be free!"</code> প্রিন্ট করবে।</p>
+</li>
+<li>
+<p>তারপর <code>sayHello("Shahriar")</code> কল করা হয়েছে, তাই এটি <code>"Welcome to the golang course, Shahriar"</code> প্রিন্ট
+func showPrice(price float64){</p>
+<p>fmt.Println("The product price is: $", price)</p>
+</li>
+</ul>
+<p>}করবে।</p>
+<hr />
+<h2 id="-সংকষেপে"><a class="header" href="#-সংকষেপে">🧾 সংক্ষেপে</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>ফাংশনের নাম</th><th>প্যারামিটার</th><th>কাজ</th><th>রিটার্ন</th></tr></thead><tbody>
+<tr><td><code>printSomething()</code></td><td>নাই</td><td>একটি মেসেজ প্রিন্ট করে</td><td>নাই</td></tr>
+<tr><td><code>sayHello(name string)</code></td><td>একটি স্ট্রিং</td><td>নামসহ মেসেজ প্রিন্ট করে</td><td>নাই</td></tr>
+</tbody></table>
+</div>
+<p>[Author : @shahriar-em0n Date: 2025-06-13 Category: interview-qa/class-wise ]</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../interview-qna/class-wise/golang009-If-else-and-switch/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang011-Function-with-Return-Values-and-Types/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang011-Function-with-Return-Values-and-Types/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang013-Why-Functions-Are-Needed/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -230,11 +247,11 @@ func main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../interview-qna/class-wise/golang009-If-else-and-switch/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang011-Function-with-Return-Values-and-Types/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang011-Function-with-Return-Values-and-Types/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang013-Why-Functions-Are-Needed/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
