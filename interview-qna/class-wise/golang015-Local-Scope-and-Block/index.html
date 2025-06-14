@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Golang015 Local Scope And Block - BGCE ARCHIVE</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">BGCE ARCHIVE</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/NesoHQ/bgce-archive.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="class-15---local-scope-and-block"><a class="header" href="#class-15---local-scope-and-block">Class 15 - Local Scope and Block</a></h1>
+<h2 id="-scope-types"><a class="header" href="#-scope-types">🧠 Scope types</a></h2>
+<p>Scope ৩ টাইপের।</p>
+<ul>
+<li>Global scope</li>
+<li>Local scope</li>
+<li>Package scope</li>
+</ul>
+<h2 id="1-global-scope"><a class="header" href="#1-global-scope">1️⃣ Global Scope</a></h2>
+<p>🔹 যে variable বা function, <code>main()</code> এর বাইরে declare করা হয়</p>
+<p>🔹 সব ফাংশন থেকে access করা যায়</p>
+<pre><code class="language-go">var x = 100
+
+func main() {
+	fmt.Println(x)
+}
+</code></pre>
+<p>এখানে <code>x</code> একটি global variable, তাই <code>main()</code> function একে access করতে পারছে।</p>
+<h2 id="-block-scope"><a class="header" href="#-block-scope">🧱 Block Scope</a></h2>
+<p>Go তে যেকোনো <code>{}</code> curly brace কে <code>Block</code> বলে।</p>
+<p>Block এর ভিতরে যদি variable declare করা হয়, তাহলে সেটা সেই block এর local scope এ পরে এবং একে ওই Block এর local variable বলে।</p>
+<h3 id="-code-example"><a class="header" href="#-code-example">✨ Code Example</a></h3>
+<pre><code class="language-go">
+func main() {
+	x := 18
+
+	if x &gt;= 18 {
+		p := 10
+		fmt.Println("I'm matured boy")
+		fmt.Println("I've ", p, " girlfriends")
+	}
+}
+</code></pre>
+<h3 id="-code-explanation"><a class="header" href="#-code-explanation">✨ Code Explanation</a></h3>
+<p><strong>🔹 main() ফাংশন শুরু</strong></p>
+<pre><code class="language-go">func main() {
+	x := 18
+</code></pre>
+<ul>
+<li>এখানে <code>x</code> variable টি <code>main()</code> ফাংশনের ভিতরে declare করা হয়েছে।</li>
+<li><code>x</code> এর scope পুরো <code>main()</code> ফাংশনের ভিতর - একে বলে local variable to <code>main()</code></li>
+</ul>
+<p><strong>🔹 if Block</strong></p>
+<pre><code class="language-go">if x &gt;= 18 {
+	p := 10
+	fmt.Println("I'm matured boy")
+	fmt.Println("I've ", p, " girlfriends")
+}
+</code></pre>
+<ul>
+<li><code>if</code> block শুরু হয়েছে <code>{</code> দিয়ে এবং শেষ হয়েছে <code>}</code> দিয়ে - এটি হলো একটা Block।</li>
+<li>block এর ভিতরে <code>p := 10</code> - তাই <code>p</code> এর scope কেবল <code>if</code> block এর ভিতরেই সীমাবদ্ধ।</li>
+<li><code>p</code> কে <code>main()</code> ফাংশনের বাইরে বা <code>if</code> block এর বাইরে ব্যবহার করা যাবে না</li>
+</ul>
+<h3 id="-ram-visualization-scope-অনুযায়ী"><a class="header" href="#-ram-visualization-scope-অনুযায়ী">🧠 RAM Visualization (Scope অনুযায়ী)</a></h3>
+<pre><code class="language-plaintext">
+                      RAM
++------------------------------+
+| x = 18       ← main() scope  |
++------------------------------+
+
+        ⬇ if block executed
+
++------------------------------+
+| x = 18                       |
+| p = 10   ← if block scope    |
++------------------------------+
+
+        ⛔ if block শেষ হওয়ার পর
+
++------------------------------+
+| x = 18                       |
+| p = ❌ (not accessible)      |
++------------------------------+
+</code></pre>
+<hr />
+<h3 id="-scope-এর-বাইরে-variable-access"><a class="header" href="#-scope-এর-বাইরে-variable-access">🚫 Scope এর বাইরে variable access</a></h3>
+<h4 id="code-example---01"><a class="header" href="#code-example---01">📄Code Example - 01</a></h4>
+<pre><code class="language-go">
+func main() {
+	x := 18
+
+	if x &gt;= 18 {
+		p := 10
+		fmt.Println("I'm matured boy")
+		fmt.Println("I've ", q, " girlfriends")
+	}
+}
+
+</code></pre>
+<h4 id="-code-explanation-1"><a class="header" href="#-code-explanation-1">💬 Code Explanation</a></h4>
+<p><strong>🔹<code>main()</code> ফাংশন</strong></p>
+<pre><code class="language-go">func main() {
+	x := 18
+
+</code></pre>
+<p><code>x</code> হল একটি local variable to <code>main()</code> তাই <code>main()</code> ফাংশনের যেকোনো জায়গা থেকে access করা যাবে।</p>
+<p><strong>🔹 if block</strong></p>
+<pre><code class="language-go">p := 10
+</code></pre>
+<p><code>if</code> block এর ভেতরে declare করা হয়েছে, তাই block scope অনুযায়ী <code>p</code> শুধু <code>if</code> block এর ভিতরে accessible</p>
+<pre><code class="language-go">fmt.Println("I've ", q, " girlfriends")
+</code></pre>
+<ul>
+<li>এখানে <code>q</code> কোথাও declare করা হয়নি</li>
+<li>Go এখন <code>main()</code> বা global scope এ খুঁজে দেখবে - কিন্তু সেখানে নেই</li>
+<li>তাই Go কম্পাইলার <code>"undefined: q" error</code> দিবে</li>
+</ul>
+<h3 id="-ram-visualization-scope-অনুযায়ী-1"><a class="header" href="#-ram-visualization-scope-অনুযায়ী-1">🧠 RAM Visualization (Scope অনুযায়ী)</a></h3>
+<pre><code class="language-plaintext">
+             RAM (Execution Time)
++-------------------------------+
+| x = 18         ← main() scope |
++-------------------------------+
+        ↓ if block executed
++-------------------------------+
+| x = 18                        |
+| p = 10     ← if block scope   |
+| q = ??? ❌  (not found!)       |
++-------------------------------+
+</code></pre>
+<hr />
+<h4 id="-code-example---02"><a class="header" href="#-code-example---02">📄 Code Example - 02</a></h4>
+<pre><code class="language-go">
+func main() {
+	x := 18
+
+	if x &gt;= 18 {
+		p := 10
+		fmt.Println("I'm matured boy")
+		fmt.Println("I've ", p, " girlfriends")
+	}
+
+		fmt.Println("I've ", p, " girlfriends")
+
+}
+
+</code></pre>
+<h4 id="-scope-বিশলেষণ"><a class="header" href="#-scope-বিশলেষণ">🧱 Scope বিশ্লেষণ</a></h4>
+<p><strong>🔹 <code>x := 18</code></strong></p>
+<ul>
+<li><code>main()</code> ফাংশনের ভিতরে declare করা হয়েছে → তাই <code>x</code> এর scope হলো পুরো <code>main()</code> ফাংশনের ভিতর।</li>
+</ul>
+<p><strong>🔹 <code>if x &gt;= 18 { ... }</code></strong></p>
+<ul>
+<li>এই block এর ভিতরে <code>p := 10</code> declare করা হয়েছে।</li>
+<li>তাই <code>p</code> এর scope শুধুমাত্র এই <code>if</code> block এর ভিতরে।</li>
+</ul>
+<p><strong>🔹 <code>fmt.Println("I've ", p, " girlfriends")</code></strong></p>
+<ul>
+<li>এখানে <code>p</code> কে use করা হয়েছে তার নিজের scope এর মধ্যেই</li>
+</ul>
+<p><strong>🔹 if block এর বাহিরের <code>fmt.Println("I've ", p, " girlfriends")</code></strong></p>
+<ul>
+<li><code>p</code>, <code>if</code> block এর ভিতরে declare হয়েছে → তাই বাইরে access করা যাবে না</li>
+<li>❌ এখানে <code>p</code> এর scope এর বাইরে চলে গেছে</li>
+<li>তাই Go কম্পাইলার error দিবে: <code>undefined: p</code></li>
+</ul>
+<h3 id="-ram-visualization-scope-অনুযায়ী-2"><a class="header" href="#-ram-visualization-scope-অনুযায়ী-2">💾 RAM Visualization (Scope অনুযায়ী)</a></h3>
+<pre><code class="language-plaintext">
+                   RAM
++-----------------------------+
+| x = 18        ← main scope  |
++-----------------------------+
+        ⬇ if block শুরু হলে
++-----------------------------+
+| x = 18                      |
+| p = 10     ← if block only  |
++-----------------------------+
+        ⬇ if block শেষ
++-----------------------------+
+| x = 18                      |
+| p = ❌ (Not Found!)         |
++-----------------------------+
+
+
+</code></pre>
+<h2 id="-block-scope-এর-মূল-পয়েনটগুলো"><a class="header" href="#-block-scope-এর-মূল-পয়েনটগুলো">🧠 Block Scope এর মূল পয়েন্টগুলো</a></h2>
+<p>✅ Block আসলে memory তে নতুন জায়গা দখল করে।</p>
+<ul>
+<li>প্রতিবার কোনো block (যেমন: <code>if</code>, f<code>or</code>, <code>switch</code>, f<code>unction</code>) চালু হলে RAM এ সেই block এর জন্য অস্থায়ী জায়গা (temporary memory space) তৈরি হয়।</li>
+</ul>
+<p>✅ Block এর ভিতরে declare করা variable বাইরে থেকে access করা যাবে না।</p>
+<ul>
+<li>Variable শুধুমাত্র সেই block এর local scope এর ভিতরে কাজ করে।</li>
+</ul>
+<p>✅ Block শেষ হলেই সেই variable RAM থেকে মুছে যায় বা আর access করা যায় না।</p>
+<ul>
+<li>কারণ Go এর compiler বুঝে - variable টি তার scope এর বাইরে চলে গেছে।</li>
+</ul>
+<p>[<strong>Author:</strong> @nazma98
+<strong>Date:</strong> 2025-06-14
+<strong>Category:</strong> interview-qa/class-wise
+]</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../interview-qna/class-wise/golang014-what-is-scope/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../interview-qna/class-wise/golang014-what-is-scope/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../interview-qna/class-wise/golang016-package-scope/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
