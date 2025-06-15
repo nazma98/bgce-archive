@@ -19,5 +19,8 @@ runs:
       shell: bash
       run: |
         if ! command -v mdbook &> /dev/null; then
+          echo "Installing mdbook..."
           cargo install mdbook
+        else
+          echo "✅ mdbook already installed. Skipping install."
         fi

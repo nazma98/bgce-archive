@@ -25,9 +25,6 @@ jobs:
           chmod +x ./scripts/docs/generate_index.sh
           ./scripts/docs/generate_index.sh
 
-      - name: 📦 Install mdBook
-        run: cargo install mdbook
-
       - name: 🛠️ Build Book
         run: mdbook build docs
 
